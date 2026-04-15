@@ -70,11 +70,11 @@ const Achievements = () => {
               What People Say
             </h3>
             <div className="flex gap-2">
-              <button onClick={prevTestimonial} className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-card text-muted transition-all hover:border-accent/30 hover:text-accent" aria-label="Previous testimonial">
-                <ChevronLeft size={16} />
+              <button onClick={prevTestimonial} className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-card text-muted transition-all hover:border-accent/30 hover:text-accent" aria-label="Previous testimonial">
+                <ChevronLeft size={18} />
               </button>
-              <button onClick={nextTestimonial} className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-card text-muted transition-all hover:border-accent/30 hover:text-accent" aria-label="Next testimonial">
-                <ChevronRight size={16} />
+              <button onClick={nextTestimonial} className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-card text-muted transition-all hover:border-accent/30 hover:text-accent" aria-label="Next testimonial">
+                <ChevronRight size={18} />
               </button>
             </div>
           </div>
@@ -105,14 +105,16 @@ const Achievements = () => {
             </AnimatePresence>
 
             {/* Dots indicator */}
-            <div className="mt-6 flex justify-center gap-2">
+            <div className="mt-6 flex justify-center gap-1">
               {RECOMMENDATIONS.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveTestimonial(i)}
-                  className={`h-2 rounded-full transition-all duration-300 ${i === activeTestimonial ? 'w-8 bg-accent' : 'w-2 bg-border hover:bg-border-hover'}`}
+                  className="flex items-center justify-center p-2"
                   aria-label={`Go to testimonial ${i + 1}`}
-                />
+                >
+                  <span className={`block h-2 rounded-full transition-all duration-300 ${i === activeTestimonial ? 'w-8 bg-accent' : 'w-2 bg-border hover:bg-border-hover'}`} />
+                </button>
               ))}
             </div>
           </div>

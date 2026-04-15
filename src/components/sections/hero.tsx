@@ -78,7 +78,7 @@ const Hero = () => {
             {/* Name */}
             <motion.h1
               variants={fadeUp} initial="hidden" animate="visible" custom={0.1}
-              className="font-display text-5xl font-extrabold tracking-tight text-white sm:text-6xl md:text-7xl"
+              className="font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
             >
               {PERSONAL.name}
             </motion.h1>

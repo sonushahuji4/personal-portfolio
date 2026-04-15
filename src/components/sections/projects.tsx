@@ -96,11 +96,11 @@ const Projects = () => {
 
         {/* Filter */}
         <div className="mb-10 flex justify-center">
-          <div className="inline-flex rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-1.5">
+          <div className="inline-flex flex-wrap justify-center gap-1 rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-1.5">
             {FILTERS.map((filter) => (
               <button key={filter.value} onClick={() => setActiveFilter(filter.value)} aria-pressed={activeFilter === filter.value}
                 className={cn(
-                  'flex items-center gap-1.5 rounded-xl px-5 py-2.5 text-sm font-medium transition-all',
+                  'flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm font-medium transition-all sm:px-5',
                   activeFilter === filter.value ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-muted hover:text-foreground'
                 )}>
                 {filter.icon}
