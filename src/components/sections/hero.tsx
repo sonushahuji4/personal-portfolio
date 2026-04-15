@@ -45,23 +45,22 @@ const Hero = () => {
 
   return (
     <section id={SECTION_IDS.hero} className="relative min-h-screen overflow-hidden">
-      {/* ═══ FULL BACKGROUND PHOTO ═══ */}
+      {/* ═══ PHOTO — right 50%, blending into background ═══ */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile.png`}
-          alt="Sonu Shahuji"
-          fill
-          className="object-cover object-center"
-          priority
-          unoptimized
-        />
-        {/* Overlay gradients to blend text with image */}
-        {/* Dark overlay for readability — subtle */}
-        <div className="absolute inset-0 bg-background/40" />
-        {/* Left side darker for text */}
-        <div className="absolute inset-0 bg-linear-to-r from-background/70 via-background/30 to-transparent" />
-        {/* Bottom fade into next section */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-background to-transparent" />
+        <div className="absolute right-0 top-0 h-full w-[85%] sm:w-[50%]">
+          <Image
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile.png`}
+            alt="Sonu Shahuji"
+            fill
+            className="object-cover object-top"
+            priority
+            unoptimized
+          />
+          {/* Left fade — blends into text area */}
+          <div className="absolute inset-0 bg-linear-to-r from-background via-background/50 to-transparent" />
+          {/* Bottom fade */}
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-background to-transparent" />
+        </div>
       </div>
 
       {/* ═══ CONTENT — overlaid on image ═══ */}
