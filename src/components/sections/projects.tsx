@@ -84,6 +84,7 @@ const Projects = () => {
             <button
               key={filter.value}
               onClick={() => setActiveFilter(filter.value)}
+              aria-pressed={activeFilter === filter.value}
               className={cn(
                 'rounded-lg px-4 py-2 text-sm font-medium transition-all',
                 activeFilter === filter.value

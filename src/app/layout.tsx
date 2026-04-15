@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { SITE_CONFIG } from '@/lib/constants';
+import MotionProvider from '@/components/common/motion-provider';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -44,7 +45,7 @@ const RootLayout = ({
       className={`${inter.variable} ${spaceGrotesk.variable} dark h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

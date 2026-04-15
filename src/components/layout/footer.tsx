@@ -1,3 +1,5 @@
+'use client';
+
 import { SITE_CONFIG } from '@/lib/constants';
 
 const Footer = () => {

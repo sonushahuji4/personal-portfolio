@@ -1,24 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run dev:*)",
-      "Bash(npm run build:*)",
-      "Bash(npm run lint:*)",
-      "Bash(npx tsc:*)",
-      "Bash(git add:*)",
-      "Bash(git status:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
-      "Bash(git branch:*)",
-      "Bash(git checkout:*)",
-      "Bash(git log:*)",
-      "Bash(git diff:*)",
-      "Bash(cat:*)",
-      "Bash(ls:*)",
-      "Bash(find:*)",
-      "Bash(mkdir:*)",
-      "Bash(cp:*)",
-      "Bash(mv:*)"
+      "Bash(*)",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep"
     ],
     "deny": [
       "Bash(rm -rf /)",

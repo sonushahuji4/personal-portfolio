@@ -26,21 +26,21 @@ const CONTACT_ITEMS = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'sonushahuji4@gmail.com',
-    href: 'mailto:sonushahuji4@gmail.com',
+    value: CONTACT_INFO.email,
+    href: `mailto:${CONTACT_INFO.email}`,
   },
   {
     icon: Phone,
     label: 'Phone',
-    value: '+91 9594196932',
-    href: 'tel:+919594196932',
+    value: CONTACT_INFO.phone,
+    href: `tel:${CONTACT_INFO.phone.replace(/\s/g, '')}`,
   },
   {
     icon: MapPin,
     label: 'Location',
-    value: 'Mumbai, India',
+    value: CONTACT_INFO.location,
   },
-] as const;
+];
 
 const Contact = () => {
   return (

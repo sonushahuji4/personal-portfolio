@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Code, Trophy, Mail, ChevronDown, ExternalLink } from 'lucide-react';
+import { Code, Trophy, Mail, ChevronDown } from 'lucide-react';
 import type { Easing } from 'framer-motion';
 import Button from '@/components/ui/button';
 import { PERSONAL, SOCIAL_LINKS } from '@/data/personal';
@@ -11,7 +11,6 @@ const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = {
   Code,
   Trophy,
   Mail,
-  ExternalLink,
 };
 
 const ease: Easing = [0.25, 0.1, 0.25, 1];
