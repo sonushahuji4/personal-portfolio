@@ -9,7 +9,7 @@ const Badge = ({ children, className }: BadgeProps) => {
   return (
     <span
       className={cn(
-        'inline-flex items-center rounded-md px-2.5 py-0.5 text-xs font-medium bg-accent-muted text-accent border border-accent/15 transition-colors hover:border-accent/30',
+        'inline-flex items-center rounded-lg px-2.5 py-1 text-xs font-medium bg-card-solid text-muted border border-border transition-all duration-300 hover:text-accent hover:border-accent/20',
         className
       )}
     >

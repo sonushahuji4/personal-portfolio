@@ -13,7 +13,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: 
   Monitor, Server, Database, Cloud, Blocks, Lightbulb,
 };
 
-const CATEGORY_COLORS = ['#6366f1', '#14b8a6', '#f59e0b', '#ec4899', '#ef4444', '#0ea5e9'];
+const CATEGORY_COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#0EA5E9'];
 
 const Skills = () => {
   const [activeTab, setActiveTab] = useState(0);
