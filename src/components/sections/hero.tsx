@@ -7,8 +7,8 @@ import type { Easing } from 'framer-motion';
 import Button from '@/components/ui/button';
 import { PERSONAL, SOCIAL_LINKS } from '@/data/personal';
 import { SECTION_IDS } from '@/lib/constants';
+import Image from 'next/image';
 import CodeRain from '@/components/common/code-rain';
-import DeveloperScene from '@/components/common/developer-scene';
 
 const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = { Code, Trophy, Mail };
 
@@ -133,13 +133,32 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Right: Developer scene illustration */}
+        {/* Right: Profile photo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9, x: 40 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1, ease, delay: 0.5 }}
-          className="hidden lg:block">
-          <DeveloperScene />
+          className="hidden lg:flex justify-center">
+          <div className="relative">
+            {/* Glow behind photo */}
+            <div className="absolute -inset-4 rounded-full bg-accent/10 blur-2xl" />
+            {/* Accent ring */}
+            <div className="relative h-80 w-80 rounded-full border-2 border-accent/20 p-1.5">
+              <div className="h-full w-full overflow-hidden rounded-full">
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile.png`}
+                  alt="Sonu Shahuji"
+                  width={320}
+                  height={320}
+                  className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105"
+                  priority
+                  unoptimized
+                />
+              </div>
+            </div>
+            {/* Decorative ring */}
+            <div className="absolute -inset-6 rounded-full border border-dashed border-accent/10" style={{ animation: 'spin-slow 25s linear infinite' }} />
+          </div>
         </motion.div>
       </div>
 
