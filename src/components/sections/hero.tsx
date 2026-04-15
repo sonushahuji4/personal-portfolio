@@ -45,30 +45,30 @@ const Hero = () => {
 
   return (
     <section id={SECTION_IDS.hero} className="relative min-h-screen overflow-hidden">
-      {/* ═══ PHOTO — right side, full height, blending into background ═══ */}
+      {/* ═══ FULL BACKGROUND PHOTO ═══ */}
       <div className="absolute inset-0 z-0">
-        {/* Photo positioned to right */}
-        <div className="absolute right-0 top-0 h-full w-[85%] sm:w-[50%]">
-          <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile.png`}
-            alt="Sonu Shahuji"
-            fill
-            className="object-cover object-top"
-            priority
-            unoptimized
-          />
-          {/* Left fade only — gentle blend into text area */}
-          <div className="absolute inset-0 bg-linear-to-r from-background via-background/50 to-transparent" />
-          {/* Bottom fade — smooth section transition */}
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-background to-transparent" />
-        </div>
+        <Image
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile-2.png`}
+          alt="Sonu Shahuji"
+          fill
+          className="object-cover object-center"
+          priority
+          unoptimized
+        />
+        {/* Overlay gradients to blend text with image */}
+        {/* Dark overlay for readability — subtle */}
+        <div className="absolute inset-0 bg-background/40" />
+        {/* Left side darker for text */}
+        <div className="absolute inset-0 bg-linear-to-r from-background/70 via-background/30 to-transparent" />
+        {/* Bottom fade into next section */}
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-background to-transparent" />
       </div>
 
-      {/* ═══ CONTENT — left side ═══ */}
+      {/* ═══ CONTENT — overlaid on image ═══ */}
       <div className="relative z-10 flex min-h-screen items-center">
         <div className="mx-auto w-full max-w-6xl px-6 sm:px-10">
-          <div className="max-w-xl">
-            {/* Small intro label */}
+          <div className="max-w-lg">
+            {/* Intro */}
             <motion.p
               variants={fadeUp} initial="hidden" animate="visible" custom={0}
               className="mb-4 text-sm font-medium tracking-[0.2em] uppercase text-accent"
@@ -76,14 +76,19 @@ const Hero = () => {
               Hello, I&apos;m
             </motion.p>
 
-            {/* Name — large, bold */}
+            {/* Name */}
             <motion.h1
               variants={fadeUp} initial="hidden" animate="visible" custom={0.1}
-              className="font-display text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl md:text-7xl"
+              className="font-display text-5xl font-extrabold tracking-tight text-white sm:text-6xl md:text-7xl"
             >
-              {PERSONAL.name.split(' ')[0]}{' '}
-              <span className="text-gradient">{PERSONAL.name.split(' ').slice(1).join(' ')}</span>
+              {PERSONAL.name}
             </motion.h1>
+
+            {/* Decorative line under name */}
+            <motion.div
+              variants={fadeUp} initial="hidden" animate="visible" custom={0.2}
+              className="mt-3 h-px w-20 bg-accent/60"
+            />
 
             {/* Rotating title */}
             <motion.div
@@ -95,7 +100,7 @@ const Hero = () => {
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, ease }}
-                className="text-lg font-medium text-muted sm:text-xl"
+                className="text-lg font-medium text-white/70 sm:text-xl"
               >
                 {TITLES[titleIndex]}
               </motion.p>
@@ -104,7 +109,7 @@ const Hero = () => {
             {/* Tagline */}
             <motion.p
               variants={fadeUp} initial="hidden" animate="visible" custom={0.4}
-              className="mt-6 max-w-md text-[15px] leading-relaxed text-muted-foreground"
+              className="mt-5 max-w-md text-[15px] leading-relaxed text-white/50"
             >
               {PERSONAL.tagline}
             </motion.p>
@@ -129,20 +134,20 @@ const Hero = () => {
               variants={fadeUp} initial="hidden" animate="visible" custom={0.7}
               className="mt-10 flex items-center gap-3"
             >
-              <span className="h-px w-8 bg-border" />
+              <span className="h-px w-8 bg-white/20" />
               {[
                 { Icon: GithubIcon, href: 'https://github.com/sonushahuji4', label: 'GitHub' },
                 { Icon: LinkedinIcon, href: 'https://www.linkedin.com/in/sonushahuji/', label: 'LinkedIn' },
               ].map(({ Icon, href, label }) => (
                 <a
                   key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/50 text-muted-foreground backdrop-blur-sm transition-all duration-300 hover:border-accent/30 hover:text-accent hover:-translate-y-0.5"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-white/50 backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:text-white hover:-translate-y-0.5"
                 >
                   <Icon />
                 </a>
               ))}
               <a href="mailto:sonushahuji4@gmail.com" aria-label="Email"
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-border/50 text-muted-foreground backdrop-blur-sm transition-all duration-300 hover:border-accent/30 hover:text-accent hover:-translate-y-0.5">
+                className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-white/50 backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:text-white hover:-translate-y-0.5">
                 <svg xmlns="http://www.w3.org/2000/svg" width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
@@ -153,10 +158,10 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll indicator — bottom center */}
+      {/* Scroll indicator */}
       <motion.a
         href={`#${SECTION_IDS.about}`}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-1 text-muted-foreground/40 transition-colors hover:text-accent"
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-1 text-white/30 transition-colors hover:text-accent"
         aria-label="Scroll down"
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 0.8 }}
       >
