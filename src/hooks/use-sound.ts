@@ -7,11 +7,22 @@
 
 type AudioContextType = typeof AudioContext;
 
+let sharedContext: AudioContext | null = null;
+
 const getAudioContext = (): AudioContext | null => {
   if (typeof window === 'undefined') return null;
-  const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext: AudioContextType }).webkitAudioContext;
-  if (!Ctx) return null;
-  return new Ctx();
+  try {
+    if (sharedContext && sharedContext.state !== 'closed') {
+      if (sharedContext.state === 'suspended') sharedContext.resume();
+      return sharedContext;
+    }
+    const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext: AudioContextType }).webkitAudioContext;
+    if (!Ctx) return null;
+    sharedContext = new Ctx();
+    return sharedContext;
+  } catch {
+    return null;
+  }
 };
 
 // Guitar strum: rapid arpeggio of harmonics

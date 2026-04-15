@@ -76,9 +76,14 @@ const Hobbies = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.3, delay: ci * 0.12 + i * 0.06 }}
+                        role="button"
+                        tabIndex={0}
                         onMouseEnter={() => handleHover(hobby.name)}
                         onMouseLeave={() => setActiveHobby(null)}
-                        className={`group flex items-center gap-3 rounded-xl bg-linear-to-r ${config.gradient} border border-transparent p-3.5 cursor-pointer transition-all duration-300 ${config.hoverColor} hover:-translate-y-0.5 ${isActive ? 'border-accent/30 shadow-lg shadow-accent/5 -translate-y-0.5' : ''}`}
+                        onFocus={() => handleHover(hobby.name)}
+                        onBlur={() => setActiveHobby(null)}
+                        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') handleHover(hobby.name); }}
+                        className={`group flex items-center gap-3 rounded-xl bg-linear-to-r ${config.gradient} border border-transparent p-3.5 cursor-pointer transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-accent/50 ${config.hoverColor} hover:-translate-y-0.5 ${isActive ? 'border-accent/30 shadow-lg shadow-accent/5 -translate-y-0.5' : ''}`}
                       >
                         {Icon && (
                           <motion.div
