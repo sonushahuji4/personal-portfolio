@@ -6,6 +6,7 @@ import { ExternalLink } from 'lucide-react';
 import SectionHeading from '@/components/ui/section-heading';
 import { PLATFORMS } from '@/data/platforms';
 import { SECTION_IDS } from '@/lib/constants';
+import { PLATFORM_LOGOS } from '@/components/common/logos';
 
 const AnimatedStat = ({ value }: { value: string }) => {
   const numericPart = parseInt(value.replace(/[^0-9]/g, ''), 10);
@@ -56,8 +57,14 @@ const Platforms = () => {
               <div className="gradient-border group h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-shadow">
                 <div className="mb-4 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl text-sm font-bold" style={{ backgroundColor: platform.color + '15', color: platform.color }}>
-                      {platform.name.charAt(0)}
+                    <div className="shrink-0">
+                      {PLATFORM_LOGOS[platform.name] ? (
+                        (() => { const Logo = PLATFORM_LOGOS[platform.name]; return <Logo size={36} />; })()
+                      ) : (
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl text-sm font-bold" style={{ backgroundColor: platform.color + '15', color: platform.color }}>
+                          {platform.name.charAt(0)}
+                        </div>
+                      )}
                     </div>
                     <div>
                       <h3 className="font-display text-base font-bold text-foreground">{platform.name}</h3>
