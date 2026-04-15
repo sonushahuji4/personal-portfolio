@@ -48,7 +48,7 @@ const Hero = () => {
       {/* ═══ FULL BACKGROUND PHOTO ═══ */}
       <div className="absolute inset-0 z-0">
         <Image
-          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile-2.png`}
+          src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile.png`}
           alt="Sonu Shahuji"
           fill
           className="object-cover object-center"
