@@ -48,7 +48,7 @@ const Hero = () => {
       {/* ═══ PHOTO — right side, full height, blending into background ═══ */}
       <div className="absolute inset-0 z-0">
         {/* Photo positioned to right */}
-        <div className="absolute right-0 top-0 h-full w-full sm:w-[65%]">
+        <div className="absolute right-0 top-0 h-full w-[85%] sm:w-[50%]">
           <Image
             src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile.png`}
             alt="Sonu Shahuji"
@@ -57,15 +57,10 @@ const Hero = () => {
             priority
             unoptimized
           />
-          {/* Gradient overlays to blend photo into background */}
-          {/* Left fade — blends into text area */}
-          <div className="absolute inset-0 bg-linear-to-r from-background via-background/80 to-transparent" />
-          {/* Bottom fade */}
-          <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent" />
-          {/* Top subtle fade */}
-          <div className="absolute inset-0 bg-linear-to-b from-background/40 to-transparent h-32" />
-          {/* Overall darken for text readability */}
-          <div className="absolute inset-0 bg-background/20" />
+          {/* Left fade only — gentle blend into text area */}
+          <div className="absolute inset-0 bg-linear-to-r from-background via-background/50 to-transparent" />
+          {/* Bottom fade — smooth section transition */}
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-background to-transparent" />
         </div>
       </div>
 
