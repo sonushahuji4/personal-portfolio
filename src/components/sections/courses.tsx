@@ -6,6 +6,7 @@ import SectionHeading from '@/components/ui/section-heading';
 import Badge from '@/components/ui/badge';
 import { COURSES } from '@/data/courses';
 import { SECTION_IDS } from '@/lib/constants';
+import { COURSE_LOGOS } from '@/components/common/logos';
 
 const Courses = () => {
   return (
@@ -26,8 +27,14 @@ const Courses = () => {
               <div className="gradient-border group h-full rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-shadow">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent-muted">
-                      <BookOpen size={18} className="text-accent" />
+                    <div className="shrink-0">
+                      {COURSE_LOGOS[course.platform] ? (
+                        (() => { const Logo = COURSE_LOGOS[course.platform]; return <Logo size={40} />; })()
+                      ) : (
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-muted">
+                          <BookOpen size={18} className="text-accent" />
+                        </div>
+                      )}
                     </div>
                     <div>
                       <h3 className="font-display text-base font-bold text-foreground">{course.name}</h3>

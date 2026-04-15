@@ -6,6 +6,7 @@ import Badge from '@/components/ui/badge';
 import Timeline from '@/components/common/timeline';
 import { EXPERIENCES } from '@/data/experience';
 import { SECTION_IDS } from '@/lib/constants';
+import { COMPANY_LOGOS } from '@/components/common/logos';
 
 const COMPANY_COLORS: Record<string, string> = {
   aerem: '#14b8a6',
@@ -33,12 +34,15 @@ const Experience = () => {
                   className="gradient-border rounded-2xl border border-border bg-card p-6 shadow-sm shadow-shadow backdrop-blur-sm transition-all duration-300 hover:shadow-lg hover:shadow-shadow"
                 >
                   <div className="flex items-start gap-4">
-                    {/* Company avatar */}
-                    <div
-                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-white text-sm font-bold"
-                      style={{ backgroundColor: color + '20', color }}
-                    >
-                      {exp.company.charAt(0)}
+                    {/* Company logo */}
+                    <div className="shrink-0">
+                      {COMPANY_LOGOS[exp.id] ? (
+                        (() => { const Logo = COMPANY_LOGOS[exp.id]; return <Logo size={48} />; })()
+                      ) : (
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl text-sm font-bold" style={{ backgroundColor: color + '20', color }}>
+                          {exp.company.charAt(0)}
+                        </div>
+                      )}
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
