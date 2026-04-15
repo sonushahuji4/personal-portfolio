@@ -1,5 +1,6 @@
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
+import ScrollProgress from '@/components/ui/scroll-progress';
 import Hero from '@/components/sections/hero';
 import About from '@/components/sections/about';
 import Experience from '@/components/sections/experience';
@@ -15,6 +16,7 @@ import Contact from '@/components/sections/contact';
 const Home = () => {
   return (
     <>
+      <ScrollProgress />
       <Header />
       <main className="flex-1">
         <Hero />
