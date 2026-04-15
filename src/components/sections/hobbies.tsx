@@ -32,7 +32,9 @@ const Hobbies = () => {
   };
 
   return (
-    <section id={SECTION_IDS.hobbies} className="py-24 sm:py-32">
+    <section id={SECTION_IDS.hobbies} className="relative py-24 sm:py-32 overflow-hidden">
+      {/* Wavy background */}
+      <div className="pointer-events-none absolute inset-0 bg-waves" aria-hidden="true" />
       <div className="mx-auto max-w-5xl px-6">
         <SectionHeading title="Beyond Code" subtitle="Hover over items to hear them — things that keep me inspired" />
 

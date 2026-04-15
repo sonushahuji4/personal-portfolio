@@ -11,7 +11,7 @@ const Achievements = () => {
     <section id={SECTION_IDS.achievements} className="section-alt relative py-24 sm:py-32">
       <div className="pointer-events-none absolute inset-0 noise-overlay" aria-hidden="true" />
       <div className="relative z-10 mx-auto max-w-6xl px-6">
-        <SectionHeading title="Achievements" subtitle="Awards, certifications, and what people say" />
+        <SectionHeading title="Achievements" subtitle="Awards, certifications, and what people say" accent="#f59e0b" />
 
         <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr]">
           {/* Left: Awards + Certs */}

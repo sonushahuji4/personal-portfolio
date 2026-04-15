@@ -3,16 +3,31 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { NAV_LINKS } from '@/lib/constants';
+import { NAV_LINKS, SECTION_IDS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import ThemeToggle from '@/components/ui/theme-toggle';
+
+const SECTION_ORDER = Object.values(SECTION_IDS);
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+
+      // Scrollspy — find which section is in view
+      const scrollPos = window.scrollY + 120;
+      for (let i = SECTION_ORDER.length - 1; i >= 0; i--) {
+        const el = document.getElementById(SECTION_ORDER[i]);
+        if (el && el.offsetTop <= scrollPos) {
+          setActiveSection(SECTION_ORDER[i]);
+          break;
+        }
+      }
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -27,31 +42,44 @@ const Header = () => {
       )}
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <a
-          href="#hero"
-          className="font-display text-lg font-bold transition-colors hover:text-accent"
-        >
+        <a href="#hero" className="font-display text-lg font-bold transition-colors hover:text-accent">
           <span className="text-gradient">SS</span>
         </a>
 
         {/* Desktop nav */}
-        <div className="hidden items-center gap-8 md:flex">
-          <ul className="flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  className="text-sm text-muted transition-colors hover:text-foreground"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+        <div className="hidden items-center gap-1 md:flex">
+          <ul className="flex items-center gap-1">
+            {NAV_LINKS.map((link) => {
+              const sectionId = link.href.replace('#', '');
+              const isActive = activeSection === sectionId;
+              return (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    className={cn(
+                      'relative rounded-lg px-3 py-1.5 text-sm transition-all',
+                      isActive ? 'text-accent font-medium' : 'text-muted hover:text-foreground'
+                    )}
+                  >
+                    {link.label}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeNav"
+                        className="absolute inset-x-1 -bottom-0.5 h-0.5 rounded-full bg-accent"
+                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                      />
+                    )}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
-          <ThemeToggle />
+          <div className="ml-4">
+            <ThemeToggle />
+          </div>
         </div>
 
-        {/* Mobile: theme toggle + hamburger */}
+        {/* Mobile */}
         <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
           <button
@@ -75,17 +103,24 @@ const Header = () => {
             className="overflow-hidden border-b border-border bg-background/95 backdrop-blur-xl md:hidden"
           >
             <ul className="flex flex-col gap-1 px-6 py-4">
-              {NAV_LINKS.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="block rounded-lg px-4 py-3 text-sm text-muted transition-colors hover:bg-card hover:text-foreground"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {NAV_LINKS.map((link) => {
+                const sectionId = link.href.replace('#', '');
+                const isActive = activeSection === sectionId;
+                return (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      className={cn(
+                        'block rounded-lg px-4 py-3 text-sm transition-colors',
+                        isActive ? 'bg-accent-muted text-accent font-medium' : 'text-muted hover:bg-card hover:text-foreground'
+                      )}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </motion.div>
         )}

@@ -30,8 +30,9 @@ const CONTACT_ITEMS = [
 
 const Contact = () => {
   return (
-    <section id={SECTION_IDS.contact} className="section-alt relative py-24 sm:py-32">
-      <div className="pointer-events-none absolute inset-0 noise-overlay" aria-hidden="true" />
+    <section id={SECTION_IDS.contact} className="relative py-24 sm:py-32 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 dot-grid opacity-30" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-accent/3 to-transparent" aria-hidden="true" />
       <div className="relative z-10 mx-auto max-w-4xl px-6">
         <SectionHeading title="Let's Connect" subtitle="Have a project in mind or just want to say hi? Reach out!" />
 
