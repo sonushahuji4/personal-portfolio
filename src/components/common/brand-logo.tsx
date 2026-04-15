@@ -1,23 +1,70 @@
 'use client';
 
 /**
- * Professional SS monogram — warm amber gradient on deep navy.
+ * Professional brand logo — Code bracket S: <S/>
+ * Combines developer identity (angle brackets) with the initial.
+ * Clean geometric construction on a rounded square.
  */
 const BrandLogo = ({ size = 32 }: { size?: number }) => {
   return (
-    <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Sonu Shahuji" role="img">
-      <rect width="40" height="40" rx="10" fill="url(#brand-grad)" />
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 40 40"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="Sonu Shahuji"
+      role="img"
+    >
+      {/* Background — rounded square with warm gradient */}
+      <rect width="40" height="40" rx="10" fill="url(#brand-bg)" />
+
+      {/* Opening bracket < */}
       <path
-        d="M13 14c0-2 2-3.5 4.5-3.5s4.5 1.5 4.5 3.5-2 3-4.5 4-4.5 2-4.5 4 2 3.5 4.5 3.5 4.5-1.5 4.5-3.5"
-        stroke="white" strokeWidth="2.5" strokeLinecap="round" fill="none" />
+        d="M14 16L9 20L14 24"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.5"
+      />
+
+      {/* The S — bold, geometric, center */}
       <path
-        d="M18 14c0-2 2-3.5 4.5-3.5S27 12 27 14s-2 3-4.5 4-4.5 2-4.5 4 2 3.5 4.5 3.5S27 24 27 22"
-        stroke="white" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.5" />
-      <circle cx="31" cy="30" r="1.5" fill="white" opacity="0.7" />
+        d="M22 12C22 12 17 12 17 15.5C17 19 23 19 23 22.5C23 26 18 26 18 26"
+        stroke="white"
+        strokeWidth="2.8"
+        strokeLinecap="round"
+        fill="none"
+      />
+
+      {/* Closing bracket /> */}
+      <path
+        d="M27 16L32 20L27 24"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.5"
+      />
+
+      {/* Slash between brackets — subtle */}
+      <path
+        d="M25 28L29 32"
+        stroke="white"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        opacity="0.3"
+      />
+
+      {/* Accent dot — like a cursor blink */}
+      <circle cx="33" cy="8" r="2" fill="white" opacity="0.8" />
+
       <defs>
-        <linearGradient id="brand-grad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+        <linearGradient id="brand-bg" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
           <stop stopColor="#F59E0B" />
-          <stop offset="1" stopColor="#EF4444" />
+          <stop offset="0.5" stopColor="#EA580C" />
+          <stop offset="1" stopColor="#DC2626" />
         </linearGradient>
       </defs>
     </svg>
