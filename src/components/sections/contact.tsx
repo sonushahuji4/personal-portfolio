@@ -82,12 +82,11 @@ const Contact = () => {
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.3 }}
               className="flex gap-3 pt-2">
               {[
-                { Icon: LinkedinIcon, href: CONTACT_INFO.linkedin, label: 'LinkedIn', color: '#0A66C2' },
-                { Icon: GithubIcon, href: CONTACT_INFO.github, label: 'GitHub', color: '#6E40C9' },
-              ].map(({ Icon, href, label, color }) => (
+                { Icon: LinkedinIcon, href: CONTACT_INFO.linkedin, label: 'LinkedIn' },
+                { Icon: GithubIcon, href: CONTACT_INFO.github, label: 'GitHub' },
+              ].map(({ Icon, href, label }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                  className="group flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                  style={{ ['--hover-color' as string]: color }}>
+                  className="group flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-accent/30 hover:text-accent hover:-translate-y-1 hover:shadow-lg">
                   <Icon />
                 </a>
               ))}

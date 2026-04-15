@@ -1,11 +1,14 @@
 import type { SocialLink, ContactInfo, HighlightCard } from '@/types';
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export const PERSONAL = {
   name: 'Sonu Shahuji',
   title: 'Full Stack Engineer',
   tagline:
     'Founding Engineer at a Series A Solar Fintech Startup | 6+ Years Building Scalable Web Applications',
-  resumeUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/resume.pdf`,
+  resumeUrl: `${basePath}/resume.pdf`,
+  titles: ['Full Stack Engineer', 'Founding Engineer', 'Problem Solver', 'System Designer'],
 } as const;
 
 export const SOCIAL_LINKS: SocialLink[] = [
