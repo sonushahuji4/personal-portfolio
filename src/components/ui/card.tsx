@@ -12,12 +12,12 @@ const Card = ({ children, className, hover = true, glass = false, gradient = fal
   return (
     <div
       className={cn(
-        'rounded-xl p-6 transition-all duration-300',
+        'rounded-2xl p-6',
         glass
           ? 'glass-card'
           : 'border border-border bg-card shadow-sm shadow-shadow',
-        hover && !gradient && 'hover:border-border-hover hover:bg-card-hover hover:shadow-md hover:shadow-shadow hover:-translate-y-0.5',
-        gradient && 'gradient-border hover:-translate-y-0.5',
+        hover && 'card-premium',
+        gradient && 'gradient-border',
         className
       )}
     >
