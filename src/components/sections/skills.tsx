@@ -44,8 +44,8 @@ const Skills = () => {
                   )}
                   style={activeTab === i ? { backgroundColor: color, boxShadow: `0 4px 14px ${color}33` } : {}}
                 >
-                  {Icon && <Icon size={15} />}
-                  <span className="hidden sm:inline">{cat.name}</span>
+                  {Icon && <Icon size={15} className="shrink-0" />}
+                  <span className="text-xs sm:text-sm">{cat.name}</span>
                 </button>
               );
             })}

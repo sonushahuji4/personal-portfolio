@@ -38,8 +38,8 @@ const Courses = () => {
         {/* Horizontal scroll */}
         <div
           ref={scrollRef}
-          className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden"
+          style={{ scrollbarWidth: 'none' }}
         >
           {COURSES.map((course, i) => (
             <motion.div

@@ -84,7 +84,7 @@ const Header = () => {
         <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
           <button
-            className="inline-flex items-center justify-center rounded-lg p-2 text-muted transition-colors hover:text-foreground"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-muted transition-colors hover:text-foreground"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >

@@ -42,11 +42,6 @@ const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     setThemeValue(theme === 'dark' ? 'light' : 'dark');
   }, [theme]);
 
-  // Apply theme attribute on client
-  if (typeof window !== 'undefined') {
-    document.documentElement.setAttribute('data-theme', theme);
-  }
-
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}

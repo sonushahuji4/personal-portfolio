@@ -78,16 +78,16 @@ const About = () => {
         </div>
 
         {/* Content — photo + text */}
-        <div className="grid gap-10 lg:grid-cols-[auto_1fr]">
+        <div className="grid gap-10 md:grid-cols-[auto_1fr]">
           {/* Photo — side portrait */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="hidden lg:block"
+            className="hidden md:block"
           >
-            <div className="relative w-64 overflow-hidden rounded-2xl border border-border/30">
+            <div className="relative w-48 lg:w-64 overflow-hidden rounded-2xl border border-border/30">
               <Image
                 src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile-about.png`}
                 alt="Sonu Shahuji"
