@@ -133,31 +133,29 @@ const Hero = () => {
           </motion.div>
         </div>
 
-        {/* Right: Profile photo */}
+        {/* Right: Profile photo — full portrait */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, x: 40 }}
+          initial={{ opacity: 0, scale: 0.95, x: 40 }}
           animate={{ opacity: 1, scale: 1, x: 0 }}
           transition={{ duration: 1, ease, delay: 0.5 }}
           className="hidden lg:flex justify-center">
           <div className="relative">
-            {/* Glow behind photo */}
-            <div className="absolute -inset-4 rounded-full bg-accent/10 blur-2xl" />
-            {/* Accent ring */}
-            <div className="relative h-80 w-80 rounded-full border-2 border-accent/20 p-1.5">
-              <div className="h-full w-full overflow-hidden rounded-full">
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile.png`}
-                  alt="Sonu Shahuji"
-                  width={320}
-                  height={320}
-                  className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105"
-                  priority
-                  unoptimized
-                />
-              </div>
+            {/* Subtle glow */}
+            <div className="absolute -inset-8 rounded-3xl bg-accent/5 blur-3xl" />
+            {/* Photo container — rounded rectangle, shows full shoulders */}
+            <div className="relative w-72 overflow-hidden rounded-2xl border border-border/50 shadow-2xl shadow-black/30">
+              <Image
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile.png`}
+                alt="Sonu Shahuji"
+                width={400}
+                height={500}
+                className="w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+                priority
+                unoptimized
+              />
+              {/* Bottom gradient fade into background */}
+              <div className="absolute inset-x-0 bottom-0 h-20 bg-linear-to-t from-background to-transparent" />
             </div>
-            {/* Decorative ring */}
-            <div className="absolute -inset-6 rounded-full border border-dashed border-accent/10" style={{ animation: 'spin-slow 25s linear infinite' }} />
           </div>
         </motion.div>
       </div>

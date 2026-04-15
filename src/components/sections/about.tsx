@@ -8,7 +8,7 @@ import { ABOUT_SUMMARY, HIGHLIGHT_CARDS, INTERESTS } from '@/data/personal';
 import { SECTION_IDS } from '@/lib/constants';
 
 const HIGHLIGHT_ICONS = [TrendingUp, Zap, Code2, Rocket];
-const HIGHLIGHT_COLORS = ['#F59E0B', '#3B82F6', '#10B981', '#EF4444'];
+const HIGHLIGHT_COLORS = ['#A78BFA', '#67E8F9', '#6EE7B7', '#F472B6'];
 
 const AnimatedNumber = ({ value, color }: { value: string; color: string }) => {
   const numericPart = parseInt(value.replace(/[^0-9]/g, ''), 10);

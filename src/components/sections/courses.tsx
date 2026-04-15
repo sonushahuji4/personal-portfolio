@@ -24,7 +24,7 @@ const Courses = () => {
 
       <div className="relative z-10 mx-auto max-w-6xl px-6">
         <div className="flex items-end justify-between mb-10">
-          <SectionHeading title="Courses" subtitle="Structured programs completed alongside full-time work" accent="#f59e0b" className="mb-0 text-left" align="left" />
+          <SectionHeading title="Courses" subtitle="Structured programs completed alongside full-time work" accent="#FCD34D" className="mb-0 text-left" align="left" />
           <div className="hidden sm:flex gap-2">
             <button onClick={() => scroll('left')} className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-card text-muted transition-all hover:border-accent/30 hover:text-accent" aria-label="Scroll left">
               <ChevronLeft size={18} />
@@ -54,7 +54,7 @@ const Courses = () => {
                 <div className="h-0.5 bg-linear-to-r from-amber-500 to-orange-500" />
                 <div className="p-6">
                   <div className="flex items-start gap-3 mb-4">
-                    <CompanyLogo name={course.platform} src={COURSE_LOGO_PATHS[course.platform] || ''} color="#f59e0b" size={40} />
+                    <CompanyLogo name={course.platform} src={COURSE_LOGO_PATHS[course.platform] || ''} color="#FCD34D" size={40} />
                     <div className="min-w-0 flex-1">
                       <h3 className="font-display text-base font-bold text-foreground leading-tight">{course.name}</h3>
                       <p className="mt-0.5 text-xs text-muted">{course.platform}</p>
@@ -76,7 +76,7 @@ const Courses = () => {
                       {course.status.replace('-', ' ')}
                     </div>
                     <a href={course.url} target="_blank" rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-medium text-amber-500 transition-all hover:text-amber-400">
+                      className="inline-flex items-center gap-1 text-xs font-medium text-accent transition-all hover:text-accent-hover">
                       <ExternalLink size={12} /> View
                     </a>
                   </div>
