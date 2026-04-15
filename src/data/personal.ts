@@ -5,7 +5,7 @@ export const PERSONAL = {
   title: 'Full Stack Engineer',
   tagline:
     'Founding Engineer at a Series A Solar Fintech Startup | 6+ Years Building Scalable Web Applications',
-  resumeUrl: '/resume.pdf',
+  resumeUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/resume.pdf`,
 } as const;
 
 export const SOCIAL_LINKS: SocialLink[] = [
@@ -62,5 +62,5 @@ export const CONTACT_INFO: ContactInfo = {
   location: 'Mumbai, India',
   linkedin: 'https://www.linkedin.com/in/sonushahuji/',
   github: 'https://github.com/sonushahuji4',
-  resumeUrl: '/resume.pdf',
+  resumeUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/resume.pdf`,
 };
