@@ -271,3 +271,14 @@ html {
   background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+
+/* Reduced motion: disable all CSS animations */
+@media (prefers-reduced-motion: reduce) {
+  .text-gradient,
+  .text-gradient-alt,
+  .mesh-gradient,
+  .blob,
+  .shimmer-btn {
+    animation: none;
+  }
+}
