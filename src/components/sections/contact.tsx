@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MapPin, ExternalLink, ArrowRight } from 'lucide-react';
 import SectionHeading from '@/components/ui/section-heading';
 import Button from '@/components/ui/button';
 import { CONTACT_INFO } from '@/data/personal';
@@ -23,28 +23,14 @@ const LinkedinIcon = ({ size = 20 }: { size?: number }) => (
 );
 
 const CONTACT_ITEMS = [
-  {
-    icon: Mail,
-    label: 'Email',
-    value: CONTACT_INFO.email,
-    href: `mailto:${CONTACT_INFO.email}`,
-  },
-  {
-    icon: Phone,
-    label: 'Phone',
-    value: CONTACT_INFO.phone,
-    href: `tel:${CONTACT_INFO.phone.replace(/\s/g, '')}`,
-  },
-  {
-    icon: MapPin,
-    label: 'Location',
-    value: CONTACT_INFO.location,
-  },
+  { icon: Mail, label: 'Email', value: CONTACT_INFO.email, href: `mailto:${CONTACT_INFO.email}` },
+  { icon: Phone, label: 'Phone', value: CONTACT_INFO.phone, href: `tel:${CONTACT_INFO.phone.replace(/\s/g, '')}` },
+  { icon: MapPin, label: 'Location', value: CONTACT_INFO.location },
 ];
 
 const Contact = () => {
   return (
-    <section id={SECTION_IDS.contact} className="py-20 sm:py-28">
+    <section id={SECTION_IDS.contact} className="section-alt py-20 sm:py-28">
       <div className="mx-auto max-w-4xl px-6">
         <SectionHeading
           title="Let's Connect"
@@ -53,19 +39,19 @@ const Contact = () => {
 
         <div className="grid gap-8 md:grid-cols-2">
           {/* Contact Info */}
-          <div className="space-y-6">
+          <div className="space-y-5">
             {CONTACT_ITEMS.map((item, i) => {
               const Icon = item.icon;
               return (
                 <motion.div
                   key={item.label}
-                  initial={{ opacity: 0, x: -16 }}
+                  initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: i * 0.1 }}
                   className="flex items-center gap-4"
                 >
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-muted">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent-muted border border-accent/15">
                     <Icon size={20} className="text-accent" />
                   </div>
                   <div>
@@ -87,18 +73,18 @@ const Contact = () => {
 
             {/* Social links */}
             <motion.div
-              initial={{ opacity: 0, x: -16 }}
+              initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.3 }}
-              className="flex gap-4 pt-2"
+              className="flex gap-3 pt-2"
             >
               <a
                 href={CONTACT_INFO.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent-muted text-accent transition-colors hover:bg-accent hover:text-white"
+                className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all hover:border-accent/30 hover:bg-accent-muted hover:text-accent hover:-translate-y-0.5"
               >
                 <LinkedinIcon size={18} />
               </a>
@@ -107,7 +93,7 @@ const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent-muted text-accent transition-colors hover:bg-accent hover:text-white"
+                className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all hover:border-accent/30 hover:bg-accent-muted hover:text-accent hover:-translate-y-0.5"
               >
                 <GithubIcon size={18} />
               </a>
@@ -120,9 +106,11 @@ const Contact = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col items-center justify-center rounded-xl border border-border bg-card p-8 text-center"
+            className="gradient-border flex flex-col items-center justify-center rounded-xl border border-border bg-card p-8 text-center"
           >
-            <ExternalLink size={32} className="mb-4 text-accent" />
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-muted mb-4">
+              <ExternalLink size={24} className="text-accent" />
+            </div>
             <h3 className="font-display text-xl font-bold text-foreground">
               Download My Resume
             </h3>
@@ -130,8 +118,9 @@ const Contact = () => {
               Get a detailed overview of my experience, skills, and projects.
             </p>
             <div className="mt-6">
-              <Button href={CONTACT_INFO.resumeUrl} size="lg">
+              <Button href={CONTACT_INFO.resumeUrl} size="lg" className="group hover-glow">
                 Download Resume
+                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
               </Button>
             </div>
           </motion.div>

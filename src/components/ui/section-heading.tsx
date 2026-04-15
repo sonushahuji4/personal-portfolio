@@ -8,13 +8,13 @@ interface SectionHeadingProps {
 
 const SectionHeading = ({ title, subtitle, className }: SectionHeadingProps) => {
   return (
-    <div className={cn('mb-12 text-center', className)}>
-      <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+    <div className={cn('mb-14 text-center', className)}>
+      <h2 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
         {title}
       </h2>
-      <div className="mx-auto mt-3 h-1 w-16 rounded-full bg-accent" />
+      <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-linear-to-r from-accent to-secondary" />
       {subtitle && (
-        <p className="mx-auto mt-4 max-w-2xl text-muted">
+        <p className="mx-auto mt-5 max-w-2xl text-muted">
           {subtitle}
         </p>
       )}

@@ -1,17 +1,57 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════
+   DARK THEME (default)
+   ═══════════════════════════════════════ */
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #0a0a0b;
+  --foreground: #f0f0f0;
   --accent: #3b82f6;
   --accent-hover: #2563eb;
-  --accent-muted: rgba(59, 130, 246, 0.15);
+  --accent-muted: rgba(59, 130, 246, 0.12);
+  --accent-glow: rgba(59, 130, 246, 0.25);
+  --secondary: #8b5cf6;
   --muted: #a1a1aa;
   --muted-foreground: #71717a;
-  --card: #141414;
-  --card-hover: #1a1a1a;
-  --border: #27272a;
-  --border-hover: #3f3f46;
+  --card: rgba(20, 20, 22, 0.8);
+  --card-hover: rgba(26, 26, 30, 0.9);
+  --card-solid: #141416;
+  --border: rgba(39, 39, 42, 0.6);
+  --border-hover: rgba(63, 63, 70, 0.8);
+  --glass: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --gradient-start: #3b82f6;
+  --gradient-end: #8b5cf6;
+  --gradient-accent: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --section-alt: rgba(14, 14, 16, 1);
+}
+
+/* ═══════════════════════════════════════
+   LIGHT THEME
+   ═══════════════════════════════════════ */
+[data-theme="light"] {
+  --background: #fafafa;
+  --foreground: #18181b;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-muted: rgba(37, 99, 235, 0.08);
+  --accent-glow: rgba(37, 99, 235, 0.15);
+  --secondary: #7c3aed;
+  --muted: #71717a;
+  --muted-foreground: #a1a1aa;
+  --card: rgba(255, 255, 255, 0.8);
+  --card-hover: rgba(255, 255, 255, 0.95);
+  --card-solid: #ffffff;
+  --border: rgba(228, 228, 231, 0.8);
+  --border-hover: rgba(212, 212, 216, 1);
+  --glass: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --gradient-start: #2563eb;
+  --gradient-end: #7c3aed;
+  --gradient-accent: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  --shadow-color: rgba(0, 0, 0, 0.08);
+  --section-alt: #f4f4f5;
 }
 
 @theme inline {
@@ -20,12 +60,19 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-muted: var(--accent-muted);
+  --color-accent-glow: var(--accent-glow);
+  --color-secondary: var(--secondary);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-card: var(--card);
   --color-card-hover: var(--card-hover);
+  --color-card-solid: var(--card-solid);
   --color-border: var(--border);
   --color-border-hover: var(--border-hover);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --color-shadow: var(--shadow-color);
+  --color-section-alt: var(--section-alt);
   --font-sans: var(--font-inter);
   --font-display: var(--font-space-grotesk);
 }
@@ -34,6 +81,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Smooth scrolling */
@@ -42,26 +90,120 @@ html {
   scroll-padding-top: 5rem;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
+/* ═══════════════════════════════════════
+   CUSTOM SCROLLBAR
+   ═══════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-hover); }
 
-::-webkit-scrollbar-track {
-  background: var(--background);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--border-hover);
-}
-
-/* Selection color */
 ::selection {
   background: var(--accent-muted);
   color: var(--foreground);
+}
+
+/* ═══════════════════════════════════════
+   KEYFRAME ANIMATIONS
+   ═══════════════════════════════════════ */
+
+/* Gradient text shimmer */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Glow pulse on dots/accents */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 4px var(--accent-glow), 0 0 8px transparent; }
+  50% { box-shadow: 0 0 8px var(--accent-glow), 0 0 20px var(--accent-glow); }
+}
+
+/* Floating animation for background elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* Subtle rotate for decorative elements */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Line draw for timeline */
+@keyframes draw-line {
+  from { height: 0; }
+  to { height: 100%; }
+}
+
+/* Shimmer for loading / skeleton */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Border glow rotation */
+@keyframes border-glow {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ═══════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════ */
+
+/* Gradient text */
+.text-gradient {
+  background: var(--gradient-accent);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 24px var(--shadow-color);
+}
+
+/* Gradient border on hover */
+.gradient-border {
+  position: relative;
+  overflow: hidden;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--gradient-accent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* Glow on hover */
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+.hover-glow:hover {
+  box-shadow: 0 0 20px var(--accent-glow), 0 4px 24px var(--shadow-color);
+}
+
+/* Section alternate background */
+.section-alt {
+  background: var(--section-alt);
 }

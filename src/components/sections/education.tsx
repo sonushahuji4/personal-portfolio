@@ -19,14 +19,16 @@ const Education = () => {
         <Timeline>
           {EDUCATION.map((entry, index) => (
             <Timeline.Item key={entry.id} isLast={index === EDUCATION.length - 1}>
-              <div>
+              <div className="rounded-xl border border-border bg-card p-5 shadow-sm shadow-shadow transition-all hover:border-border-hover hover:shadow-md hover:shadow-shadow">
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <h3 className="font-display text-lg font-bold text-foreground">
                     {entry.institution}
                   </h3>
-                  <span className="text-sm text-muted">{entry.duration}</span>
+                  <span className="rounded-full bg-accent-muted px-2.5 py-0.5 text-xs font-medium text-accent">
+                    {entry.duration}
+                  </span>
                 </div>
-                <p className="mt-1 text-base text-accent">{entry.credential}</p>
+                <p className="mt-1 text-base font-medium text-gradient inline-block">{entry.credential}</p>
 
                 {entry.description && (
                   <motion.p
@@ -41,7 +43,7 @@ const Education = () => {
                 )}
 
                 {entry.activities && entry.activities.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-2">
+                  <div className="mt-3 flex flex-wrap gap-1.5">
                     {entry.activities.map((activity) => (
                       <Badge key={activity}>{activity}</Badge>
                     ))}
