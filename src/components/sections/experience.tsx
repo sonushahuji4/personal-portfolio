@@ -6,7 +6,7 @@ import Badge from '@/components/ui/badge';
 import Timeline from '@/components/common/timeline';
 import { EXPERIENCES } from '@/data/experience';
 import { SECTION_IDS } from '@/lib/constants';
-import { COMPANY_LOGOS } from '@/components/common/logos';
+import CompanyLogo, { COMPANY_LOGO_PATHS } from '@/components/common/company-logo';
 
 const COMPANY_COLORS: Record<string, string> = {
   aerem: '#14b8a6',
@@ -31,7 +31,6 @@ const Experience = () => {
         <Timeline>
           {EXPERIENCES.map((exp, index) => {
             const color = COMPANY_COLORS[exp.id] || 'var(--accent)';
-            const Logo = COMPANY_LOGOS[exp.id];
             return (
               <Timeline.Item key={exp.id} isLast={index === EXPERIENCES.length - 1}>
                 <motion.div
@@ -47,11 +46,12 @@ const Experience = () => {
                   <div className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="shrink-0">
-                        {Logo ? <Logo size={48} /> : (
-                          <div className="flex h-12 w-12 items-center justify-center rounded-xl text-lg font-bold" style={{ backgroundColor: color + '15', color }}>
-                            {exp.company.charAt(0)}
-                          </div>
-                        )}
+                        <CompanyLogo
+                          name={exp.company}
+                          src={COMPANY_LOGO_PATHS[exp.id] || ''}
+                          color={color}
+                          size={48}
+                        />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">

@@ -6,7 +6,7 @@ import { ExternalLink } from 'lucide-react';
 import SectionHeading from '@/components/ui/section-heading';
 import { PLATFORMS } from '@/data/platforms';
 import { SECTION_IDS } from '@/lib/constants';
-import { PLATFORM_LOGOS } from '@/components/common/logos';
+import CompanyLogo, { PLATFORM_LOGO_PATHS } from '@/components/common/company-logo';
 
 const AnimatedStat = ({ value, color }: { value: string; color: string }) => {
   const numericPart = parseInt(value.replace(/[^0-9]/g, ''), 10);
@@ -48,7 +48,6 @@ const Platforms = () => {
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {PLATFORMS.map((platform, i) => {
-            const Logo = PLATFORM_LOGOS[platform.name];
             return (
               <motion.a
                 key={platform.name}
@@ -67,11 +66,7 @@ const Platforms = () => {
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2.5">
-                      {Logo ? <Logo size={36} /> : (
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl text-sm font-bold" style={{ backgroundColor: platform.color + '15', color: platform.color }}>
-                          {platform.name.charAt(0)}
-                        </div>
-                      )}
+                      <CompanyLogo name={platform.name} src={PLATFORM_LOGO_PATHS[platform.name] || ''} color={platform.color} size={36} />
                       <div>
                         <h3 className="font-display text-base font-bold text-foreground">{platform.name}</h3>
                         <p className="text-xs text-muted-foreground">@{platform.username}</p>

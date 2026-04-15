@@ -1,12 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ExternalLink, CheckCircle, BookOpen } from 'lucide-react';
+import { ExternalLink, CheckCircle } from 'lucide-react';
 import SectionHeading from '@/components/ui/section-heading';
 import Badge from '@/components/ui/badge';
 import { COURSES } from '@/data/courses';
 import { SECTION_IDS } from '@/lib/constants';
-import { COURSE_LOGOS } from '@/components/common/logos';
+import CompanyLogo, { COURSE_LOGO_PATHS } from '@/components/common/company-logo';
 
 const Courses = () => {
   return (
@@ -20,7 +20,6 @@ const Courses = () => {
 
         <div className="grid gap-5 sm:grid-cols-2">
           {COURSES.map((course, i) => {
-            const Logo = COURSE_LOGOS[course.platform];
             return (
               <motion.div
                 key={course.name}
@@ -35,11 +34,7 @@ const Courses = () => {
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-start gap-3">
                         <div className="shrink-0">
-                          {Logo ? <Logo size={40} /> : (
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10">
-                              <BookOpen size={18} className="text-amber-500" />
-                            </div>
-                          )}
+                          <CompanyLogo name={course.platform} src={COURSE_LOGO_PATHS[course.platform] || ''} color="#f59e0b" size={40} />
                         </div>
                         <div>
                           <h3 className="font-display text-base font-bold text-foreground">{course.name}</h3>

@@ -7,33 +7,30 @@ import SectionHeading from '@/components/ui/section-heading';
 import { SKILL_CATEGORIES } from '@/data/skills';
 import { SECTION_IDS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
+import { TECH_ICON_MAP } from '@/components/common/tech-icons';
 
 const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   Monitor, Server, Database, Cloud, Blocks, Lightbulb,
 };
 
-const CATEGORY_COLORS = [
-  'from-blue-500/10 to-indigo-500/10',
-  'from-emerald-500/10 to-teal-500/10',
-  'from-amber-500/10 to-orange-500/10',
-  'from-violet-500/10 to-purple-500/10',
-  'from-rose-500/10 to-pink-500/10',
-  'from-cyan-500/10 to-sky-500/10',
-];
+const CATEGORY_COLORS = ['#6366f1', '#14b8a6', '#f59e0b', '#ec4899', '#ef4444', '#0ea5e9'];
 
 const Skills = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <section id={SECTION_IDS.skills} className="py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-6">
-        <SectionHeading title="Skills & Expertise" subtitle="Technologies and practices I work with daily" />
+    <section id={SECTION_IDS.skills} className="relative py-24 sm:py-32 overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 dot-grid opacity-20" aria-hidden="true" />
+
+      <div className="relative z-10 mx-auto max-w-6xl px-6">
+        <SectionHeading title="Tech Stack" subtitle="Technologies and tools I build with" accent="#6366f1" />
 
         {/* Category tabs */}
         <div className="mb-10 flex justify-center">
-          <div className="inline-flex flex-wrap justify-center gap-2 rounded-2xl border border-border bg-card p-2">
+          <div className="inline-flex flex-wrap justify-center gap-2 rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-2">
             {SKILL_CATEGORIES.map((cat, i) => {
               const Icon = ICON_MAP[cat.icon];
+              const color = CATEGORY_COLORS[i];
               return (
                 <button
                   key={cat.name}
@@ -42,9 +39,10 @@ const Skills = () => {
                   className={cn(
                     'flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all',
                     activeTab === i
-                      ? 'bg-accent text-white shadow-lg shadow-accent/20'
-                      : 'text-muted hover:text-foreground hover:bg-background'
+                      ? 'text-white shadow-lg'
+                      : 'text-muted hover:text-foreground hover:bg-background/50'
                   )}
+                  style={activeTab === i ? { backgroundColor: color, boxShadow: `0 4px 14px ${color}33` } : {}}
                 >
                   {Icon && <Icon size={15} />}
                   <span className="hidden sm:inline">{cat.name}</span>
@@ -54,7 +52,7 @@ const Skills = () => {
           </div>
         </div>
 
-        {/* Active category skills */}
+        {/* Skills Grid — icon + name like the reference screenshot */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
@@ -62,53 +60,49 @@ const Skills = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.3 }}
-            className="mx-auto max-w-3xl"
+            className="mx-auto max-w-4xl"
           >
-            <div className={`rounded-2xl border border-border bg-linear-to-br ${CATEGORY_COLORS[activeTab]} p-8`}>
-              <div className="mb-6 flex items-center gap-3">
-                {(() => { const Icon = ICON_MAP[SKILL_CATEGORIES[activeTab].icon]; return Icon ? <Icon size={24} className="text-accent" /> : null; })()}
-                <h3 className="font-display text-xl font-bold text-foreground">
-                  {SKILL_CATEGORIES[activeTab].name}
-                </h3>
-              </div>
-              <div className="flex flex-wrap gap-3">
-                {SKILL_CATEGORIES[activeTab].skills.map((skill, si) => (
-                  <motion.span
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+              {SKILL_CATEGORIES[activeTab].skills.map((skill, si) => {
+                const TechIcon = TECH_ICON_MAP[skill.name];
+                return (
+                  <motion.div
                     key={skill.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
+                    initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.2, delay: si * 0.03 }}
-                    className="rounded-xl border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-all hover:border-accent/30 hover:bg-accent-muted hover:text-accent hover:-translate-y-0.5 hover:shadow-sm"
+                    transition={{ duration: 0.25, delay: si * 0.03 }}
+                    className="group flex items-center gap-3 rounded-xl border border-border bg-card/80 backdrop-blur-sm px-4 py-3 transition-all duration-300 hover:border-border-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-shadow"
                   >
-                    {skill.name}
-                  </motion.span>
-                ))}
-              </div>
+                    {TechIcon ? (
+                      <TechIcon size={32} />
+                    ) : (
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-xs font-bold" style={{ backgroundColor: CATEGORY_COLORS[activeTab] + '12', color: CATEGORY_COLORS[activeTab] }}>
+                        {skill.name.charAt(0)}
+                      </div>
+                    )}
+                    <span className="text-sm font-medium text-foreground">{skill.name}</span>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </AnimatePresence>
 
-        {/* All categories grid (visible below) */}
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {SKILL_CATEGORIES.map((category, i) => {
-            const Icon = ICON_MAP[category.icon];
+        {/* Other categories as mini pills */}
+        <div className="mt-10 flex flex-wrap justify-center gap-2">
+          {SKILL_CATEGORIES.map((cat, i) => {
             if (i === activeTab) return null;
+            const Icon = ICON_MAP[cat.icon];
             return (
-              <motion.button
-                key={category.name}
+              <button
+                key={cat.name}
                 onClick={() => setActiveTab(i)}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.05 }}
-                className={`rounded-xl border border-border bg-linear-to-br ${CATEGORY_COLORS[i]} p-5 text-left transition-all hover:border-border-hover hover:-translate-y-0.5 hover:shadow-md`}
+                className="flex items-center gap-1.5 rounded-full border border-border bg-card/50 px-3 py-1.5 text-xs text-muted transition-all hover:border-border-hover hover:text-foreground"
               >
-                <div className="flex items-center gap-2.5">
-                  {Icon && <Icon size={16} className="text-accent" />}
-                  <h4 className="font-display text-sm font-semibold text-foreground">{category.name}</h4>
-                </div>
-                <p className="mt-2 text-xs text-muted">{category.skills.length} skills</p>
-              </motion.button>
+                {Icon && <Icon size={12} />}
+                {cat.name}
+                <span className="text-muted-foreground">({cat.skills.length})</span>
+              </button>
             );
           })}
         </div>

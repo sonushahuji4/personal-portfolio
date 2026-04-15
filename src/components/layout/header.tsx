@@ -6,6 +6,7 @@ import { Menu, X } from 'lucide-react';
 import { NAV_LINKS, SECTION_IDS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import ThemeToggle from '@/components/ui/theme-toggle';
+import BrandLogo from '@/components/common/brand-logo';
 
 const SECTION_ORDER = Object.values(SECTION_IDS);
 
@@ -42,8 +43,8 @@ const Header = () => {
       )}
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <a href="#hero" className="font-display text-lg font-bold transition-colors hover:text-accent">
-          <span className="text-gradient">SS</span>
+        <a href="#hero" className="transition-transform hover:scale-105" aria-label="Go to top">
+          <BrandLogo size={36} />
         </a>
 
         {/* Desktop nav */}

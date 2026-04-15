@@ -1,13 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { GraduationCap } from 'lucide-react';
 import SectionHeading from '@/components/ui/section-heading';
 import Badge from '@/components/ui/badge';
 import Timeline from '@/components/common/timeline';
 import { EDUCATION } from '@/data/education';
 import { SECTION_IDS } from '@/lib/constants';
-import { EDUCATION_LOGOS } from '@/components/common/logos';
+import CompanyLogo, { EDUCATION_LOGO_PATHS } from '@/components/common/company-logo';
 
 const EDU_COLORS = ['#6366f1', '#0891b2', '#0891b2', '#166534'];
 
@@ -28,7 +27,6 @@ const Education = () => {
         <Timeline>
           {EDUCATION.map((entry, index) => {
             const color = EDU_COLORS[index] || 'var(--accent)';
-            const Logo = EDUCATION_LOGOS[entry.id];
             return (
               <Timeline.Item key={entry.id} isLast={index === EDUCATION.length - 1}>
                 <motion.div
@@ -42,11 +40,7 @@ const Education = () => {
                   <div className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="shrink-0">
-                        {Logo ? <Logo size={44} /> : (
-                          <div className="flex h-11 w-11 items-center justify-center rounded-xl" style={{ backgroundColor: color + '12', color }}>
-                            <GraduationCap size={20} />
-                          </div>
-                        )}
+                        <CompanyLogo name={entry.institution} src={EDUCATION_LOGO_PATHS[entry.id] || ''} color={color} size={44} />
                       </div>
                       <div>
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">

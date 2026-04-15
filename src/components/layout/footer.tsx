@@ -2,6 +2,7 @@
 
 import { ArrowUp } from 'lucide-react';
 import { SITE_CONFIG } from '@/lib/constants';
+import BrandLogo from '@/components/common/brand-logo';
 
 const Footer = () => {
   return (
@@ -10,7 +11,7 @@ const Footer = () => {
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
           {/* Left: brand */}
           <div>
-            <span className="font-display text-lg font-bold text-gradient">SS</span>
+            <BrandLogo size={28} />
             <p className="mt-1 text-xs text-muted-foreground">
               &copy; {new Date().getFullYear()} {SITE_CONFIG.author}
             </p>
