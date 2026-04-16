@@ -6,7 +6,6 @@ import { ExternalLink, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-rea
 import SectionHeading from '@/components/ui/section-heading';
 import Badge from '@/components/ui/badge';
 import { COURSES } from '@/data/courses';
-import { SECTION_IDS } from '@/lib/constants';
 import CompanyLogo, { COURSE_LOGO_PATHS } from '@/components/common/company-logo';
 
 const Courses = () => {
@@ -18,7 +17,7 @@ const Courses = () => {
   };
 
   return (
-    <section id={SECTION_IDS.courses} className="relative py-24 sm:py-32 overflow-hidden">
+    <section id="courses" className="relative py-24 sm:py-32 overflow-hidden">
       <div className="pointer-events-none absolute inset-0 bg-brackets opacity-30" aria-hidden="true" />
       <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-background via-transparent to-background" aria-hidden="true" />
 
