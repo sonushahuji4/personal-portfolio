@@ -9,7 +9,7 @@ import { ABOUT_SUMMARY, HIGHLIGHT_CARDS, INTERESTS } from '@/data/personal';
 import { SECTION_IDS } from '@/lib/constants';
 
 const HIGHLIGHT_ICONS = [TrendingUp, Zap, Code2, Rocket];
-const HIGHLIGHT_COLORS = ['#A78BFA', '#67E8F9', '#6EE7B7', '#F472B6'];
+const HIGHLIGHT_COLORS = ['#7C3AED', '#0891B2', '#059669', '#DB2777'];
 
 const AnimatedNumber = ({ value, color }: { value: string; color: string }) => {
   const numericPart = parseInt(value.replace(/[^0-9]/g, ''), 10);

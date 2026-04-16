@@ -19,8 +19,8 @@ const FILTERS: { label: string; value: Category; icon: React.ReactNode }[] = [
 ];
 
 const CATEGORY_ACCENT = {
-  professional: '#A78BFA',
-  personal: '#6EE7B7',
+  professional: '#7C3AED',
+  personal: '#059669',
 };
 
 const ProjectCard = ({ project, index }: { project: Project; index: number }) => {

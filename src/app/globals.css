@@ -48,13 +48,13 @@
   --tertiary: #047857;
   --muted: #374151;
   --muted-foreground: #6B7280;
-  --card: rgba(255, 255, 255, 0.95);
+  --card: rgba(255, 255, 255, 0.98);
   --card-hover: rgba(255, 255, 255, 1);
   --card-solid: #FFFFFF;
-  --border: rgba(0, 0, 0, 0.07);
-  --border-hover: rgba(0, 0, 0, 0.12);
-  --glass: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 0, 0, 0.05);
+  --border: rgba(0, 0, 0, 0.1);
+  --border-hover: rgba(0, 0, 0, 0.18);
+  --glass: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(0, 0, 0, 0.08);
   --gradient-1: #7C3AED;
   --gradient-2: #0891B2;
   --gradient-3: #059669;

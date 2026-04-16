@@ -8,9 +8,9 @@ import { SECTION_IDS } from '@/lib/constants';
 import CompanyLogo, { COMPANY_LOGO_PATHS } from '@/components/common/company-logo';
 
 const COMPANY_COLORS: Record<string, string> = {
-  aerem: '#6EE7B7',
-  cimpress: '#67E8F9',
-  kouchan: '#F472B6',
+  aerem: '#059669',
+  cimpress: '#0891B2',
+  kouchan: '#DB2777',
 };
 
 const Experience = () => {
