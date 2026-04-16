@@ -47,8 +47,8 @@ export const ABOUT_SUMMARY = [
 
 export const HIGHLIGHT_CARDS: HighlightCard[] = [
   { value: '6+', label: 'Years of Experience' },
-  { value: '15+', label: 'Projects Shipped' },
-  { value: '1→5', label: 'Team Built & Led' },
+  { value: '4', label: 'Production Products' },
+  { value: '3', label: 'Engineers Led' },
 ];
 
 export const INTERESTS = [
