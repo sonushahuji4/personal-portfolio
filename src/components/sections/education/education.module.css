@@ -1,0 +1,74 @@
+.bookContainer {
+  display: flex;
+  justify-content: center;
+  perspective: 2000px;
+}
+
+.page {
+  background: #1a1a2e;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+.pageCover {
+  background: linear-gradient(135deg, #1a1025 0%, #0d0a1a 50%, #1a1025 100%);
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+/* Gold foil title effect */
+.goldTitle {
+  background: linear-gradient(135deg, #d4af37, #f5e7a3, #d4af37);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goldShimmer 4s ease infinite;
+}
+
+@keyframes goldShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* Page number */
+.pageNumber {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.3);
+  font-style: italic;
+}
+
+/* Spine effect */
+.spine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, rgba(167, 139, 250, 0.4), rgba(167, 139, 250, 0.1));
+  border-radius: 2px 0 0 2px;
+}
+
+[data-theme="light"] .page {
+  background: #fefef9;
+  border-color: rgba(0, 0, 0, 0.08);
+  color: #1a1a1a;
+}
+
+[data-theme="light"] .pageCover {
+  background: linear-gradient(135deg, #2d1b4e 0%, #1a0f30 50%, #2d1b4e 100%);
+}
