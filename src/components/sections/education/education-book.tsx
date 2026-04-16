@@ -4,13 +4,12 @@ import { useRef, useState, useCallback } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { EDUCATION } from '@/data/education';
-import { CoverPage, IndexPage, ContentPage, BackCoverPage } from './pages';
-import styles from './education.module.css';
+import { CoverPage, IndexPage, ContentPage, SummaryPage, BackCoverPage } from './pages';
 
 const EducationBook = () => {
   const bookRef = useRef<typeof HTMLFlipBook>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const totalPages = EDUCATION.length + 3; // cover + index + entries + back cover
+  const totalPages = 8; // cover + index + 4 entries + summary + back cover
 
   const flipTo = useCallback((page: number) => {
     if (bookRef.current) {
@@ -30,50 +29,80 @@ const EducationBook = () => {
     }
   }, []);
 
+  const handleFlip = useCallback((e: { data: number }) => {
+    setCurrentPage(e.data);
+  }, []);
+
   return (
     <div>
-      {/* 3D Book on desk — looking down from chair angle */}
-      <div className={styles.bookWrapper}>
-        <div className={styles.book3d}>
-          {/* Physical book edges */}
-          <div className={styles.bookSpine} />
-          <div className={styles.bookThickness} />
-          <div className={styles.bookBottom} />
-          <div className={styles.bookShadow} />
+      {/* 3D perspective container */}
+      <div style={{ perspective: '1800px', perspectiveOrigin: 'center center', display: 'flex', justifyContent: 'center' }}>
+        {/* Book with slight rotation for depth */}
+        <div style={{ transformStyle: 'preserve-3d', transform: 'rotateY(-3deg)', position: 'relative' }}>
+          {/* Spine (left edge) */}
+          <div style={{
+            position: 'absolute', left: '-6px', top: '3px', width: '12px', height: 'calc(100% - 6px)',
+            background: 'linear-gradient(to right, #1a120a, #2d1f14, #3d2518, #2d1f14, #1a120a)',
+            borderRadius: '2px 0 0 2px', zIndex: -1, boxShadow: '-2px 0 8px rgba(0,0,0,0.3)',
+          }} />
 
-          {/* The actual flip book */}
-          <div className={styles.bookContainer}>
-            {/* @ts-expect-error react-pageflip types are incomplete */}
-            <HTMLFlipBook
-              ref={bookRef}
-              width={380}
-              height={520}
-              minWidth={260}
-              maxWidth={450}
-              minHeight={360}
-              maxHeight={600}
-              size="stretch"
-              showCover={true}
-              mobileScrollSupport={false}
-              flippingTime={900}
-              maxShadowOpacity={0.6}
-              drawShadow={true}
-              useMouseEvents={true}
-              className="education-flipbook"
-              startPage={0}
-              onFlip={(e: { data: number }) => setCurrentPage(e.data)}
-              style={{}}
-            >
-              <CoverPage />
-              <IndexPage entries={EDUCATION} onFlipTo={flipTo} />
-              {EDUCATION.map((entry, i) => (
-                <ContentPage key={entry.id} entry={entry} index={i} />
-              ))}
-              <BackCoverPage />
-            </HTMLFlipBook>
-          </div>
+          {/* Page edges (right side) */}
+          <div style={{
+            position: 'absolute', right: '-2px', top: '4px', width: '4px', height: 'calc(100% - 8px)',
+            background: 'repeating-linear-gradient(to bottom, #f5f0e6 0px, #e8e0d0 1px, #f5f0e6 2px)',
+            borderRadius: '0 1px 1px 0', zIndex: -1,
+          }} />
+
+          {/* The flipbook */}
+          <HTMLFlipBook
+            ref={bookRef}
+            width={400}
+            height={560}
+            size="stretch"
+            minWidth={280}
+            maxWidth={480}
+            minHeight={390}
+            maxHeight={650}
+            maxShadowOpacity={0.6}
+            showCover={true}
+            mobileScrollSupport={true}
+            flippingTime={800}
+            drawShadow={true}
+            usePortrait={true}
+            startZIndex={0}
+            autoSize={true}
+            clickEventForward={true}
+            useMouseEvents={true}
+            swipeDistance={30}
+            showPageCorners={true}
+            disableFlipByClick={false}
+            startPage={0}
+            onFlip={handleFlip}
+            className=""
+            style={{}}
+          >
+            {/* Page 0: Front Cover */}
+            <CoverPage />
+            {/* Page 1: Contents */}
+            <IndexPage onNavigate={flipTo} />
+            {/* Pages 2-5: Education entries */}
+            {EDUCATION.map((entry, i) => (
+              <ContentPage key={entry.id} entry={entry} index={i} pageNumber={i + 2} />
+            ))}
+            {/* Page 6: Summary */}
+            <SummaryPage />
+            {/* Page 7: Back Cover */}
+            <BackCoverPage />
+          </HTMLFlipBook>
         </div>
       </div>
+
+      {/* Shadow under the book */}
+      <div style={{
+        width: '70%', height: '20px', margin: '-10px auto 0',
+        background: 'radial-gradient(ellipse, rgba(0,0,0,0.35) 0%, transparent 70%)',
+        filter: 'blur(4px)',
+      }} />
 
       {/* Controls */}
       <div className="mt-8 flex items-center justify-center gap-4">
@@ -99,7 +128,7 @@ const EducationBook = () => {
       </div>
 
       <p className="mt-3 text-center text-xs text-muted-foreground">
-        Drag page edges to flip · Click arrows to navigate
+        Drag page corners to flip · Click arrows to navigate
       </p>
     </div>
   );
