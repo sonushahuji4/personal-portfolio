@@ -1,39 +1,93 @@
+/* ═══════════════════════════════════════
+   ANCIENT BOOK — Authentic Parchment Style
+   Inspired by aged manuscripts and leather-bound tomes
+   ═══════════════════════════════════════ */
+
 .bookContainer {
   display: flex;
   justify-content: center;
+  align-items: center;
   perspective: 2000px;
 }
 
+/* ═══ PAGE — Aged Parchment ═══ */
 .page {
-  background: #1a1a2e;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 2rem;
+  background:
+    /* Noise/grain texture */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
+    /* Parchment gradient */
+    linear-gradient(135deg, #e8dcc8 0%, #d4c4a0 25%, #ddd0b8 50%, #c8b890 75%, #e0d4be 100%);
+  border: none;
+  padding: 2rem 1.8rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   overflow: hidden;
+  position: relative;
+  color: #3a2e1e;
+  box-shadow: inset 2px 0 8px rgba(0, 0, 0, 0.15), inset -1px 0 4px rgba(0, 0, 0, 0.08);
 }
 
+/* Aged edge stain on pages */
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 30px;
+  background: linear-gradient(to left, rgba(139, 119, 85, 0.15), transparent);
+  pointer-events: none;
+}
+
+.page::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to top, rgba(139, 119, 85, 0.1), transparent);
+  pointer-events: none;
+}
+
+/* ═══ COVER — Leather Bound ═══ */
 .pageCover {
-  background: linear-gradient(135deg, #1a1025 0%, #0d0a1a 50%, #1a1025 100%);
-  border: 1px solid rgba(167, 139, 250, 0.15);
+  background:
+    /* Leather grain */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"),
+    linear-gradient(145deg, #2a1a0e 0%, #3d2818 30%, #1e1008 50%, #3a2515 70%, #2a1a0e 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   text-align: center;
-  padding: 2rem;
+  padding: 0;
   overflow: hidden;
+  position: relative;
+  border: none;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
-/* Gold foil title effect */
+/* Leather border emboss effect */
+.pageCover::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* Gold foil title */
 .goldTitle {
-  background: linear-gradient(135deg, #d4af37, #f5e7a3, #d4af37);
+  background: linear-gradient(135deg, #c9a84c, #f5e7a3, #d4af37, #b8962e);
   background-size: 200% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: goldShimmer 4s ease infinite;
+  animation: goldShimmer 5s ease infinite;
+  text-shadow: none;
 }
 
 @keyframes goldShimmer {
@@ -41,34 +95,56 @@
   50% { background-position: 100% 50%; }
 }
 
-/* Page number */
+/* Page number — ink style */
 .pageNumber {
   position: absolute;
-  bottom: 1rem;
+  bottom: 0.8rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.65rem;
+  color: #8b7355;
   font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
 }
 
-/* Spine effect */
+/* Spine — book binding */
 .spine {
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
-  width: 3px;
-  background: linear-gradient(to bottom, rgba(167, 139, 250, 0.4), rgba(167, 139, 250, 0.1));
-  border-radius: 2px 0 0 2px;
+  width: 4px;
+  background: linear-gradient(
+    to bottom,
+    #6b4f2e,
+    #8b6f47,
+    #6b4f2e,
+    #8b6f47,
+    #6b4f2e
+  );
+  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
 }
 
+/* ═══ TYPOGRAPHY — Ink on Parchment ═══ */
+.page h3 {
+  color: #2a1a0e;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.page p {
+  color: #4a3a28;
+}
+
+/* Light theme — same parchment look (books don't change with themes) */
 [data-theme="light"] .page {
-  background: #fefef9;
-  border-color: rgba(0, 0, 0, 0.08);
-  color: #1a1a1a;
+  background:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
+    linear-gradient(135deg, #e8dcc8 0%, #d4c4a0 25%, #ddd0b8 50%, #c8b890 75%, #e0d4be 100%);
+  color: #3a2e1e;
 }
 
 [data-theme="light"] .pageCover {
-  background: linear-gradient(135deg, #2d1b4e 0%, #1a0f30 50%, #2d1b4e 100%);
+  background:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"),
+    linear-gradient(145deg, #2a1a0e 0%, #3d2818 30%, #1e1008 50%, #3a2515 70%, #2a1a0e 100%);
 }
