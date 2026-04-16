@@ -22,14 +22,14 @@ export const SOCIAL_LINKS: SocialLink[] = [
     icon: 'Linkedin',
   },
   {
+    name: 'Instagram',
+    url: 'https://instagram.com/i.m.sonuuu',
+    icon: 'Instagram',
+  },
+  {
     name: 'LeetCode',
     url: 'https://leetcode.com/u/sonushahuji4/',
     icon: 'Code',
-  },
-  {
-    name: 'CodeChef',
-    url: 'https://www.codechef.com/users/sonushahuji4',
-    icon: 'Trophy',
   },
   {
     name: 'Email',
@@ -60,9 +60,14 @@ export const INTERESTS = [
 
 export const CONTACT_INFO: ContactInfo = {
   email: 'sonushahuji4@gmail.com',
-  phone: '+91 9594196932',
+  phone: '',
   location: 'Mumbai, India',
   linkedin: 'https://www.linkedin.com/in/sonushahuji/',
   github: 'https://github.com/sonushahuji4',
-  resumeUrl: `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/resume.pdf`,
+  resumeUrl: `${basePath}/resume.pdf`,
 };
+
+export const INSTAGRAM_URL = 'https://instagram.com/i.m.sonuuu';
+
+// Formspree endpoint — replace with your actual form ID after signup
+export const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyzgkpwl';
