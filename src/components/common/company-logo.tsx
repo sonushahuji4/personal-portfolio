@@ -50,15 +50,18 @@ const CompanyLogo = ({ name, src, color, size = 44 }: CompanyLogoProps) => {
 
 export default CompanyLogo;
 
-// Logo source paths
+// Logo source paths — real company logos
 export const COMPANY_LOGO_PATHS: Record<string, string> = {
-  aerem: '/logos/aerem.png',
+  aerem: '/logos/aerem.avif',
   cimpress: '/logos/cimpress.png',
-  kouchan: '/logos/nationalpen.png', // Kou-Chan doesn't have a public favicon
+  kouchan: '/logos/kouchan.jpeg',
 };
 
 export const EDUCATION_LOGO_PATHS: Record<string, string> = {
   scaler: '/logos/scaler.png',
+  dbit: '/logos/dbit.png',
+  hsc: '/logos/donbosco.jpeg',
+  ssc: '/logos/stdominic.png',
 };
 
 export const PLATFORM_LOGO_PATHS: Record<string, string> = {

@@ -47,7 +47,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id={SECTION_IDS.hero} className="relative min-h-screen overflow-hidden">
+    <section id={SECTION_IDS.hero} className="relative min-h-screen overflow-hidden bg-[#09090B]">
       {/* Photo — right 50%, blending into background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute right-0 top-0 h-full w-[85%] sm:w-[50%]">
@@ -59,8 +59,12 @@ const Hero = () => {
             priority
             unoptimized
           />
-          <div className="absolute inset-0 bg-linear-to-r from-background via-background/50 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-background to-transparent" />
+          {/* Strong left fade — text area is fully dark */}
+          <div className="absolute inset-0 bg-linear-to-r from-[#09090B] from-10% via-background/70 via-40% to-transparent to-80%" />
+          {/* Bottom fade */}
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-[#09090B] to-transparent" />
+          {/* Top subtle darken */}
+          <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-[#09090B]/50 to-transparent" />
         </div>
       </div>
 
