@@ -43,7 +43,12 @@ const Planet = ({ chapter, orbitIndex, onClick }: PlanetProps) => {
     ref.current.position.z = Math.sin(angle) * orbit.radius;
     ref.current.position.y = Math.sin(angle * 2) * orbit.tilt;
 
-    if (meshRef.current) meshRef.current.rotation.y += 0.001 * TIME_SCALE;
+    if (meshRef.current) {
+      meshRef.current.rotation.y += 0.001 * TIME_SCALE;
+      // Smooth scale on hover
+      const targetScale = hovered ? 1.4 : 1;
+      meshRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+    }
   });
 
   return (
@@ -55,7 +60,7 @@ const Planet = ({ chapter, orbitIndex, onClick }: PlanetProps) => {
         onPointerOver={() => { setHovered(true); document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { setHovered(false); document.body.style.cursor = 'default'; }}
       >
-        <sphereGeometry args={[hovered ? orbit.size * 1.3 : orbit.size, 24, 24]} />
+        <sphereGeometry args={[orbit.size, 24, 24]} />
         <meshStandardMaterial
           color={chapter.accentColor}
           emissive={chapter.accentColor}
