@@ -6,7 +6,7 @@ import About from '@/components/sections/about';
 import Experience from '@/components/sections/experience';
 import Projects from '@/components/sections/projects';
 import Skills from '@/components/sections/skills';
-import LifeCircle from '@/components/sections/life-circle/life-circle';
+// import LifeCircle from '@/components/sections/life-circle/life-circle'; // Hidden for now — will use later
 import Platforms from '@/components/sections/platforms';
 import Education from '@/components/sections/education/index';
 import Achievements from '@/components/sections/achievements';
@@ -24,7 +24,7 @@ const Home = () => {
         <Experience />
         <Projects />
         <Skills />
-        <LifeCircle />
+        {/* <LifeCircle /> — Hidden for now, will use later */}
         <Platforms />
         <Education />
         <Achievements />
