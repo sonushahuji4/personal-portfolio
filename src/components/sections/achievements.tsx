@@ -60,9 +60,10 @@ const Achievements = () => {
                 <motion.div key={award.title} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
                   className="group rounded-2xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden card-premium">
                   {award.imageUrl && (
-                    <button onClick={() => openViewer(award.imageUrl!)} className="relative w-full h-48 overflow-hidden cursor-zoom-in bg-black/10">
+                    <button onClick={() => openViewer(award.imageUrl!)} className="relative w-full aspect-4/3 overflow-hidden cursor-zoom-in">
                       <Image src={award.imageUrl} alt={award.title} fill
-                        className="object-contain p-2 transition-transform duration-500 group-hover:scale-[1.03]" unoptimized />
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" unoptimized />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                       <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity">
                         <Eye size={13} /> View Full
                       </div>
