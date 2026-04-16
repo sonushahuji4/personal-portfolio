@@ -1,11 +1,14 @@
 'use client';
 
 import { useState, useCallback } from 'react';
+import dynamic from 'next/dynamic';
 import SectionHeading from '@/components/ui/section-heading';
 import { lifeCircleChapters } from '@/data/life-circle';
-import CircleVisual from './circle-visual';
 import VerticalTimeline from './vertical-timeline';
 import ChapterModal from './chapter-modal';
+
+// Dynamic import for 3D — skip SSR
+const SolarSystemScene = dynamic(() => import('./solar-system'), { ssr: false });
 
 const LifeCircle = () => {
   const [activeChapterId, setActiveChapterId] = useState<number | null>(null);
@@ -27,25 +30,28 @@ const LifeCircle = () => {
   }, [activeIndex]);
 
   return (
-    <section id="life-circle" className="relative py-24 sm:py-32 overflow-hidden" aria-labelledby="life-circle-heading">
-      <div className="pointer-events-none absolute inset-0 dot-grid opacity-15" aria-hidden="true" />
-
+    <section id="life-circle" className="relative py-16 sm:py-24 overflow-hidden" aria-labelledby="life-circle-heading">
       <div className="relative z-10 mx-auto max-w-6xl px-6">
         <SectionHeading
           title="The Life Circle"
-          subtitle="A journey in twelve chapters — click any to open"
+          subtitle="A universe in twelve chapters — click any planet to open its story"
           accent="#c0a0ff"
         />
 
-        {/* Desktop: Circle SVG */}
+        {/* Desktop: 3D Solar System */}
         <div className="hidden md:block">
-          <CircleVisual chapters={lifeCircleChapters} onSelectChapter={setActiveChapterId} />
+          <SolarSystemScene chapters={lifeCircleChapters} onPlanetClick={setActiveChapterId} />
         </div>
 
         {/* Mobile: Vertical timeline */}
         <div className="md:hidden">
           <VerticalTimeline chapters={lifeCircleChapters} onSelectChapter={setActiveChapterId} />
         </div>
+
+        {/* Instruction text below */}
+        <p className="mt-4 text-center text-xs text-muted-foreground">
+          Drag to rotate · Scroll to zoom · Click a planet for its story
+        </p>
       </div>
 
       {/* Chapter modal */}
