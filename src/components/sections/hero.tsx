@@ -1,10 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, ChevronDown, Briefcase } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import type { Easing } from 'framer-motion';
 import Image from 'next/image';
-import Button from '@/components/ui/button';
 import { PERSONAL } from '@/data/personal';
 import { SECTION_IDS } from '@/lib/constants';
 
@@ -46,7 +45,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Content */}
+      {/* Content — clean and simple */}
       <div className="relative z-10 flex min-h-screen items-center">
         <div className="mx-auto w-full max-w-6xl px-6 sm:px-10">
           <div className="max-w-xl">
@@ -56,7 +55,7 @@ const Hero = () => {
               Hello, I&apos;m
             </motion.p>
 
-            {/* Name */}
+            {/* Name — letter by letter */}
             <motion.h1 variants={fadeUp} initial="hidden" animate="visible" custom={0.1}
               className="font-display text-4xl font-extrabold tracking-[-0.04em] text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
               {PERSONAL.name.split('').map((char, i) => (
@@ -79,34 +78,14 @@ const Hero = () => {
               {PERSONAL.title}
             </motion.p>
 
-            {/* Badge */}
-            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.6}
-              className="mt-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent-muted px-4 py-1.5 text-sm font-semibold text-accent backdrop-blur-sm">
-              <Briefcase size={14} />
-              Founding Engineer · 500+ Solar Plants · 2M+ IoT Events/Day
-            </motion.div>
-
-            {/* Tagline */}
-            <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={0.7}
-              className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
+            {/* Tagline — simple, one line */}
+            <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={0.6}
+              className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
               Building scalable products from zero to one. 6+ years across solar fintech, e-commerce, and real-time systems.
             </motion.p>
 
-            {/* CTAs */}
-            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.85}
-              className="mt-8 flex flex-wrap gap-3">
-              <Button href={`#${SECTION_IDS.projects}`} size="lg" className="group hover-glow">
-                View My Work
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-              </Button>
-              <Button href={PERSONAL.resumeUrl} variant="outline" size="lg">
-                <Download size={16} />
-                Resume
-              </Button>
-            </motion.div>
-
-            {/* Worked with — all 3 inline, aligned with content */}
-            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={1.15}
+            {/* Worked with */}
+            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.8}
               className="mt-10">
               <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.15em] text-muted-foreground">
                 Worked with
@@ -117,7 +96,7 @@ const Hero = () => {
                     key={company.name}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 1.2 + i * 0.1 }}
+                    transition={{ duration: 0.4, delay: 0.9 + i * 0.1 }}
                     className="flex items-center gap-2 rounded-xl border border-border bg-card/50 px-3 py-2 backdrop-blur-sm transition-all duration-300 hover:border-accent/30 hover:bg-card"
                   >
                     <div className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-md bg-white">
@@ -137,7 +116,7 @@ const Hero = () => {
         href={`#${SECTION_IDS.about}`}
         className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-1 text-muted-foreground/50 transition-colors hover:text-accent"
         aria-label="Scroll down"
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 0.8 }}>
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.8 }}>
         <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
         <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}>
           <ChevronDown size={16} />
