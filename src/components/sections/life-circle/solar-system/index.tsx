@@ -29,7 +29,7 @@ const SolarSystemScene = ({ chapters, onPlanetClick }: SolarSystemSceneProps) =>
       </div>
 
       <Canvas
-        camera={{ position: [0, 15, 35], fov: 50 }}
+        camera={{ position: [0, 20, 28], fov: 55 }}
         dpr={[1, 2]}
         onCreated={({ gl }) => {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
