@@ -9,22 +9,22 @@ export const SITE_CONFIG = {
 export const SECTION_IDS = {
   hero: 'hero',
   about: 'about',
+  lifeCircle: 'life-circle',
   experience: 'experience',
   projects: 'projects',
   skills: 'skills',
-  education: 'education',
   platforms: 'platforms',
+  education: 'education',
   achievements: 'achievements',
-  courses: 'courses',
   hobbies: 'hobbies',
   contact: 'contact',
 } as const;
 
 export const NAV_LINKS = [
   { label: 'About', href: `#${SECTION_IDS.about}` },
+  { label: 'Journey', href: `#${SECTION_IDS.lifeCircle}` },
   { label: 'Experience', href: `#${SECTION_IDS.experience}` },
   { label: 'Projects', href: `#${SECTION_IDS.projects}` },
   { label: 'Skills', href: `#${SECTION_IDS.skills}` },
-  { label: 'Education', href: `#${SECTION_IDS.education}` },
   { label: 'Contact', href: `#${SECTION_IDS.contact}` },
 ] as const;
