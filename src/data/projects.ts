@@ -22,18 +22,6 @@ export const PROJECTS: Project[] = [
     highlight: 'Contributed 30-40% platform revenue',
   },
   {
-    id: 'comment-system',
-    title: 'Comment System',
-    description:
-      'A user-friendly comment system with Google login. Users can view, interact with, and manage comments (create, modify, reply, like, delete).',
-    tech: ['TypeScript', 'React', 'Node.js', 'Express.js'],
-    category: 'personal',
-    links: [
-      { label: 'Frontend', url: 'https://github.com/sonushahuji4/Comment-System-Frontend' },
-      { label: 'Backend', url: 'https://github.com/sonushahuji4/Comment-System-Backend' },
-    ],
-  },
-  {
     id: 'eventos',
     title: 'Eventos',
     description:
@@ -45,47 +33,14 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    id: 'whatsapp-clone',
-    title: 'WhatsApp Clone',
-    description:
-      "Real-time messaging application built to replicate WhatsApp's core functionality.",
-    tech: ['TypeScript', 'React', 'Node.js'],
-    category: 'personal',
-    links: [
-      { label: 'Source', url: 'https://github.com/sonushahuji4/WhatsAppClone' },
-    ],
-  },
-  {
     id: 'chat-app',
     title: 'Chat Application',
     description:
-      'Real-time chat application using ReactJS, NodeJS, Express and Socket.io.',
+      'Real-time chat application using ReactJS, NodeJS, Express and Socket.io with instant messaging and room support.',
     tech: ['TypeScript', 'React', 'Node.js', 'Express', 'Socket.io'],
     category: 'personal',
     links: [
       { label: 'Source', url: 'https://github.com/sonushahuji4/Chat-Application' },
-    ],
-  },
-  {
-    id: 'machine-coding',
-    title: 'Machine Coding Solutions',
-    description:
-      'A collection of machine coding round solutions built from scratch — covering real-time systems, data structures, and full-stack problems.',
-    tech: ['TypeScript', 'Node.js', 'HTML'],
-    category: 'personal',
-    links: [
-      { label: 'Source', url: 'https://github.com/sonushahuji4/machine-coding-solution' },
-    ],
-  },
-  {
-    id: '36grd',
-    title: '36grd — Sky Hackathon',
-    description:
-      'Government of Chhattisgarh project conducted by Sky Hackathon (27/08/2018).',
-    tech: ['Java'],
-    category: 'personal',
-    links: [
-      { label: 'Source', url: 'https://github.com/sonushahuji4/36grd' },
     ],
   },
 ];
