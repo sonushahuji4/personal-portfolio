@@ -8,7 +8,7 @@ import Projects from '@/components/sections/projects';
 import Skills from '@/components/sections/skills';
 import LifeCircle from '@/components/sections/life-circle/life-circle';
 import Platforms from '@/components/sections/platforms';
-import Education from '@/components/sections/education';
+import Education from '@/components/sections/education/index';
 import Achievements from '@/components/sections/achievements';
 import Hobbies from '@/components/sections/hobbies';
 import Contact from '@/components/sections/contact';
