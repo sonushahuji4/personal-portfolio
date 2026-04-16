@@ -59,7 +59,7 @@ const Header = () => {
                     href={link.href}
                     className={cn(
                       'relative rounded-lg px-3 py-1.5 text-sm transition-all',
-                      isActive ? 'text-accent font-medium' : 'text-muted hover:text-foreground'
+                      isActive ? 'text-accent font-medium' : 'text-muted hover:text-foreground hover:bg-card/50'
                     )}
                   >
                     {link.label}
@@ -88,7 +88,7 @@ const Header = () => {
         <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
           <button
-            className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-muted transition-colors hover:text-foreground"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg text-muted transition-all hover:text-foreground hover:bg-card/50"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >

@@ -46,9 +46,9 @@ export const ABOUT_SUMMARY = [
 
 export const HIGHLIGHT_CARDS: HighlightCard[] = [
   { value: '6+', label: 'Years of Experience' },
-  { value: '3', label: 'Companies Worked At' },
-  { value: '15+', label: 'Projects Delivered' },
-  { value: '1→5', label: 'Team Growth Led' },
+  { value: '20+', label: 'Countries Served' },
+  { value: '2M+', label: 'Daily IoT Events' },
+  { value: '1→5', label: 'Team Built & Led' },
 ];
 
 export const INTERESTS = [

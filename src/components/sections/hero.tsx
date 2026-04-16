@@ -90,17 +90,17 @@ const Hero = () => {
               {PERSONAL.title}
             </motion.p>
 
-            {/* Founding Engineer badge — the #1 conversion signal */}
+            {/* Founding Engineer badge — with unique metrics */}
             <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.6}
               className="mt-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-sm font-semibold text-accent backdrop-blur-sm">
               <Briefcase size={14} />
-              Founding Engineer · Series A · Solar Fintech
+              Founding Engineer · 500+ Solar Plants · 2M+ IoT Events/Day
             </motion.div>
 
-            {/* Tagline — slightly more visible */}
+            {/* Tagline */}
             <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={0.7}
               className="mt-5 max-w-md text-sm leading-relaxed text-white/60 sm:text-[15px]">
-              {PERSONAL.tagline}
+              Building scalable products from zero to one. 6+ years across solar fintech, e-commerce, and real-time systems.
             </motion.p>
 
             {/* CTAs */}

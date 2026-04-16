@@ -32,7 +32,7 @@ const AnimatedNumber = ({ value, color }: { value: string; color: string }) => {
           step++;
           setDisplay(Math.min(Math.floor(inc * step), numericPart).toLocaleString());
           if (step >= steps) { setDisplay(numericPart.toLocaleString()); clearInterval(timer); }
-        }, 1500 / steps);
+        }, 900 / steps);
       }
     }, { threshold: 0.5 });
     observer.observe(el);
@@ -48,7 +48,7 @@ const About = () => {
       <div className="pointer-events-none absolute inset-0 dot-grid opacity-30" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-6">
-        <SectionHeading title="About Me" subtitle="Get to know the person behind the code" />
+        <SectionHeading title="About Me" subtitle="Get to know the person behind the code" align="left" />
 
         {/* Stats row */}
         <div className="mb-16 grid grid-cols-2 gap-4 sm:grid-cols-4">
