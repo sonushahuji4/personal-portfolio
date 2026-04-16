@@ -32,87 +32,68 @@ const EducationBook = () => {
 
   return (
     <div>
-      {/* 3D Book Display */}
+      {/* 3D Book on desk — looking down from chair angle */}
       <div className={styles.bookWrapper}>
         <div className={styles.book3d}>
-          {/* Spine */}
+          {/* Physical book edges */}
           <div className={styles.bookSpine} />
-          {/* Shadow beneath */}
+          <div className={styles.bookThickness} />
+          <div className={styles.bookBottom} />
           <div className={styles.bookShadow} />
 
+          {/* The actual flip book */}
           <div className={styles.bookContainer}>
             {/* @ts-expect-error react-pageflip types are incomplete */}
             <HTMLFlipBook
-          ref={bookRef}
-          width={400}
-          height={550}
-          minWidth={280}
-          maxWidth={500}
-          minHeight={400}
-          maxHeight={650}
-          size="stretch"
-          showCover={true}
-          mobileScrollSupport={false}
-          flippingTime={1000}
-          maxShadowOpacity={0.7}
-          drawShadow={true}
-          useMouseEvents={true}
-          className="education-flipbook"
-          startPage={0}
-          onFlip={(e: { data: number }) => setCurrentPage(e.data)}
-          style={{}}
-        >
-          {/* Page 0: Front Cover */}
-          <CoverPage />
-
-          {/* Page 1: Index */}
-          <IndexPage entries={EDUCATION} onFlipTo={flipTo} />
-
-          {/* Pages 2-5: Education entries */}
-          {EDUCATION.map((entry, i) => (
-            <ContentPage key={entry.id} entry={entry} index={i} />
-          ))}
-
-          {/* Last page: Back Cover */}
-          <BackCoverPage />
-        </HTMLFlipBook>
+              ref={bookRef}
+              width={380}
+              height={520}
+              minWidth={260}
+              maxWidth={450}
+              minHeight={360}
+              maxHeight={600}
+              size="stretch"
+              showCover={true}
+              mobileScrollSupport={false}
+              flippingTime={900}
+              maxShadowOpacity={0.6}
+              drawShadow={true}
+              useMouseEvents={true}
+              className="education-flipbook"
+              startPage={0}
+              onFlip={(e: { data: number }) => setCurrentPage(e.data)}
+              style={{}}
+            >
+              <CoverPage />
+              <IndexPage entries={EDUCATION} onFlipTo={flipTo} />
+              {EDUCATION.map((entry, i) => (
+                <ContentPage key={entry.id} entry={entry} index={i} />
+              ))}
+              <BackCoverPage />
+            </HTMLFlipBook>
           </div>
         </div>
       </div>
 
       {/* Controls */}
-      <div className="mt-6 flex items-center justify-center gap-4">
-        <button
-          onClick={prevPage}
-          disabled={currentPage === 0}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-card text-muted transition-all hover:text-foreground hover:border-accent/30 disabled:opacity-30 disabled:cursor-not-allowed"
-          aria-label="Previous page"
-        >
+      <div className="mt-8 flex items-center justify-center gap-4">
+        <button onClick={prevPage} disabled={currentPage === 0}
+          className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-card text-muted transition-all hover:text-foreground hover:border-accent/30 disabled:opacity-30 disabled:cursor-not-allowed"
+          aria-label="Previous page">
           <ChevronLeft size={18} />
         </button>
 
-        {/* Page indicator */}
         <div className="flex items-center gap-1.5">
           {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              onClick={() => flipTo(i)}
-              className="flex items-center justify-center p-1"
-              aria-label={`Go to page ${i}`}
-            >
-              <span className={`block h-1.5 rounded-full transition-all duration-300 ${
-                currentPage === i ? 'w-5 bg-accent' : 'w-1.5 bg-border hover:bg-muted-foreground'
-              }`} />
+            <button key={i} onClick={() => flipTo(i)} className="flex items-center justify-center p-1" aria-label={`Page ${i}`}>
+              <span className={`block h-1.5 rounded-full transition-all duration-300 ${currentPage === i ? 'w-5 bg-accent' : 'w-1.5 bg-border hover:bg-muted-foreground'}`} />
             </button>
           ))}
         </div>
 
-        <button
-          onClick={nextPage}
-          disabled={currentPage >= totalPages - 1}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-card text-muted transition-all hover:text-foreground hover:border-accent/30 disabled:opacity-30 disabled:cursor-not-allowed"
-          aria-label="Next page"
-        >
+        <button onClick={nextPage} disabled={currentPage >= totalPages - 1}
+          className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-card text-muted transition-all hover:text-foreground hover:border-accent/30 disabled:opacity-30 disabled:cursor-not-allowed"
+          aria-label="Next page">
           <ChevronRight size={18} />
         </button>
       </div>
