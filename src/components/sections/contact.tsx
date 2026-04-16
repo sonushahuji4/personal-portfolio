@@ -64,39 +64,10 @@ const Contact = () => {
           </p>
         </motion.div>
 
-        <div className="grid gap-10 md:grid-cols-[1fr_1.2fr]">
-          {/* Left: Socials + Resume */}
-          <div className="flex flex-col justify-between">
-            <div className="space-y-8">
-              {/* Connect heading */}
-              <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
-                <h3 className="font-display text-lg font-bold text-foreground mb-2">Other ways to connect</h3>
-                <p className="text-sm text-muted">Follow my journey, see my work, or connect professionally.</p>
-              </motion.div>
-
-              {/* Social links — horizontal row */}
-              <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
-                className="flex gap-3">
-                <a href={CONTACT_INFO.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                  className="group flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-[#0A66C2]/30 hover:bg-[#0A66C2] hover:text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-[#0A66C2]/20">
-                  <LinkedinIcon />
-                </a>
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                  className="group flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-pink-500/30 hover:bg-pink-500 hover:text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-pink-500/20">
-                  <InstagramIcon />
-                </a>
-                <a href={CONTACT_INFO.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"
-                  className="group flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-accent/30 hover:bg-accent hover:text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/20">
-                  <GithubIcon />
-                </a>
-              </motion.div>
-            </div>
-
-          </div>
-
-          {/* Right: Contact Form */}
+        <div className="space-y-10">
+          {/* Form first — full width */}
           <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
-            className="rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-6 sm:p-8">
+            className="mx-auto max-w-lg rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-6 sm:p-8">
 
             {formStatus === 'success' ? (
               <div className="flex flex-col items-center justify-center py-12 text-center">
@@ -146,6 +117,26 @@ const Contact = () => {
                 </button>
               </form>
             )}
+          </motion.div>
+
+          {/* Socials below form */}
+          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }}
+            className="text-center">
+            <p className="mb-4 text-sm text-muted">Or connect with me on</p>
+            <div className="flex justify-center gap-3">
+              <a href={CONTACT_INFO.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+                className="group flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-[#0A66C2]/30 hover:bg-[#0A66C2] hover:text-white hover:-translate-y-1 hover:shadow-lg">
+                <LinkedinIcon />
+              </a>
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                className="group flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-pink-500/30 hover:bg-pink-500 hover:text-white hover:-translate-y-1 hover:shadow-lg">
+                <InstagramIcon />
+              </a>
+              <a href={CONTACT_INFO.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+                className="group flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-accent/30 hover:bg-accent hover:text-white hover:-translate-y-1 hover:shadow-lg">
+                <GithubIcon />
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>

@@ -19,22 +19,22 @@ export const CoverPage = React.forwardRef<HTMLDivElement, { style?: React.CSSPro
           src={`${basePath}/images/graduation-photo.png`}
           alt="Graduation"
           fill
-          className="object-cover object-top"
+          className="object-cover object-center"
           unoptimized
         />
-        {/* Gradient overlay — blends photo into cover bottom */}
-        <div className="absolute inset-0 bg-linear-to-t from-[#1e1008] via-[#1e1008]/60 to-transparent" />
+        {/* Subtle gradient — keep face visible, darken bottom only */}
+        <div className="absolute inset-0 bg-linear-to-t from-[#1a0f08]/80 via-transparent to-[#1a0f08]/20" />
 
-        {/* Text — over the photo, at the bottom */}
-        <div className="relative z-10 pb-10 px-6 text-center">
-          <h2 className={`font-display text-2xl sm:text-3xl font-bold ${styles.goldTitle}`}>
-            My Education
-          </h2>
-          <p className="mt-2 text-xs text-amber-200/40 font-serif italic">
+        {/* Gold border frame */}
+        <div className="absolute inset-3 border border-amber-500/15 rounded-sm pointer-events-none z-10" />
+
+        {/* Text — bottom left, small, not blocking the face */}
+        <div className="relative z-10 w-full px-5 pb-6 mt-auto text-left">
+          <p className={`font-serif text-sm italic ${styles.goldTitle}`}>
             A journey of learning
           </p>
-          <div className="mx-auto mt-3 h-px w-16 bg-amber-500/20" />
-          <p className="mt-6 text-[10px] text-amber-200/20 tracking-widest uppercase">
+          <div className="mt-2 h-px w-10 bg-amber-500/25" />
+          <p className="mt-3 text-[9px] text-amber-200/30 tracking-[0.2em] uppercase">
             Open to read →
           </p>
         </div>
