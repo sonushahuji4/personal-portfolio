@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, ArrowRight, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { ArrowRight, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import Button from '@/components/ui/button';
 import { CONTACT_INFO, FORMSPREE_ENDPOINT, INSTAGRAM_URL } from '@/data/personal';
 import { SECTION_IDS } from '@/lib/constants';
@@ -38,25 +38,14 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus('sending');
-
     const formData = new FormData(e.currentTarget);
-
     try {
       const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        body: formData,
-        headers: { Accept: 'application/json' },
+        method: 'POST', body: formData, headers: { Accept: 'application/json' },
       });
-
-      if (res.ok) {
-        setFormStatus('success');
-        (e.target as HTMLFormElement).reset();
-      } else {
-        setFormStatus('error');
-      }
-    } catch {
-      setFormStatus('error');
-    }
+      if (res.ok) { setFormStatus('success'); (e.target as HTMLFormElement).reset(); }
+      else { setFormStatus('error'); }
+    } catch { setFormStatus('error'); }
   };
 
   return (
@@ -72,61 +61,62 @@ const Contact = () => {
           </h2>
           <div className="mx-auto mt-3 h-1 w-16 rounded-full" style={{ background: 'linear-gradient(to right, var(--gradient-1), var(--gradient-2))' }} />
           <p className="mx-auto mt-4 max-w-md text-[15px] text-muted">
-            Got an idea, a project, or just want to say hi? Fill in the form and I&apos;ll get back to you.
+            Got an idea, a project, or just want to connect? Fill in the form or reach out on socials.
           </p>
         </motion.div>
 
         <div className="grid gap-10 md:grid-cols-[1fr_1.2fr]">
-          {/* Left: Info + Socials */}
-          <div className="space-y-6">
-            {/* Email */}
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.4 }}
-              className="flex items-center gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent-muted border border-accent/10">
-                <Mail size={20} className="text-accent" />
-              </div>
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Email</p>
-                <a href={`mailto:${CONTACT_INFO.email}`} className="text-base font-semibold text-foreground transition-colors hover:text-accent">{CONTACT_INFO.email}</a>
-              </div>
-            </motion.div>
+          {/* Left: Socials + Resume */}
+          <div className="flex flex-col justify-between">
+            <div className="space-y-8">
+              {/* Connect heading */}
+              <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+                <h3 className="font-display text-lg font-bold text-foreground mb-2">Other ways to connect</h3>
+                <p className="text-sm text-muted">Follow my journey, see my work, or connect professionally.</p>
+              </motion.div>
 
-            {/* Location */}
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.1 }}
-              className="flex items-center gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent-muted border border-accent/10">
-                <MapPin size={20} className="text-accent" />
-              </div>
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Location</p>
-                <p className="text-base font-semibold text-foreground">{CONTACT_INFO.location}</p>
-              </div>
-            </motion.div>
+              {/* Social links — larger, with labels */}
+              <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
+                className="space-y-3">
+                <a href={CONTACT_INFO.linkedin} target="_blank" rel="noopener noreferrer"
+                  className="group flex items-center gap-4 rounded-xl border border-border bg-card/80 p-4 transition-all duration-300 hover:border-accent/30 hover:-translate-y-0.5 hover:shadow-lg">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#0A66C2]/10 text-[#0A66C2] transition-colors group-hover:bg-[#0A66C2] group-hover:text-white">
+                    <LinkedinIcon />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">LinkedIn</p>
+                    <p className="text-xs text-muted-foreground">Connect professionally</p>
+                  </div>
+                </a>
 
-            {/* Social links */}
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.2 }}
-              className="pt-4">
-              <p className="mb-3 text-xs font-medium uppercase tracking-wider text-muted-foreground">Connect</p>
-              <div className="flex gap-3">
-                <a href={CONTACT_INFO.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-                  className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-accent/30 hover:text-accent hover:-translate-y-1 hover:shadow-lg">
-                  <LinkedinIcon />
+                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
+                  className="group flex items-center gap-4 rounded-xl border border-border bg-card/80 p-4 transition-all duration-300 hover:border-pink-500/30 hover:-translate-y-0.5 hover:shadow-lg">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-pink-500/10 text-pink-500 transition-colors group-hover:bg-pink-500 group-hover:text-white">
+                    <InstagramIcon />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">Instagram</p>
+                    <p className="text-xs text-muted-foreground">@i.m.sonuuu</p>
+                  </div>
                 </a>
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram"
-                  className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-pink-500/30 hover:text-pink-500 hover:-translate-y-1 hover:shadow-lg">
-                  <InstagramIcon />
+
+                <a href={CONTACT_INFO.github} target="_blank" rel="noopener noreferrer"
+                  className="group flex items-center gap-4 rounded-xl border border-border bg-card/80 p-4 transition-all duration-300 hover:border-accent/30 hover:-translate-y-0.5 hover:shadow-lg">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-muted text-accent transition-colors group-hover:bg-accent group-hover:text-white">
+                    <GithubIcon />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">GitHub</p>
+                    <p className="text-xs text-muted-foreground">See my code</p>
+                  </div>
                 </a>
-                <a href={CONTACT_INFO.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"
-                  className="flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-accent/30 hover:text-accent hover:-translate-y-1 hover:shadow-lg">
-                  <GithubIcon />
-                </a>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
 
             {/* Resume CTA */}
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: 0.3 }}
-              className="pt-4">
-              <Button href={CONTACT_INFO.resumeUrl} size="lg" className="group hover-glow w-full sm:w-auto">
+            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
+              className="mt-8">
+              <Button href={CONTACT_INFO.resumeUrl} size="lg" className="group hover-glow w-full">
                 Get My Resume
                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
               </Button>
@@ -154,43 +144,33 @@ const Contact = () => {
                     className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none transition-all"
                     placeholder="John Doe" />
                 </div>
-
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1.5">Your Email</label>
                   <input type="email" id="email" name="_replyto" required
                     className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none transition-all"
                     placeholder="john@example.com" />
                 </div>
-
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1.5">Message</label>
                   <textarea id="message" name="message" required rows={4}
                     className="w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-accent focus:ring-2 focus:ring-accent/20 focus:outline-none transition-all resize-none"
                     placeholder="Tell me about your project or just say hi..." />
                 </div>
-
-                {/* Honeypot for spam */}
                 <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
                 {formStatus === 'error' && (
                   <div className="flex items-center gap-2 rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-400">
                     <AlertCircle size={16} />
-                    Something went wrong. Please try again or email me directly.
+                    Something went wrong. Please try again.
                   </div>
                 )}
 
                 <button type="submit" disabled={formStatus === 'sending'}
                   className="flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-3.5 text-base font-semibold text-white transition-all duration-300 hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-xl hover:shadow-accent/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed">
                   {formStatus === 'sending' ? (
-                    <>
-                      <div className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
-                      Sending...
-                    </>
+                    <><div className="h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" /> Sending...</>
                   ) : (
-                    <>
-                      <Send size={16} />
-                      Send Message
-                    </>
+                    <><Send size={16} /> Send Message</>
                   )}
                 </button>
               </form>

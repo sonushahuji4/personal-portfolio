@@ -134,13 +134,16 @@ export const playBounce = () => {
 
 // Map hobby names to sound functions
 export const HOBBY_SOUNDS: Record<string, () => void> = {
-  Guitar: playGuitarStrum,
-  Piano: playPianoChord,
-  Football: playWhistle,
-  Hockey: playBounce,
-  Basketball: playBounce,
-  'Competitive Programming': playKeyClick,
-  'Tech Exploration': playChime,
-  'Problem Solving': playKeyClick,
+  // Tech Zone
+  'Hackathons': playKeyClick,
   'Open Source': playChime,
+  'Competitive Programming': playKeyClick,
+  // Sports Zone
+  'Football': playWhistle,
+  'Marathons': playBounce,
+  'Basketball & Hockey': playBounce,
+  // Music & Chill Zone
+  'Music Appreciation': playPianoChord,
+  'Exploration & Travel': playChime,
+  'Creative Roots': playGuitarStrum,
 };
