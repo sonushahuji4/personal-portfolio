@@ -45,7 +45,7 @@ const Achievements = () => {
                 }`}>
                 {tab.icon}
                 <span className="hidden sm:inline">{tab.label}</span>
-                <span className={`rounded-full px-1.5 py-0.5 text-xs ${activeTab === tab.id ? 'bg-white/20' : 'bg-border'}`}>{tab.count}</span>
+                <span className="rounded-full bg-border px-1.5 py-0.5 text-xs">{tab.count}</span>
               </button>
             ))}
           </div>

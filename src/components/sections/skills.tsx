@@ -14,7 +14,7 @@ const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: 
   Monitor, Server, Database, Cloud, Blocks, Lightbulb,
 };
 
-const CATEGORY_COLORS = ['#A78BFA', '#6EE7B7', '#67E8F9', '#F472B6', '#FCD34D', '#A5B4FC'];
+const CATEGORY_COLORS = ['#7C3AED', '#059669', '#0891B2', '#DB2777', '#D97706', '#4F46E5'];
 
 const SkillNode = ({ skill, index, total, color, isHovered, onHover, onLeave, onClick }: {
   skill: { name: string; years?: number };

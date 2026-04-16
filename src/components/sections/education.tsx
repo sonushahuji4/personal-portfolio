@@ -7,7 +7,7 @@ import { EDUCATION } from '@/data/education';
 import { SECTION_IDS } from '@/lib/constants';
 import CompanyLogo, { EDUCATION_LOGO_PATHS } from '@/components/common/company-logo';
 
-const EDU_COLORS = ['#A78BFA', '#67E8F9', '#6EE7B7', '#F472B6'];
+const EDU_COLORS = ['#7C3AED', '#0891B2', '#059669', '#DB2777'];
 
 const Education = () => {
   return (

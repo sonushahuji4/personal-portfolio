@@ -39,7 +39,7 @@ const fadeUp = {
 
 const Hero = () => {
   return (
-    <section id={SECTION_IDS.hero} className="relative min-h-screen overflow-hidden bg-[#09090B]">
+    <section id={SECTION_IDS.hero} className="relative min-h-screen overflow-hidden bg-background">
       {/* Photo — right 50% */}
       <div className="absolute inset-0 z-0">
         <div className="absolute right-0 top-0 h-full w-[85%] sm:w-[50%]">
@@ -51,9 +51,10 @@ const Hero = () => {
             priority
             unoptimized
           />
-          <div className="absolute inset-0 bg-linear-to-r from-[#09090B] from-10% via-[#09090B]/70 via-40% to-transparent to-80%" />
-          <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-[#09090B] to-transparent" />
-          <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-[#09090B]/50 to-transparent" />
+          {/* Gradient overlays — using CSS vars so they adapt to theme */}
+          <div className="absolute inset-0 bg-linear-to-r from-background from-10% via-background/70 via-40% to-transparent to-80%" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-background to-transparent" />
+          <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-background/50 to-transparent" />
         </div>
       </div>
 
@@ -69,7 +70,7 @@ const Hero = () => {
 
             {/* Name — letter by letter reveal */}
             <motion.h1 variants={fadeUp} initial="hidden" animate="visible" custom={0.1}
-              className="font-display text-4xl font-extrabold tracking-[-0.04em] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+              className="font-display text-4xl font-extrabold tracking-[-0.04em] text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
               {PERSONAL.name.split('').map((char, i) => (
                 <motion.span
                   key={i}
@@ -84,22 +85,22 @@ const Hero = () => {
               ))}
             </motion.h1>
 
-            {/* Static title — no rotation, strongest title pinned */}
+            {/* Static title */}
             <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={0.5}
-              className="mt-3 text-lg font-medium text-white/70 sm:text-xl">
+              className="mt-3 text-lg font-medium text-muted sm:text-xl">
               {PERSONAL.title}
             </motion.p>
 
-            {/* Founding Engineer badge — with unique metrics */}
+            {/* Founding Engineer badge */}
             <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.6}
-              className="mt-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-sm font-semibold text-accent backdrop-blur-sm">
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent-muted px-4 py-1.5 text-sm font-semibold text-accent backdrop-blur-sm">
               <Briefcase size={14} />
               Founding Engineer · 500+ Solar Plants · 2M+ IoT Events/Day
             </motion.div>
 
             {/* Tagline */}
             <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={0.7}
-              className="mt-5 max-w-md text-sm leading-relaxed text-white/60 sm:text-[15px]">
+              className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
               Building scalable products from zero to one. 6+ years across solar fintech, e-commerce, and real-time systems.
             </motion.p>
 
@@ -119,7 +120,7 @@ const Hero = () => {
             {/* Social links */}
             <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={1.0}
               className="mt-10 flex items-center gap-2">
-              <span className="h-px w-8 bg-white/20" />
+              <span className="h-px w-8 bg-border" />
               {SOCIAL_LINKS.map((link) => {
                 const Icon = ICON_MAP[link.icon];
                 return (
@@ -127,7 +128,7 @@ const Hero = () => {
                     target={link.url.startsWith('mailto:') ? undefined : '_blank'}
                     rel={link.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                     aria-label={link.name}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-white/50 backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:text-white hover:-translate-y-0.5 hover:bg-accent/10">
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-border text-muted-foreground backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:text-accent hover:-translate-y-0.5 hover:bg-accent-muted">
                     {Icon && <Icon size={16} />}
                   </a>
                 );
@@ -140,7 +141,7 @@ const Hero = () => {
       {/* Scroll indicator */}
       <motion.a
         href={`#${SECTION_IDS.about}`}
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-1 text-white/30 transition-colors hover:text-accent"
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-1 text-muted-foreground/50 transition-colors hover:text-accent"
         aria-label="Scroll down"
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 0.8 }}>
         <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
