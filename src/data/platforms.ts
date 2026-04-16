@@ -1,49 +1,64 @@
-import type { Platform } from '@/types';
+export interface PlatformData {
+  id: string;
+  name: string;
+  username: string;
+  url: string;
+  color: string;
+  icon: 'leetcode' | 'github' | 'codechef' | 'linkedin';
+  featured: boolean;
+  primaryStat: { value: string; label: string };
+  secondaryStats?: { label: string; value: string }[];
+  badge?: { text: string };
+  progress?: { label: string; percentage: number };
+  description: string;
+}
 
-export const PLATFORMS: Platform[] = [
+export const PLATFORMS_DATA: PlatformData[] = [
   {
+    id: 'leetcode',
     name: 'LeetCode',
     username: 'sonushahuji4',
     url: 'https://leetcode.com/u/sonushahuji4/',
-    color: '#FFA116',
-    stats: [
-      { label: 'Algorithms Mastered', value: '624' },
-      { label: 'Contest Rating', value: '2,059' },
-      { label: 'Rank', value: 'Knight' },
-      { label: 'Global Standing', value: 'Top 1.9%' },
-      { label: 'Contests', value: '25' },
-    ],
+    color: '#EF9F27',
+    icon: 'leetcode',
+    featured: true,
+    primaryStat: { value: '2,059', label: 'rating' },
+    badge: { text: 'Knight' },
+    progress: { label: '624 solved', percentage: 62 },
+    secondaryStats: [{ label: 'contests', value: '25' }],
+    description: 'Top 1.9% worldwide',
   },
   {
+    id: 'github',
     name: 'GitHub',
     username: 'sonushahuji4',
     url: 'https://github.com/sonushahuji4',
-    color: '#6E40C9',
-    stats: [
-      { label: 'Contributions', value: '1,200+' },
-      { label: 'Repositories', value: '31' },
-      { label: 'Pinned Projects', value: '6' },
-    ],
+    color: '#7F77DD',
+    icon: 'github',
+    featured: false,
+    primaryStat: { value: '1,200+', label: 'contributions' },
+    description: '31 repos · 6 pinned',
   },
   {
+    id: 'codechef',
     name: 'CodeChef',
     username: 'sonushahuji4',
     url: 'https://www.codechef.com/users/sonushahuji4',
-    color: '#5B4638',
-    stats: [
-      { label: 'Highest Rating', value: '1,591' },
-      { label: 'Contests', value: '42' },
-      { label: 'Problems Solved', value: '321' },
-    ],
+    color: '#D85A30',
+    icon: 'codechef',
+    featured: false,
+    primaryStat: { value: '1,591', label: 'highest rating' },
+    description: '42 contests · 321 solved',
   },
   {
+    id: 'linkedin',
     name: 'LinkedIn',
     username: 'sonushahuji',
     url: 'https://www.linkedin.com/in/sonushahuji/',
-    color: '#0A66C2',
-    stats: [
-      { label: 'Connections', value: '500+' },
-      { label: 'Followers', value: '980' },
-    ],
+    color: '#378ADD',
+    icon: 'linkedin',
+    featured: false,
+    primaryStat: { value: '500+', label: 'connections' },
+    description: 'Open to collaborations & opportunities',
   },
 ];
