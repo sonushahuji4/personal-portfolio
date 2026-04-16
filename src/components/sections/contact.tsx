@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Send, CheckCircle, AlertCircle } from 'lucide-react';
-import Button from '@/components/ui/button';
+import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { CONTACT_INFO, FORMSPREE_ENDPOINT, INSTAGRAM_URL } from '@/data/personal';
 import { SECTION_IDS } from '@/lib/constants';
 
@@ -93,14 +92,6 @@ const Contact = () => {
               </motion.div>
             </div>
 
-            {/* Resume CTA */}
-            <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.3 }}
-              className="mt-8">
-              <Button href={CONTACT_INFO.resumeUrl} size="lg" className="group hover-glow w-full">
-                Get My Resume
-                <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-              </Button>
-            </motion.div>
           </div>
 
           {/* Right: Contact Form */}
