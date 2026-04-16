@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import SectionHeading from '@/components/ui/section-heading';
 import Badge from '@/components/ui/badge';
-import Timeline from '@/components/common/timeline';
 import { EXPERIENCES } from '@/data/experience';
 import { SECTION_IDS } from '@/lib/constants';
 import CompanyLogo, { COMPANY_LOGO_PATHS } from '@/components/common/company-logo';
@@ -17,45 +16,55 @@ const COMPANY_COLORS: Record<string, string> = {
 const Experience = () => {
   return (
     <section id={SECTION_IDS.experience} className="relative py-24 sm:py-32 overflow-hidden">
-      {/* Circuit board pattern background */}
-      <div className="pointer-events-none absolute inset-0 bg-circuit opacity-30" aria-hidden="true" />
+      <div className="pointer-events-none absolute inset-0 bg-circuit opacity-20" aria-hidden="true" />
       <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-background via-transparent to-background" aria-hidden="true" />
 
       <div className="relative z-10 mx-auto max-w-4xl px-6">
-        <SectionHeading
-          title="Work Experience"
-          subtitle="Building products, leading teams, and shipping impact"
-          accent="#14b8a6"
-        />
+        <SectionHeading title="Work Experience" subtitle="Building products, leading teams, and shipping impact" accent="#6EE7B7" />
 
-        <Timeline>
+        {/* Year-based timeline */}
+        <div className="relative">
+          {/* Vertical line */}
+          <div className="absolute left-6 sm:left-16 top-0 bottom-0 w-px bg-linear-to-b from-accent/30 via-accent/15 to-transparent" />
+
           {EXPERIENCES.map((exp, index) => {
             const color = COMPANY_COLORS[exp.id] || 'var(--accent)';
-            return (
-              <Timeline.Item key={exp.id} isLast={index === EXPERIENCES.length - 1}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5 }}
-                  className="relative rounded-2xl border border-border bg-card/80 backdrop-blur-sm shadow-sm shadow-shadow transition-all duration-300 hover:shadow-lg hover:shadow-shadow overflow-hidden"
-                >
-                  {/* Top color stripe */}
-                  <div className="h-1" style={{ background: color }} />
+            const startYear = exp.duration.split('–')[0].trim().split(' ').pop() || '';
 
+            return (
+              <motion.div
+                key={exp.id}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="group relative mb-10 last:mb-0 pl-16 sm:pl-32"
+              >
+                {/* Year label */}
+                <div className="absolute left-0 sm:left-4 top-3">
+                  <span className="font-display text-sm font-bold sm:text-base" style={{ color }}>{startYear}</span>
+                </div>
+
+                {/* Dot */}
+                <div className="absolute left-5.25 sm:left-15.25 top-4 z-10">
+                  <div className="h-3 w-3 rounded-full transition-all duration-300 group-hover:scale-150"
+                    style={{ backgroundColor: color, boxShadow: `0 0 0 4px ${color}20` }} />
+                </div>
+
+                {/* Connector */}
+                <div className="absolute left-6.75 sm:left-16.75 top-4.5 w-6 sm:w-12 h-px" style={{ backgroundColor: color + '30' }} />
+
+                {/* Card */}
+                <div className="rounded-2xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-shadow">
+                  <div className="h-1" style={{ background: color }} />
                   <div className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="shrink-0">
-                        <CompanyLogo
-                          name={exp.company}
-                          src={COMPANY_LOGO_PATHS[exp.id] || ''}
-                          color={color}
-                          size={48}
-                        />
+                        <CompanyLogo name={exp.company} src={COMPANY_LOGO_PATHS[exp.id] || ''} color={color} size={48} />
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                          <h3 className="font-display text-xl font-bold text-foreground">
+                          <h3 className="font-display text-lg font-bold text-foreground">
                             {exp.companyUrl ? (
                               <a href={exp.companyUrl} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent">
                                 {exp.company}
@@ -74,22 +83,13 @@ const Experience = () => {
 
                     <ul className="mt-5 space-y-2.5 border-t border-border pt-5">
                       {exp.impacts.map((impact, i) => (
-                        <motion.li
-                          key={i}
-                          initial={{ opacity: 0 }}
-                          whileInView={{ opacity: 1 }}
-                          viewport={{ once: true }}
+                        <motion.li key={i} initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
                           transition={{ duration: 0.3, delay: i * 0.03 }}
-                          className="flex items-start gap-2.5 text-sm text-muted leading-relaxed"
-                        >
+                          className="flex items-start gap-2.5 text-sm text-muted leading-relaxed">
                           <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ backgroundColor: color }} />
                           <span>
                             {impact.text}
-                            {impact.metric && (
-                              <span className="ml-1 font-bold" style={{ color }}>
-                                {impact.metric}
-                              </span>
-                            )}
+                            {impact.metric && <span className="ml-1 font-bold" style={{ color }}>{impact.metric}</span>}
                           </span>
                         </motion.li>
                       ))}
@@ -99,11 +99,11 @@ const Experience = () => {
                       {exp.tech.map((tag) => <Badge key={tag}>{tag}</Badge>)}
                     </div>
                   </div>
-                </motion.div>
-              </Timeline.Item>
+                </div>
+              </motion.div>
             );
           })}
-        </Timeline>
+        </div>
       </div>
     </section>
   );
