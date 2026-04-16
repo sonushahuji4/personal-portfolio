@@ -3,10 +3,10 @@ import Footer from '@/components/layout/footer';
 import ScrollProgress from '@/components/ui/scroll-progress';
 import Hero from '@/components/sections/hero';
 import About from '@/components/sections/about';
-import LifeCircle from '@/components/sections/life-circle/life-circle';
 import Experience from '@/components/sections/experience';
 import Projects from '@/components/sections/projects';
 import Skills from '@/components/sections/skills';
+import LifeCircle from '@/components/sections/life-circle/life-circle';
 import Platforms from '@/components/sections/platforms';
 import Education from '@/components/sections/education';
 import Achievements from '@/components/sections/achievements';
@@ -21,10 +21,10 @@ const Home = () => {
       <main className="flex-1">
         <Hero />
         <About />
-        <LifeCircle />
         <Experience />
         <Projects />
         <Skills />
+        <LifeCircle />
         <Platforms />
         <Education />
         <Achievements />

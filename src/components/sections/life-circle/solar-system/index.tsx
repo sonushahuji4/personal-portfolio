@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense, useState, useCallback } from 'react';
+import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
@@ -18,30 +18,19 @@ interface SolarSystemSceneProps {
 }
 
 const SolarSystemScene = ({ chapters, onPlanetClick }: SolarSystemSceneProps) => {
-  const [isInteractive, setIsInteractive] = useState(false);
-
-  const handleCanvasClick = useCallback(() => {
-    if (!isInteractive) setIsInteractive(true);
-  }, [isInteractive]);
-
   return (
-    <div className="relative w-full" style={{ height: '70vh', minHeight: 500 }}>
-      {/* Click to explore overlay */}
-      {!isInteractive && (
-        <div
-          className="absolute inset-0 z-10 flex items-center justify-center cursor-pointer"
-          onClick={handleCanvasClick}
-        >
-          <div className="rounded-full border border-accent/30 bg-background/80 backdrop-blur-sm px-6 py-3 text-sm font-medium text-accent">
-            Click to explore the universe
-          </div>
+    <div className="relative w-full rounded-2xl overflow-hidden border border-border/30" style={{ height: '75vh', minHeight: 560 }}>
+      {/* Loading fallback */}
+      <div className="absolute inset-0 flex items-center justify-center bg-[#050508] z-0">
+        <div className="text-center">
+          <div className="h-8 w-8 mx-auto rounded-full border-2 border-accent/30 border-t-accent animate-spin" />
+          <p className="mt-3 text-xs text-muted-foreground">Loading universe...</p>
         </div>
-      )}
+      </div>
 
       <Canvas
         camera={{ position: [0, 15, 35], fov: 50 }}
         dpr={[1, 2]}
-        onClick={handleCanvasClick}
         onCreated={({ gl }) => {
           gl.toneMapping = THREE.ACESFilmicToneMapping;
           gl.toneMappingExposure = 1.2;
@@ -67,15 +56,15 @@ const SolarSystemScene = ({ chapters, onPlanetClick }: SolarSystemSceneProps) =>
           {/* Controls */}
           <OrbitControls
             enablePan={false}
-            enableZoom={isInteractive}
-            enableRotate={isInteractive}
+            enableZoom={true}
+            enableRotate={true}
             minDistance={5}
             maxDistance={60}
             zoomSpeed={0.6}
             enableDamping
             dampingFactor={0.08}
             autoRotate
-            autoRotateSpeed={0.08}
+            autoRotateSpeed={0.4}
             rotateSpeed={0.5}
           />
         </Suspense>

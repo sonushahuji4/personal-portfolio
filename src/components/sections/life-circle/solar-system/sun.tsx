@@ -17,7 +17,7 @@ const Sun = () => {
       {/* Core */}
       <mesh>
         <sphereGeometry args={[1.2, 32, 32]} />
-        <meshStandardMaterial color="#ffd700" emissive="#ff8c00" emissiveIntensity={2} roughness={0.3} />
+        <meshStandardMaterial color="#ffd700" emissive="#ff8c00" emissiveIntensity={1.2} roughness={0.3} />
       </mesh>
       {/* Outer glow */}
       <mesh>
