@@ -75,8 +75,12 @@ const Header = () => {
               );
             })}
           </ul>
-          <div className="ml-4">
+          <div className="ml-4 flex items-center gap-2">
             <ThemeToggle />
+            <a href={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/resume.pdf`}
+              className="rounded-xl bg-accent px-4 py-2 text-xs font-semibold text-white transition-all hover:bg-accent-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/20 active:scale-[0.98]">
+              Resume
+            </a>
           </div>
         </div>
 
