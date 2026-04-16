@@ -43,6 +43,7 @@ export interface Project {
 
 export interface Skill {
   name: string;
+  years?: number;
 }
 
 export interface SkillCategory {
