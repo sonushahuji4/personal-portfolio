@@ -75,40 +75,20 @@ const Contact = () => {
                 <p className="text-sm text-muted">Follow my journey, see my work, or connect professionally.</p>
               </motion.div>
 
-              {/* Social links — larger, with labels */}
+              {/* Social links — horizontal row */}
               <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }}
-                className="space-y-3">
-                <a href={CONTACT_INFO.linkedin} target="_blank" rel="noopener noreferrer"
-                  className="group flex items-center gap-4 rounded-xl border border-border bg-card/80 p-4 transition-all duration-300 hover:border-accent/30 hover:-translate-y-0.5 hover:shadow-lg">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#0A66C2]/10 text-[#0A66C2] transition-colors group-hover:bg-[#0A66C2] group-hover:text-white">
-                    <LinkedinIcon />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">LinkedIn</p>
-                    <p className="text-xs text-muted-foreground">Connect professionally</p>
-                  </div>
+                className="flex gap-3">
+                <a href={CONTACT_INFO.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
+                  className="group flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-[#0A66C2]/30 hover:bg-[#0A66C2] hover:text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-[#0A66C2]/20">
+                  <LinkedinIcon />
                 </a>
-
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
-                  className="group flex items-center gap-4 rounded-xl border border-border bg-card/80 p-4 transition-all duration-300 hover:border-pink-500/30 hover:-translate-y-0.5 hover:shadow-lg">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-pink-500/10 text-pink-500 transition-colors group-hover:bg-pink-500 group-hover:text-white">
-                    <InstagramIcon />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">Instagram</p>
-                    <p className="text-xs text-muted-foreground">@i.m.sonuuu</p>
-                  </div>
+                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram"
+                  className="group flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-pink-500/30 hover:bg-pink-500 hover:text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-pink-500/20">
+                  <InstagramIcon />
                 </a>
-
-                <a href={CONTACT_INFO.github} target="_blank" rel="noopener noreferrer"
-                  className="group flex items-center gap-4 rounded-xl border border-border bg-card/80 p-4 transition-all duration-300 hover:border-accent/30 hover:-translate-y-0.5 hover:shadow-lg">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-muted text-accent transition-colors group-hover:bg-accent group-hover:text-white">
-                    <GithubIcon />
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">GitHub</p>
-                    <p className="text-xs text-muted-foreground">See my code</p>
-                  </div>
+                <a href={CONTACT_INFO.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+                  className="group flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground transition-all duration-300 hover:border-accent/30 hover:bg-accent hover:text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-accent/20">
+                  <GithubIcon />
                 </a>
               </motion.div>
             </div>

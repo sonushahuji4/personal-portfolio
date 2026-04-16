@@ -1,41 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, ChevronDown, Code, Mail, Briefcase } from 'lucide-react';
+import { ArrowRight, Download, ChevronDown, Briefcase } from 'lucide-react';
 import type { Easing } from 'framer-motion';
 import Image from 'next/image';
 import Button from '@/components/ui/button';
-import { PERSONAL, SOCIAL_LINKS } from '@/data/personal';
+import { PERSONAL } from '@/data/personal';
 import { SECTION_IDS } from '@/lib/constants';
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-
-const GithubIcon = ({ size = 18 }: { size?: number }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-);
-
-const LinkedinIcon = ({ size = 18 }: { size?: number }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect width="4" height="12" x="2" y="9" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
-
-const InstagramIcon = ({ size = 18 }: { size?: number }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-  </svg>
-);
-
-const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = {
-  Github: GithubIcon, Linkedin: LinkedinIcon, Instagram: InstagramIcon, Code, Mail,
-};
 
 const COMPANIES = [
   { name: 'Aerem Solutions', logo: `${basePath}/logos/aerem.avif` },
@@ -130,24 +103,6 @@ const Hero = () => {
                 <Download size={16} />
                 Resume
               </Button>
-            </motion.div>
-
-            {/* Social links */}
-            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={1.0}
-              className="mt-8 flex items-center gap-2">
-              <span className="h-px w-8 bg-border" />
-              {SOCIAL_LINKS.map((link) => {
-                const Icon = ICON_MAP[link.icon];
-                return (
-                  <a key={link.name} href={link.url}
-                    target={link.url.startsWith('mailto:') ? undefined : '_blank'}
-                    rel={link.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                    aria-label={link.name}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-border text-muted-foreground backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:text-accent hover:-translate-y-0.5 hover:bg-accent-muted">
-                    {Icon && <Icon size={16} />}
-                  </a>
-                );
-              })}
             </motion.div>
 
             {/* Worked with — all 3 inline, aligned with content */}
