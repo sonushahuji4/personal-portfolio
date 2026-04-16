@@ -63,9 +63,9 @@ const Achievements = () => {
                     <button onClick={() => openViewer(award.imageUrl!)} className="relative w-full aspect-4/3 overflow-hidden cursor-zoom-in">
                       <Image src={award.imageUrl} alt={award.title} fill
                         className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" unoptimized />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Eye size={13} /> View Full
+                      <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent" />
+                      <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm">
+                        <Eye size={13} /> View Certificate
                       </div>
                     </button>
                   )}
@@ -96,7 +96,7 @@ const Achievements = () => {
                   </div>
                   <p className="font-semibold text-foreground">{cert.name}</p>
                   <p className="text-xs text-muted mt-0.5">{cert.issuer} · {cert.date}</p>
-                  <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-accent transition-colors">
                     <Eye size={12} /> View Certificate
                   </div>
                 </motion.button>
@@ -121,7 +121,7 @@ const Achievements = () => {
                       <p className="text-xs text-muted">{cert.platform}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 text-xs font-medium text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="flex items-center gap-1 text-xs font-medium text-accent transition-colors">
                     <Eye size={13} />
                   </div>
                 </motion.button>
