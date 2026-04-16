@@ -1,15 +1,21 @@
-import type { Award, Certification, Recommendation } from '@/types';
+import type { Award, Certification, Recommendation, CourseCertificate } from '@/types';
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export const AWARDS: Award[] = [
   {
     title: 'Star of the Sprint',
     issuer: 'Cimpress India',
     date: 'Feb 2023',
+    certificateUrl: `${basePath}/certificates/star-of-sprint.jpg`,
+    imageUrl: `${basePath}/certificates/star-of-sprint.jpg`,
   },
   {
     title: 'Certificate of Appreciation',
     issuer: 'Cimpress India',
     date: 'Mar 2021',
+    certificateUrl: `${basePath}/certificates/certificate-of-appreciation.jpg`,
+    imageUrl: `${basePath}/certificates/certificate-of-appreciation.jpg`,
   },
 ];
 
@@ -18,16 +24,42 @@ export const CERTIFICATIONS: Certification[] = [
     name: 'Low Level System Design',
     issuer: 'Scaler',
     date: 'May 2024',
+    certificateUrl: `${basePath}/certificates/lld-certificate.pdf`,
   },
   {
     name: 'JavaScript Specialist Certification',
     issuer: 'Scaler',
     date: 'May 2024',
+    certificateUrl: `${basePath}/certificates/js-specialist-certificate.pdf`,
   },
   {
     name: 'Data Structures & Algorithms',
     issuer: 'Scaler',
     date: 'Dec 2023',
+    certificateUrl: `${basePath}/certificates/dsa-certificate.pdf`,
+  },
+];
+
+export const COURSE_CERTIFICATES: CourseCertificate[] = [
+  {
+    name: 'Namaste JavaScript (Basic to Advanced)',
+    platform: 'NamasteDev',
+    certificateUrl: `${basePath}/certificates/namaste-javascript.pdf`,
+  },
+  {
+    name: 'Namaste React (with ES6)',
+    platform: 'NamasteDev',
+    certificateUrl: `${basePath}/certificates/namaste-react.pdf`,
+  },
+  {
+    name: 'Namaste Node.js',
+    platform: 'NamasteDev',
+    certificateUrl: `${basePath}/certificates/namaste-nodejs.pdf`,
+  },
+  {
+    name: 'jQuery',
+    platform: 'NamasteDev',
+    certificateUrl: `${basePath}/certificates/jquery-certificate.pdf`,
   },
 ];
 

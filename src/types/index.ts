@@ -78,12 +78,21 @@ export interface Award {
   title: string;
   issuer: string;
   date: string;
+  certificateUrl?: string;
+  imageUrl?: string;
 }
 
 export interface Certification {
   name: string;
   issuer: string;
   date: string;
+  certificateUrl?: string;
+}
+
+export interface CourseCertificate {
+  name: string;
+  platform: string;
+  certificateUrl: string;
 }
 
 export interface Recommendation {
