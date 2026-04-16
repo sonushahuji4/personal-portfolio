@@ -1,210 +1,147 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Trophy } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import SectionHeading from '@/components/ui/section-heading';
-import { PLATFORMS } from '@/data/platforms';
+import { PLATFORMS_DATA } from '@/data/platforms';
 import { SECTION_IDS } from '@/lib/constants';
-import CompanyLogo, { PLATFORM_LOGO_PATHS } from '@/components/common/company-logo';
+import type { PlatformData } from '@/data/platforms';
 
-const AnimatedNumber = ({ value, color }: { value: string; color: string }) => {
-  const numericPart = parseInt(value.replace(/[^0-9]/g, ''), 10);
-  const suffix = value.replace(/[0-9,]/g, '');
-  const [display, setDisplay] = useState(isNaN(numericPart) ? value : '0');
-  const startedRef = useRef(false);
-  const ref = useRef<HTMLSpanElement>(null);
+const GithubSvg = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12 24 5.37 18.63 0 12 0z" />
+  </svg>
+);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || isNaN(numericPart)) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !startedRef.current) {
-        startedRef.current = true;
-        const steps = 50;
-        const inc = numericPart / steps;
-        let step = 0;
-        const timer = setInterval(() => {
-          step++;
-          setDisplay(Math.min(Math.floor(inc * step), numericPart).toLocaleString());
-          if (step >= steps) { setDisplay(numericPart.toLocaleString()); clearInterval(timer); }
-        }, 900 / steps);
-      }
-    }, { threshold: 0.5 });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [numericPart]);
+const PlatformIcon = ({ icon, color }: { icon: string; color: string }) => {
+  const label = icon === 'leetcode' ? 'LC' : icon === 'codechef' ? 'CC' : icon === 'linkedin' ? 'in' : '';
 
-  return <span ref={ref} className="tabular-nums" style={{ color }}>{display}{suffix}</span>;
+  return (
+    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-white text-[10px] font-bold" style={{ backgroundColor: color }}>
+      {icon === 'github' ? <GithubSvg /> : label}
+    </div>
+  );
 };
 
-const leetcode = PLATFORMS[0];
-const github = PLATFORMS[1];
-const codechef = PLATFORMS[2];
-const linkedin = PLATFORMS[3];
+// ═══ FEATURED CARD (LeetCode) ═══
+const FeaturedCard = ({ platform }: { platform: PlatformData }) => (
+  <motion.a
+    href={platform.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    initial={{ opacity: 0, y: 24 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5 }}
+    whileHover={{ scale: 1.01 }}
+    className="group block rounded-2xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden transition-all duration-150 hover:shadow-xl hover:shadow-shadow"
+    style={{ borderLeft: `3px solid ${platform.color}` }}
+  >
+    <div className="p-5 sm:p-6">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center gap-2.5">
+          <PlatformIcon icon={platform.icon} color={platform.color} />
+          <div>
+            <span className="text-sm font-bold text-foreground">{platform.name}</span>
+            <span className="ml-2 text-xs text-muted-foreground">@{platform.username}</span>
+          </div>
+        </div>
+        <ExternalLink size={14} className="text-muted-foreground transition-colors group-hover:text-foreground" />
+      </div>
 
+      {/* Big number + badge */}
+      <div className="flex items-end justify-between mb-4">
+        <div>
+          <div className="text-4xl font-extrabold font-display sm:text-[36px]" style={{ color: platform.color }}>
+            {platform.primaryStat.value}
+          </div>
+          <div className="text-xs text-muted-foreground mt-0.5">
+            {platform.primaryStat.label} · {platform.description}
+          </div>
+        </div>
+        {platform.badge && (
+          <div className="rounded-full px-3 py-1 text-xs font-semibold" style={{ backgroundColor: platform.color + '18', color: platform.color }}>
+            {platform.badge.text}
+          </div>
+        )}
+      </div>
+
+      {/* Progress bar */}
+      {platform.progress && (
+        <div className="mb-3">
+          <div className="flex justify-between text-xs mb-1.5">
+            <span className="text-muted-foreground">{platform.progress.label}</span>
+            {platform.secondaryStats?.map((s) => (
+              <span key={s.label} className="text-muted-foreground">{s.value} {s.label}</span>
+            ))}
+          </div>
+          <div className="h-1.5 rounded-full bg-border overflow-hidden">
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: `${platform.progress.percentage}%` }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.2, delay: 0.3, ease: 'easeOut' }}
+              className="h-full rounded-full"
+              style={{ backgroundColor: platform.color }}
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  </motion.a>
+);
+
+// ═══ ROW CARD (compact) ═══
+const RowCard = ({ platform, delay }: { platform: PlatformData; delay: number }) => (
+  <motion.a
+    href={platform.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    initial={{ opacity: 0, y: 12 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.4, delay }}
+    whileHover={{ scale: 1.02 }}
+    className="group flex items-center gap-3 rounded-xl border border-border bg-card/80 backdrop-blur-sm px-4 py-3.5 sm:px-5 transition-all duration-150 hover:shadow-lg hover:shadow-shadow"
+    style={{ borderLeft: `3px solid ${platform.color}` }}
+  >
+    <PlatformIcon icon={platform.icon} color={platform.color} />
+
+    <div className="min-w-0 flex-1">
+      <div className="text-sm font-semibold text-foreground">{platform.name}</div>
+      <div className="text-xs text-muted-foreground truncate">{platform.description}</div>
+    </div>
+
+    <div className="text-right shrink-0">
+      <div className="text-xl font-bold text-foreground sm:text-[22px]">{platform.primaryStat.value}</div>
+      <div className="text-[10px] text-muted-foreground">{platform.primaryStat.label}</div>
+    </div>
+
+    <ExternalLink size={13} className="shrink-0 text-muted-foreground/50 transition-colors group-hover:text-foreground ml-1" />
+  </motion.a>
+);
+
+// ═══ SECTION ═══
 const Platforms = () => {
+  const featured = PLATFORMS_DATA.find((p) => p.featured);
+  const rows = PLATFORMS_DATA.filter((p) => !p.featured);
+
   return (
     <section id={SECTION_IDS.platforms} className="relative py-24 sm:py-32 overflow-hidden">
       <div className="pointer-events-none absolute inset-0 dot-grid opacity-15" aria-hidden="true" />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6">
-        <SectionHeading title="Online Presence" subtitle="Where I build, compete, and connect" accent="#FFA116" />
+      <div className="relative z-10 mx-auto max-w-xl px-4 sm:px-6">
+        <SectionHeading title="Online Presence" subtitle="Where I build, compete, and connect" accent="#EF9F27" />
 
-        {/* Bento Grid — unequal sizes */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 auto-rows-auto">
+        <div className="space-y-2">
+          {/* Featured card */}
+          {featured && <FeaturedCard platform={featured} />}
 
-          {/* ═══ LEETCODE — Hero card (spans 2 rows on lg) ═══ */}
-          <motion.a
-            href={leetcode.url} target="_blank" rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="group relative lg:row-span-2 rounded-2xl border border-[#FFA116]/20 bg-card/80 backdrop-blur-sm overflow-hidden card-premium"
-          >
-            {/* Glow border */}
-            <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity" style={{ boxShadow: 'inset 0 0 30px rgba(255, 161, 22, 0.08)' }} />
-            <div className="h-1 bg-[#FFA116]" />
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2.5">
-                  <CompanyLogo name="LeetCode" src={PLATFORM_LOGO_PATHS.LeetCode || ''} color="#FFA116" size={36} />
-                  <div>
-                    <h3 className="font-display text-base font-bold text-foreground">LeetCode</h3>
-                    <p className="text-xs text-muted-foreground">@{leetcode.username}</p>
-                  </div>
-                </div>
-                <ExternalLink size={14} className="text-muted-foreground group-hover:text-[#FFA116] transition-colors" />
-              </div>
-
-              {/* Hero stat — Rating */}
-              <div className="mb-6 text-center">
-                <div className="text-5xl font-extrabold font-display">
-                  <AnimatedNumber value="2,059" color="#FFA116" />
-                </div>
-                <div className="mt-1 flex items-center justify-center gap-2">
-                  <Trophy size={14} className="text-[#FFA116]" />
-                  <span className="text-sm font-semibold text-[#FFA116]">Knight Rank</span>
-                </div>
-                <p className="mt-1 text-xs text-muted-foreground">Top 1.9% Worldwide</p>
-              </div>
-
-              {/* Progress bar — problems solved */}
-              <div className="mb-4">
-                <div className="flex justify-between text-xs mb-1.5">
-                  <span className="text-muted-foreground">Algorithms Mastered</span>
-                  <span className="font-bold text-foreground">624</span>
-                </div>
-                <div className="h-2 rounded-full bg-border overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: '62%' }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1.5, delay: 0.5 }}
-                    className="h-full rounded-full bg-[#FFA116]"
-                  />
-                </div>
-              </div>
-
-              {/* Contests */}
-              <div className="flex justify-between text-sm border-t border-border pt-3">
-                <span className="text-muted-foreground">Contests</span>
-                <span className="font-bold text-foreground">25</span>
-              </div>
-            </div>
-          </motion.a>
-
-          {/* ═══ GITHUB — Medium card ═══ */}
-          <motion.a
-            href={github.url} target="_blank" rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="group rounded-2xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden card-premium"
-          >
-            <div className="h-1 bg-[#6E40C9]" />
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2.5">
-                  <CompanyLogo name="GitHub" src={PLATFORM_LOGO_PATHS.GitHub || ''} color="#6E40C9" size={36} />
-                  <div>
-                    <h3 className="font-display text-base font-bold text-foreground">GitHub</h3>
-                    <p className="text-xs text-muted-foreground">@{github.username}</p>
-                  </div>
-                </div>
-                <ExternalLink size={14} className="text-muted-foreground group-hover:text-[#6E40C9] transition-colors" />
-              </div>
-
-              {/* Main stat */}
-              <div className="text-3xl font-extrabold font-display mb-1">
-                <AnimatedNumber value="1,200" color="#6E40C9" /><span className="text-lg text-[#6E40C9]">+</span>
-              </div>
-              <p className="text-xs text-muted-foreground mb-4">Contributions</p>
-
-              {/* Sub stats */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="rounded-xl bg-background/50 p-3 text-center">
-                  <div className="text-lg font-bold text-foreground">31</div>
-                  <div className="text-[10px] text-muted-foreground">Repositories</div>
-                </div>
-                <div className="rounded-xl bg-background/50 p-3 text-center">
-                  <div className="text-lg font-bold text-foreground">6</div>
-                  <div className="text-[10px] text-muted-foreground">Pinned</div>
-                </div>
-              </div>
-            </div>
-          </motion.a>
-
-          {/* ═══ CODECHEF — Small card ═══ */}
-          <motion.a
-            href={codechef.url} target="_blank" rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="group rounded-2xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden card-premium"
-          >
-            <div className="h-1 bg-[#5B4638]" />
-            <div className="p-5">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <CompanyLogo name="CodeChef" src={PLATFORM_LOGO_PATHS.CodeChef || ''} color="#5B4638" size={32} />
-                  <h3 className="font-display text-sm font-bold text-foreground">CodeChef</h3>
-                </div>
-                <ExternalLink size={13} className="text-muted-foreground group-hover:text-[#5B4638] transition-colors" />
-              </div>
-
-              <div className="flex items-baseline gap-2 mb-1">
-                <span className="text-2xl font-extrabold text-foreground">1,591</span>
-                <span className="text-xs text-muted-foreground">Highest Rating</span>
-              </div>
-              <div className="flex gap-4 text-xs text-muted-foreground mt-2">
-                <span><strong className="text-foreground">42</strong> Contests</span>
-                <span><strong className="text-foreground">321</strong> Solved</span>
-              </div>
-            </div>
-          </motion.a>
-
-          {/* ═══ LINKEDIN — Small card ═══ */}
-          <motion.a
-            href={linkedin.url} target="_blank" rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="group rounded-2xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden card-premium sm:col-span-2 lg:col-span-1"
-          >
-            <div className="h-1 bg-[#0A66C2]" />
-            <div className="p-5">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2">
-                  <CompanyLogo name="LinkedIn" src={PLATFORM_LOGO_PATHS.LinkedIn || ''} color="#0A66C2" size={32} />
-                  <h3 className="font-display text-sm font-bold text-foreground">LinkedIn</h3>
-                </div>
-                <ExternalLink size={13} className="text-muted-foreground group-hover:text-[#0A66C2] transition-colors" />
-              </div>
-
-              <div className="flex items-baseline gap-2 mb-1">
-                <span className="text-2xl font-extrabold text-foreground">500+</span>
-                <span className="text-xs text-muted-foreground">Connections</span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-2">Open to collaborations & opportunities</p>
-            </div>
-          </motion.a>
+          {/* Compact stack */}
+          {rows.map((platform, i) => (
+            <RowCard key={platform.id} platform={platform} delay={0.1 + i * 0.1} />
+          ))}
         </div>
       </div>
     </section>
