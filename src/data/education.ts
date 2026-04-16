@@ -14,7 +14,7 @@ export const EDUCATION: EducationEntry[] = [
       'Competitive Programming',
     ],
     description:
-      'Completed a 16-module intensive program covering DSA, System Design, and Backend Development alongside full-time work. Cleared mock interviews in Advanced DSA, Backend LLD.',
+      'Completed a 16-module intensive program covering DSA, System Design, and Backend Development alongside full-time work. Cleared mock interviews in Advanced DSA and Backend LLD.',
   },
   {
     id: 'dbit',
@@ -35,11 +35,25 @@ export const EDUCATION: EducationEntry[] = [
     institution: 'Don Bosco High School and Junior College, Lonavala',
     credential: 'Higher Secondary Certificate (HSC), Science',
     duration: 'Jun 2014 – Mar 2016',
+    activities: [
+      'Science & Mathematics',
+      'Analytical Thinking',
+      'Time Management',
+    ],
+    description:
+      'Focused on Physics, Chemistry, and Mathematics (PCM). Developed a strong analytical mindset and problem-solving skills during these formative pre-engineering years.',
   },
   {
     id: 'ssc',
     institution: 'St. Dominic Savio High School, Andheri',
-    credential: 'SSC',
+    credential: 'Secondary School Certificate (SSC)',
     duration: '2006 – 2014',
+    activities: [
+      'Foundational Academics',
+      'Creative Arts',
+      'Public Speaking',
+    ],
+    description:
+      'Consistently engaged in academics and extra-curricular activities. Developed early interests in logic and creative arts while building a disciplined learning habit.',
   },
 ];
