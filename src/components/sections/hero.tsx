@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Download, ChevronDown, Code, Trophy, Mail, Briefcase } from 'lucide-react';
 import type { Easing } from 'framer-motion';
 import Image from 'next/image';
@@ -25,6 +26,58 @@ const LinkedinIcon = ({ size = 18 }: { size?: number }) => (
 
 const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = {
   Github: GithubIcon, Linkedin: LinkedinIcon, Code, Trophy, Mail,
+};
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
+const COMPANIES = [
+  { name: 'Aerem Solutions', logo: `${basePath}/logos/aerem.avif` },
+  { name: 'Cimpress India', logo: `${basePath}/logos/cimpress.png` },
+  { name: 'Kou-Chan', logo: `${basePath}/logos/kouchan.jpeg` },
+];
+
+const WorkedWithSlider = () => {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => setActive((i) => (i + 1) % COMPANIES.length), 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div>
+      <div className="flex items-center gap-6">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.4 }}
+            className="flex items-center gap-3"
+          >
+            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg border border-border bg-white">
+              <Image src={COMPANIES[active].logo} alt={COMPANIES[active].name} width={32} height={32} className="object-contain" unoptimized />
+            </div>
+            <span className="text-sm font-medium text-foreground">{COMPANIES[active].name}</span>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      {/* Dot indicators */}
+      <div className="mt-3 flex gap-1.5">
+        {COMPANIES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setActive(i)}
+            className="flex items-center justify-center p-1"
+            aria-label={`Show ${COMPANIES[i].name}`}
+          >
+            <span className={`block h-1.5 rounded-full transition-all duration-300 ${i === active ? 'w-6 bg-accent' : 'w-1.5 bg-border hover:bg-muted-foreground'}`} />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 const ease: Easing = [0.22, 1, 0.36, 1];
@@ -137,6 +190,21 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* Worked with — company logos slider */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.2, ease }}
+        className="absolute bottom-24 left-0 right-0 z-10 px-6 sm:px-10"
+      >
+        <div className="mx-auto max-w-6xl">
+          <p className="mb-4 text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">
+            Worked with
+          </p>
+          <WorkedWithSlider />
+        </div>
+      </motion.div>
 
       {/* Scroll indicator */}
       <motion.a
