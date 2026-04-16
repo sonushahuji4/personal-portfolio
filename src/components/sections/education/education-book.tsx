@@ -45,8 +45,8 @@ const EducationBook = () => {
           size="stretch"
           showCover={true}
           mobileScrollSupport={false}
-          flippingTime={800}
-          maxShadowOpacity={0.5}
+          flippingTime={1000}
+          maxShadowOpacity={0.7}
           drawShadow={true}
           useMouseEvents={true}
           className="education-flipbook"
