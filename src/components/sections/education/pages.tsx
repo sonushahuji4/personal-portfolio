@@ -19,23 +19,34 @@ export const CoverPage = React.forwardRef<HTMLDivElement, { style?: React.CSSPro
           src={`${basePath}/images/graduation-photo.png`}
           alt="Graduation"
           fill
-          className="object-cover object-center"
+          className="object-cover object-top"
+          style={{ objectPosition: '50% 15%' }}
           unoptimized
         />
-        {/* Subtle gradient — keep face visible, darken bottom only */}
-        <div className="absolute inset-0 bg-linear-to-t from-[#1a0f08]/80 via-transparent to-[#1a0f08]/20" />
 
-        {/* Gold border frame */}
-        <div className="absolute inset-3 border border-amber-500/15 rounded-sm pointer-events-none z-10" />
+        {/* Gradient: subtle darkening at edges, keep face clear */}
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(to bottom, rgba(26,15,8,0.15) 0%, transparent 30%, transparent 55%, rgba(26,15,8,0.7) 85%, rgba(26,15,8,0.9) 100%)'
+        }} />
+        <div className="absolute inset-0" style={{
+          background: 'linear-gradient(to right, rgba(26,15,8,0.3) 0%, transparent 20%, transparent 80%, rgba(26,15,8,0.15) 100%)'
+        }} />
 
-        {/* Text — bottom left, small, not blocking the face */}
-        <div className="relative z-10 w-full px-5 pb-6 mt-auto text-left">
-          <p className={`font-serif text-sm italic ${styles.goldTitle}`}>
-            A journey of learning
-          </p>
-          <div className="mt-2 h-px w-10 bg-amber-500/25" />
-          <p className="mt-3 text-[9px] text-amber-200/30 tracking-[0.2em] uppercase">
-            Open to read →
+        {/* Gold embossed border */}
+        <div className="absolute inset-2.5 border border-amber-600/20 pointer-events-none z-10" />
+        <div className="absolute inset-3 border border-amber-400/10 pointer-events-none z-10" />
+
+        {/* Bottom text — subtle, over the dark gradient */}
+        <div className="relative z-10 w-full px-5 pb-5 mt-auto">
+          <div className="flex items-center gap-3">
+            <div className="h-px flex-1 bg-amber-500/20" />
+            <p className={`font-serif text-xs tracking-wide ${styles.goldTitle}`}>
+              A Journey of Learning
+            </p>
+            <div className="h-px flex-1 bg-amber-500/20" />
+          </div>
+          <p className="mt-3 text-center text-[8px] text-amber-200/25 tracking-[0.25em] uppercase">
+            Flip to read →
           </p>
         </div>
       </div>

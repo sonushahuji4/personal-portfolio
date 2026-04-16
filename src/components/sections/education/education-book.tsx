@@ -32,9 +32,17 @@ const EducationBook = () => {
 
   return (
     <div>
-      <div className={styles.bookContainer}>
-        {/* @ts-expect-error react-pageflip types are incomplete */}
-        <HTMLFlipBook
+      {/* 3D Book Display */}
+      <div className={styles.bookWrapper}>
+        <div className={styles.book3d}>
+          {/* Spine */}
+          <div className={styles.bookSpine} />
+          {/* Shadow beneath */}
+          <div className={styles.bookShadow} />
+
+          <div className={styles.bookContainer}>
+            {/* @ts-expect-error react-pageflip types are incomplete */}
+            <HTMLFlipBook
           ref={bookRef}
           width={400}
           height={550}
@@ -68,6 +76,8 @@ const EducationBook = () => {
           {/* Last page: Back Cover */}
           <BackCoverPage />
         </HTMLFlipBook>
+          </div>
+        </div>
       </div>
 
       {/* Controls */}
