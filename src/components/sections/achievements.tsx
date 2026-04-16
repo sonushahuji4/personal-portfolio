@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, ShieldCheck, MessageCircle, BookOpen, ChevronLeft, ChevronRight, ExternalLink, X, Eye } from 'lucide-react';
+import { Award, ShieldCheck, MessageCircle, BookOpen, ChevronLeft, ChevronRight, Eye, X } from 'lucide-react';
 import Image from 'next/image';
 import SectionHeading from '@/components/ui/section-heading';
 import { AWARDS, CERTIFICATIONS, COURSE_CERTIFICATES, RECOMMENDATIONS } from '@/data/achievements';
@@ -20,7 +20,14 @@ const TABS: { id: Tab; label: string; icon: React.ReactNode; count: number }[] =
 const Achievements = () => {
   const [activeTab, setActiveTab] = useState<Tab>('awards');
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [viewerUrl, setViewerUrl] = useState<string | null>(null);
+  const [viewerType, setViewerType] = useState<'image' | 'pdf'>('image');
+
+  const openViewer = (url: string) => {
+    const isPdf = url.endsWith('.pdf');
+    setViewerType(isPdf ? 'pdf' : 'image');
+    setViewerUrl(url);
+  };
 
   return (
     <section id={SECTION_IDS.achievements} className="relative py-24 sm:py-32 overflow-hidden">
@@ -28,40 +35,37 @@ const Achievements = () => {
       <div className="relative z-10 mx-auto max-w-6xl px-6">
         <SectionHeading title="Achievements & Certificates" subtitle="Awards, certifications, courses, and recommendations" accent="#f59e0b" />
 
-        {/* Tab navigation */}
+        {/* Tabs */}
         <div className="mb-10 flex justify-center">
           <div className="inline-flex flex-wrap justify-center gap-1 rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-1.5">
             {TABS.map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm font-medium transition-all ${
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-medium transition-all sm:px-4 ${
                   activeTab === tab.id ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'text-muted hover:text-foreground'
-                }`}
-              >
+                }`}>
                 {tab.icon}
                 <span className="hidden sm:inline">{tab.label}</span>
-                <span className="rounded-full bg-white/20 px-1.5 py-0.5 text-xs">{tab.count}</span>
+                <span className={`rounded-full px-1.5 py-0.5 text-xs ${activeTab === tab.id ? 'bg-white/20' : 'bg-border'}`}>{tab.count}</span>
               </button>
             ))}
           </div>
         </div>
 
         <AnimatePresence mode="wait">
-          {/* Awards tab — with preview images */}
+          {/* ═══ Awards — full image, no cropping ═══ */}
           {activeTab === 'awards' && (
-            <motion.div key="awards" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }}
+            <motion.div key="awards" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}
               className="grid gap-5 sm:grid-cols-2">
               {AWARDS.map((award, i) => (
                 <motion.div key={award.title} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
                   className="group rounded-2xl border border-border bg-card/80 backdrop-blur-sm overflow-hidden card-premium">
-                  {/* Certificate image preview */}
                   {award.imageUrl && (
-                    <button onClick={() => setPreviewImage(award.imageUrl || null)} className="relative w-full h-48 overflow-hidden cursor-zoom-in">
-                      <Image src={award.imageUrl} alt={award.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" unoptimized />
-                      <div className="absolute inset-0 bg-linear-to-t from-card-solid/80 to-transparent" />
-                      <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-full bg-black/50 px-2.5 py-1 text-xs text-white backdrop-blur-sm">
-                        <Eye size={12} /> View
+                    <button onClick={() => openViewer(award.imageUrl!)} className="relative w-full overflow-hidden cursor-zoom-in">
+                      {/* Full image — object-contain so nothing gets cut */}
+                      <Image src={award.imageUrl} alt={award.title} width={600} height={400}
+                        className="w-full h-auto object-contain bg-black/20 transition-transform duration-500 group-hover:scale-[1.02]" unoptimized />
+                      <div className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5 text-xs font-medium text-white backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                        <Eye size={13} /> View Full
                       </div>
                     </button>
                   )}
@@ -79,38 +83,37 @@ const Achievements = () => {
             </motion.div>
           )}
 
-          {/* Certifications tab */}
+          {/* ═══ Certifications — click to view in lightbox ═══ */}
           {activeTab === 'certifications' && (
-            <motion.div key="certs" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }}
+            <motion.div key="certs" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}
               className="grid gap-4 sm:grid-cols-3">
               {CERTIFICATIONS.map((cert, i) => (
-                <motion.div key={cert.name} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
-                  className="rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-5 card-premium">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 mb-3">
+                <motion.button key={cert.name} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }}
+                  onClick={() => cert.certificateUrl && openViewer(cert.certificateUrl)}
+                  className="group text-left rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-5 card-premium cursor-pointer">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 mb-3 transition-colors group-hover:bg-emerald-500/20">
                     <ShieldCheck size={20} className="text-emerald-500" />
                   </div>
                   <p className="font-semibold text-foreground">{cert.name}</p>
                   <p className="text-xs text-muted mt-0.5">{cert.issuer} · {cert.date}</p>
-                  {cert.certificateUrl && (
-                    <a href={cert.certificateUrl} target="_blank" rel="noopener noreferrer"
-                      className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-accent transition-colors hover:text-accent-hover">
-                      <ExternalLink size={12} /> View Certificate
-                    </a>
-                  )}
-                </motion.div>
+                  <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Eye size={12} /> View Certificate
+                  </div>
+                </motion.button>
               ))}
             </motion.div>
           )}
 
-          {/* Course certificates tab */}
+          {/* ═══ Course Certificates — click to view ═══ */}
           {activeTab === 'courses' && (
-            <motion.div key="courses" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }}
+            <motion.div key="courses" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}
               className="grid gap-4 sm:grid-cols-2">
               {COURSE_CERTIFICATES.map((cert, i) => (
-                <motion.div key={cert.name} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
-                  className="flex items-center justify-between rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-5 card-premium">
+                <motion.button key={cert.name} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
+                  onClick={() => openViewer(cert.certificateUrl)}
+                  className="group flex items-center justify-between text-left rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-5 card-premium cursor-pointer">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-muted">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-muted transition-colors group-hover:bg-accent/20">
                       <BookOpen size={18} className="text-accent" />
                     </div>
                     <div>
@@ -118,19 +121,17 @@ const Achievements = () => {
                       <p className="text-xs text-muted">{cert.platform}</p>
                     </div>
                   </div>
-                  <a href={cert.certificateUrl} target="_blank" rel="noopener noreferrer"
-                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-border text-muted-foreground transition-all hover:border-accent/30 hover:text-accent hover:bg-accent-muted"
-                    aria-label={`View ${cert.name} certificate`}>
-                    <ExternalLink size={14} />
-                  </a>
-                </motion.div>
+                  <div className="flex items-center gap-1 text-xs font-medium text-accent opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Eye size={13} />
+                  </div>
+                </motion.button>
               ))}
             </motion.div>
           )}
 
-          {/* Testimonials tab */}
+          {/* ═══ Testimonials ═══ */}
           {activeTab === 'testimonials' && (
-            <motion.div key="testimonials" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.3 }}>
+            <motion.div key="testimonials" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}>
               <div className="flex items-center justify-end gap-2 mb-4">
                 <button onClick={() => setActiveTestimonial((i) => (i - 1 + RECOMMENDATIONS.length) % RECOMMENDATIONS.length)}
                   className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-card text-muted transition-all hover:border-accent/30 hover:text-accent" aria-label="Previous">
@@ -141,7 +142,6 @@ const Achievements = () => {
                   <ChevronRight size={18} />
                 </button>
               </div>
-
               <div className="relative rounded-2xl border border-border bg-card/60 backdrop-blur-sm p-8 sm:p-10">
                 <AnimatePresence mode="wait">
                   <motion.div key={activeTestimonial} initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }}
@@ -161,7 +161,6 @@ const Achievements = () => {
                     </div>
                   </motion.div>
                 </AnimatePresence>
-
                 <div className="mt-6 flex justify-center gap-1">
                   {RECOMMENDATIONS.map((_, i) => (
                     <button key={i} onClick={() => setActiveTestimonial(i)} className="flex items-center justify-center p-2" aria-label={`Testimonial ${i + 1}`}>
@@ -174,21 +173,30 @@ const Achievements = () => {
           )}
         </AnimatePresence>
 
-        {/* Image preview modal */}
+        {/* ═══ Viewer Modal — for images AND PDFs ═══ */}
         <AnimatePresence>
-          {previewImage && (
+          {viewerUrl && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-6"
-              onClick={() => setPreviewImage(null)}>
-              <motion.div initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }}
-                className="relative max-w-3xl max-h-[85vh]" onClick={(e) => e.stopPropagation()}>
-                <button onClick={() => setPreviewImage(null)}
-                  className="absolute -top-3 -right-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
-                  aria-label="Close preview">
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 sm:p-8"
+              onClick={() => setViewerUrl(null)}>
+              <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }}
+                className="relative w-full max-w-4xl max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
+                <button onClick={() => setViewerUrl(null)}
+                  className="absolute -top-2 -right-2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+                  aria-label="Close viewer">
                   <X size={20} />
                 </button>
-                <Image src={previewImage} alt="Certificate preview" width={800} height={600}
-                  className="rounded-xl object-contain max-h-[85vh]" unoptimized />
+                {viewerType === 'image' ? (
+                  <Image src={viewerUrl} alt="Certificate" width={1200} height={800}
+                    className="rounded-xl object-contain w-full max-h-[85vh]" unoptimized />
+                ) : (
+                  <iframe
+                    src={viewerUrl}
+                    className="w-full rounded-xl bg-white"
+                    style={{ height: '85vh' }}
+                    title="Certificate viewer"
+                  />
+                )}
               </motion.div>
             </motion.div>
           )}
