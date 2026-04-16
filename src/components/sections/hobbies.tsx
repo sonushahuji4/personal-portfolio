@@ -14,14 +14,14 @@ const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: 
 
 const ZONES = [
   {
-    id: 'Music',
-    label: 'Music Zone',
-    icon: Music,
-    emoji: '🎵',
-    gradient: 'from-purple-900/30 via-pink-900/20 to-background',
-    accentColor: '#D946EF',
-    pattern: 'radial-gradient(circle at 20% 50%, rgba(217, 70, 239, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 30%, rgba(168, 85, 247, 0.06) 0%, transparent 40%)',
-    description: 'Where melodies meet code. I unwind with strings and keys.',
+    id: 'Tech',
+    label: 'Tech Zone',
+    icon: Cpu,
+    emoji: '💻',
+    gradient: 'from-cyan-900/30 via-blue-900/20 to-background',
+    accentColor: '#06B6D4',
+    pattern: 'radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 50%)',
+    description: 'Beyond work — solving problems for the love of it.',
   },
   {
     id: 'Sports',
@@ -34,14 +34,14 @@ const ZONES = [
     description: 'Team sports keep me sharp, competitive, and energized.',
   },
   {
-    id: 'Tech',
-    label: 'Tech Zone',
-    icon: Cpu,
-    emoji: '💻',
-    gradient: 'from-cyan-900/30 via-blue-900/20 to-background',
-    accentColor: '#06B6D4',
-    pattern: 'radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 40%)',
-    description: 'Beyond work — solving problems for the love of it.',
+    id: 'Music',
+    label: 'Music & Chill',
+    icon: Music,
+    emoji: '🎵',
+    gradient: 'from-purple-900/30 via-pink-900/20 to-background',
+    accentColor: '#D946EF',
+    pattern: 'radial-gradient(circle at 20% 50%, rgba(217, 70, 239, 0.08) 0%, transparent 50%)',
+    description: 'Sound On: Finding rhythm in the chaos.',
   },
 ];
 
