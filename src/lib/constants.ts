@@ -25,6 +25,5 @@ export const NAV_LINKS = [
   { label: 'Experience', href: `#${SECTION_IDS.experience}` },
   { label: 'Projects', href: `#${SECTION_IDS.projects}` },
   { label: 'Skills', href: `#${SECTION_IDS.skills}` },
-  { label: 'Journey', href: `#${SECTION_IDS.lifeCircle}` },
   { label: 'Contact', href: `#${SECTION_IDS.contact}` },
 ] as const;
