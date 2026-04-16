@@ -40,14 +40,14 @@ export const SOCIAL_LINKS: SocialLink[] = [
 
 export const ABOUT_SUMMARY = [
   'Full Stack Engineer with 6 years of experience working on scalable web applications using Node.js, React.js, JavaScript, TypeScript, Next.js, PostgreSQL, and AWS.',
-  'Currently working as a Founding Engineer at Aerem Solutions, a solar fintech startup. I joined at an early stage and got the opportunity to make foundational decisions around the tech stack, database design, and CI/CD setup, and helped deliver the MVP. Over time, the platform has grown to monitor 500+ solar plants, serve 200+ B2B customers, and process 2M+ daily IoT data points.',
+  'Currently working as a Founding Engineer at Aerem Solutions, a solar fintech startup. I joined at an early stage and got the opportunity to make foundational decisions around the tech stack, database design, and CI/CD setup to help deliver the MVP. Over time, the platform has grown to monitor 500+ solar plants, serve 200+ B2B customers, and process 2M+ daily IoT data points.',
+  'Handling this scale led to one of my proudest engineering achievements: completely re-architecting our ETL data pipeline for solar energy telemetry. Originally, processing a standard 15-minute data cycle for 5,000 plants took 12 hours to complete. Through aggressive performance optimization, I slashed that execution time down to just 28 milliseconds while scaling the load to 10,000 plants (30,000+ inverters). Today, that pipeline is so efficient it has the capacity to process data for over 30 million plants within a single 15-minute SLA.',
   'Before Aerem, I spent close to 3 years at Cimpress India (National Pen), a global e-commerce platform serving users across 20+ countries. I worked across the full stack — contributing to product features, building REST APIs, and setting up React storefronts with a focus on performance and reliability.',
 ] as const;
 
 export const HIGHLIGHT_CARDS: HighlightCard[] = [
   { value: '6+', label: 'Years of Experience' },
-  { value: '20+', label: 'Countries Served' },
-  { value: '2M+', label: 'Daily IoT Events' },
+  { value: '15+', label: 'Projects Shipped' },
   { value: '1→5', label: 'Team Built & Led' },
 ];
 
@@ -69,5 +69,4 @@ export const CONTACT_INFO: ContactInfo = {
 
 export const INSTAGRAM_URL = 'https://instagram.com/i.m.sonuuu';
 
-// Formspree endpoint — replace with your actual form ID after signup
 export const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xyzgkpwl';

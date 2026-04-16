@@ -51,7 +51,7 @@ const About = () => {
         <SectionHeading title="About Me" subtitle="Get to know the person behind the code" align="left" />
 
         {/* Stats row */}
-        <div className="mb-16 grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="mb-16 grid grid-cols-3 gap-4">
           {HIGHLIGHT_CARDS.map((card, i) => {
             const Icon = HIGHLIGHT_ICONS[i];
             const color = HIGHLIGHT_COLORS[i];
