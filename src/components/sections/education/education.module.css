@@ -1,57 +1,84 @@
 /* ═══════════════════════════════════════
-   3D BOOK — Realistic Display + Ancient Parchment
+   BOOK ON A DESK — Looking down at ~35° angle
+   Book lies flat, you see the cover from above
    ═══════════════════════════════════════ */
 
-/* 3D Book wrapper — the perspective container */
+/* Outer wrapper — creates the "looking down at desk" perspective */
 .bookWrapper {
-  perspective: 1200px;
   display: flex;
   justify-content: center;
   align-items: center;
+  perspective: 1800px;
+  padding: 2rem 0;
 }
 
-/* 3D tilt — the book sits at an angle */
+/* The book itself — tilted as if lying on a desk, viewed from a chair */
 .book3d {
-  transform: rotateY(-25deg) rotateX(5deg);
+  transform: rotateX(12deg);
   transform-style: preserve-3d;
-  transition: transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
   position: relative;
+  /* DO NOT add rotateY here — it conflicts with react-pageflip */
 }
 
-.book3d:hover {
-  transform: rotateY(-10deg) rotateX(2deg);
+/* Book shadow on the "desk" */
+.bookShadow {
+  position: absolute;
+  bottom: -15px;
+  left: 5%;
+  right: 5%;
+  height: 20px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.3) 0%, transparent 70%);
+  filter: blur(10px);
 }
 
-/* Book spine — left edge thickness */
+/* Thickness indicator — stacked page edges visible on the right */
+.bookThickness {
+  position: absolute;
+  top: 4px;
+  right: -6px;
+  bottom: 4px;
+  width: 6px;
+  background: linear-gradient(
+    to right,
+    #d4c4a0,
+    #c8b890,
+    #bfaf82
+  );
+  border-radius: 0 2px 2px 0;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Spine — left side of the book */
 .bookSpine {
   position: absolute;
-  left: -14px;
   top: 0;
+  left: -8px;
   bottom: 0;
-  width: 14px;
+  width: 8px;
   background: linear-gradient(
     to right,
     #1a0f08,
-    #2a1a0e,
     #3d2818,
     #2a1a0e
   );
-  transform: rotateY(90deg) translateZ(0px);
-  transform-origin: right center;
-  border-radius: 2px 0 0 2px;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.4);
+  border-radius: 3px 0 0 3px;
+  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.3);
 }
 
-/* Book shadow on the surface */
-.bookShadow {
+/* Bottom edge — visible due to the tilt */
+.bookBottom {
   position: absolute;
-  bottom: -20px;
-  left: 10%;
-  right: -5%;
-  height: 30px;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35) 0%, transparent 70%);
-  filter: blur(8px);
-  transform: rotateX(90deg);
+  bottom: -5px;
+  left: -8px;
+  right: -6px;
+  height: 5px;
+  background: linear-gradient(
+    to bottom,
+    #c8b890,
+    #b0a070
+  );
+  border-radius: 0 0 3px 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* ═══ FLIPBOOK CONTAINER ═══ */
@@ -59,48 +86,40 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 /* ═══ PAGE — Aged Parchment ═══ */
 .page {
   background:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
-    linear-gradient(135deg, #e8dcc8 0%, #d4c4a0 25%, #ddd0b8 50%, #c8b890 75%, #e0d4be 100%);
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E"),
+    linear-gradient(170deg, #e8dcc8 0%, #d8c8a8 30%, #ddd0b8 60%, #cec0a0 100%);
   border: none;
-  padding: 2rem 1.8rem;
+  padding: 1.8rem 1.6rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   overflow: hidden;
   position: relative;
   color: #3a2e1e;
-  box-shadow: inset 2px 0 8px rgba(0, 0, 0, 0.12), inset -1px 0 4px rgba(0, 0, 0, 0.06);
+  box-shadow: inset 3px 0 12px rgba(0, 0, 0, 0.08);
 }
 
-/* Aged edge stains */
+/* Aged foxing spots */
 .page::before {
   content: '';
   position: absolute;
   top: 0; right: 0; bottom: 0;
-  width: 25px;
-  background: linear-gradient(to left, rgba(139, 119, 85, 0.12), transparent);
+  width: 20px;
+  background: linear-gradient(to left, rgba(139, 119, 85, 0.1), transparent);
   pointer-events: none;
 }
 
-.page::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 15px;
-  background: linear-gradient(to top, rgba(139, 119, 85, 0.08), transparent);
-  pointer-events: none;
-}
-
-/* ═══ COVER — Leather Bound ═══ */
+/* ═══ COVER — Dark Leather ═══ */
 .pageCover {
   background:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E"),
-    linear-gradient(145deg, #2a1a0e 0%, #3d2818 30%, #1e1008 50%, #3a2515 70%, #2a1a0e 100%);
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.1'/%3E%3C/svg%3E"),
+    linear-gradient(145deg, #2a1a0e 0%, #3d2818 30%, #1e1008 60%, #2a1a0e 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,7 +129,7 @@
   overflow: hidden;
   position: relative;
   border: none;
-  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.6), 5px 5px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5), 3px 3px 15px rgba(0, 0, 0, 0.4);
 }
 
 /* Gold foil shimmer */
@@ -128,31 +147,21 @@
   50% { background-position: 100% 50%; }
 }
 
-/* Page number — ink */
 .pageNumber {
   position: absolute;
-  bottom: 0.8rem;
+  bottom: 0.7rem;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   color: #8b7355;
   font-style: italic;
   font-family: Georgia, 'Times New Roman', serif;
 }
 
-/* Spine accent inside pages */
 .spine {
   position: absolute;
   left: 0; top: 0; bottom: 0;
-  width: 4px;
-  background: linear-gradient(to bottom, #6b4f2e, #8b6f47, #6b4f2e, #8b6f47, #6b4f2e);
-  box-shadow: 1px 0 3px rgba(0, 0, 0, 0.3);
-}
-
-/* Theme-safe: books look the same in any theme */
-[data-theme="light"] .page {
-  background:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E"),
-    linear-gradient(135deg, #e8dcc8 0%, #d4c4a0 25%, #ddd0b8 50%, #c8b890 75%, #e0d4be 100%);
-  color: #3a2e1e;
+  width: 3px;
+  background: linear-gradient(to bottom, #6b4f2e, #8b6f47, #6b4f2e);
+  box-shadow: 1px 0 2px rgba(0, 0, 0, 0.2);
 }
