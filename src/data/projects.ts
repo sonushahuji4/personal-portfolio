@@ -1,46 +1,76 @@
-import type { Project } from '@/types';
+export interface RadioStation {
+  id: string;
+  frequency: string;
+  stationName: string;
+  nowPlaying: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  stats: { value: string; label: string }[];
+  tags: string[];
+  category: 'professional' | 'personal';
+  url?: string;
+}
 
-export const PROJECTS: Project[] = [
+export const RADIO_STATIONS: RadioStation[] = [
   {
-    id: 'aerem-platform',
-    title: 'Aerem Solar Monitoring Platform',
-    description:
-      'A production-grade SaaS platform for real-time solar plant monitoring. Serves 500+ plants, 200+ B2B customers. Features real-time dashboards, energy analytics, IoT data ingestion (2M+ daily readings), automated reports, and alerting.',
-    tech: ['React', 'Node.js', 'TypeScript', 'PostgreSQL', 'AWS', 'Redis', 'WebSockets'],
+    id: 'aerem',
+    frequency: '88.1',
+    stationName: 'Aerem',
+    nowPlaying: 'Now playing · founding engineer',
+    title: 'Aerem Solar Monitoring',
+    subtitle: 'Production SaaS · 2023 — present',
+    description: 'Real-time solar plant monitoring platform. Built the IoT pipeline processing 2M+ daily readings, energy dashboards, automated alerting, and unified auth as the founding engineer.',
+    stats: [
+      { value: '500+', label: 'Plants' },
+      { value: '2M+', label: 'Daily' },
+      { value: '200+', label: 'B2B' },
+      { value: '-60%', label: 'Tickets' },
+    ],
+    tags: ['React', 'Node.js', 'TypeScript', 'PostgreSQL', 'AWS', 'Redis'],
     category: 'professional',
-    links: [],
-    highlight: 'Founding Engineer — Built from zero',
   },
   {
-    id: 'national-pen',
-    title: 'National Pen E-Commerce Platform',
-    description:
-      'Global e-commerce platform for customizable products, live in 20+ countries serving millions of users. Built product features contributing 30-40% of revenue, internal admin tools, payment integrations, and SSG storefronts.',
-    tech: ['React', 'Angular', 'Node.js', 'Express.js', 'TypeScript', 'Python', 'PostgreSQL', 'AWS', 'Redis'],
+    id: 'cimpress',
+    frequency: '92.5',
+    stationName: 'Cimpress',
+    nowPlaying: 'Now playing · senior sde',
+    title: 'National Pen E-Commerce',
+    subtitle: 'Global platform · 2020 — 2023',
+    description: 'E-commerce serving millions across 20+ countries. Built product features driving 30-40% revenue, payment workflows, 15+ APIs with Redis caching, and storefronts with 95+ Lighthouse.',
+    stats: [
+      { value: '30-40%', label: 'Revenue' },
+      { value: '15+', label: 'APIs' },
+      { value: '99.9%', label: 'Uptime' },
+      { value: '95+', label: 'Lighthouse' },
+    ],
+    tags: ['React', 'Angular', 'Node.js', 'Express', 'Python', 'PostgreSQL'],
     category: 'professional',
-    links: [],
-    highlight: 'Contributed 30-40% platform revenue',
   },
   {
     id: 'eventos',
+    frequency: '97.3',
+    stationName: 'Eventos',
+    nowPlaying: 'Now playing · personal project',
     title: 'Eventos',
-    description:
-      'A social media platform for event enthusiasts to discover, track, and engage with events, including media, stories, live streams, posts, and connecting with friends.',
-    tech: ['JavaScript', 'React'],
+    subtitle: 'Social events platform',
+    description: 'A platform for event enthusiasts to discover, track, and engage with events. Features media sharing, stories, live streams, and connecting with friends.',
+    stats: [],
+    tags: ['JavaScript', 'React'],
     category: 'personal',
-    links: [
-      { label: 'Source', url: 'https://github.com/sonushahuji4/Eventos' },
-    ],
+    url: 'https://github.com/sonushahuji4/Eventos',
   },
   {
-    id: 'chat-app',
+    id: 'chat',
+    frequency: '101.7',
+    stationName: 'Chat',
+    nowPlaying: 'Now playing · personal project',
     title: 'Chat Application',
-    description:
-      'Real-time chat application using ReactJS, NodeJS, Express and Socket.io with instant messaging and room support.',
-    tech: ['TypeScript', 'React', 'Node.js', 'Express', 'Socket.io'],
+    subtitle: 'Real-time messaging with rooms',
+    description: 'Instant messaging application with room support, delivery indicators, and live WebSocket communication.',
+    stats: [],
+    tags: ['TypeScript', 'React', 'Node.js', 'Express', 'Socket.io'],
     category: 'personal',
-    links: [
-      { label: 'Source', url: 'https://github.com/sonushahuji4/Chat-Application' },
-    ],
+    url: 'https://github.com/sonushahuji4/Chat-Application',
   },
 ];
