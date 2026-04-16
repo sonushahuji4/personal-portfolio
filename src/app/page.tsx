@@ -9,7 +9,6 @@ import Skills from '@/components/sections/skills';
 import Education from '@/components/sections/education';
 import Platforms from '@/components/sections/platforms';
 import Achievements from '@/components/sections/achievements';
-import Courses from '@/components/sections/courses';
 import Hobbies from '@/components/sections/hobbies';
 import Contact from '@/components/sections/contact';
 
@@ -25,9 +24,8 @@ const Home = () => {
         <Projects />
         <Skills />
         <Education />
-        <Platforms />
         <Achievements />
-        <Courses />
+        <Platforms />
         <Hobbies />
         <Contact />
       </main>

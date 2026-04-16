@@ -58,7 +58,7 @@
   --gradient-1: #7C3AED;
   --gradient-2: #0891B2;
   --gradient-3: #059669;
-  --shadow: rgba(0, 0, 0, 0.04);
+  --shadow: rgba(0, 0, 0, 0.08);
   --section-alt: #F5F5F5;
   --noise-opacity: 0.008;
 }
@@ -189,7 +189,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 .bg-brackets {
   background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 30l-8-8M20 30l-8 8M40 30l8-8M40 30l8 8' stroke='%23ffffff' stroke-opacity='0.01' stroke-width='1' fill='none'/%3E%3C/svg%3E");
 }
-.card-premium { transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1); }
+.card-premium { transition: all 0.25s cubic-bezier(0.25, 0.1, 0.25, 1); }
 .card-premium:hover { transform: translateY(-4px); box-shadow: 0 20px 40px var(--shadow), 0 0 0 1px var(--border-hover); }
 .hover-scale { transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1); }
 .hover-scale:hover { transform: scale(1.02); }

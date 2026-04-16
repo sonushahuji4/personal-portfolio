@@ -8,7 +8,6 @@ export const PERSONAL = {
   tagline:
     'Founding Engineer at a Series A Solar Fintech Startup | 6+ Years Building Scalable Web Applications',
   resumeUrl: `${basePath}/resume.pdf`,
-  titles: ['Full Stack Engineer', 'Founding Engineer', 'Problem Solver', 'System Designer'],
 } as const;
 
 export const SOCIAL_LINKS: SocialLink[] = [
@@ -49,7 +48,7 @@ export const HIGHLIGHT_CARDS: HighlightCard[] = [
   { value: '6+', label: 'Years of Experience' },
   { value: '3', label: 'Companies Worked At' },
   { value: '15+', label: 'Projects Delivered' },
-  { value: '5', label: 'Engineers Mentored' },
+  { value: '1→5', label: 'Team Growth Led' },
 ];
 
 export const INTERESTS = [

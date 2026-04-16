@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download, ChevronDown, Code, Trophy, Mail } from 'lucide-react';
+import { ArrowRight, Download, ChevronDown, Code, Trophy, Mail, Briefcase } from 'lucide-react';
 import type { Easing } from 'framer-motion';
 import Image from 'next/image';
 import Button from '@/components/ui/button';
@@ -39,16 +38,9 @@ const fadeUp = {
 };
 
 const Hero = () => {
-  const [titleIndex, setTitleIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => setTitleIndex((i) => (i + 1) % PERSONAL.titles.length), 3000);
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section id={SECTION_IDS.hero} className="relative min-h-screen overflow-hidden bg-[#09090B]">
-      {/* Photo — right 50%, blending into background */}
+      {/* Photo — right 50% */}
       <div className="absolute inset-0 z-0">
         <div className="absolute right-0 top-0 h-full w-[85%] sm:w-[50%]">
           <Image
@@ -59,11 +51,8 @@ const Hero = () => {
             priority
             unoptimized
           />
-          {/* Strong left fade — text area is fully dark */}
-          <div className="absolute inset-0 bg-linear-to-r from-[#09090B] from-10% via-background/70 via-40% to-transparent to-80%" />
-          {/* Bottom fade */}
+          <div className="absolute inset-0 bg-linear-to-r from-[#09090B] from-10% via-[#09090B]/70 via-40% to-transparent to-80%" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-[#09090B] to-transparent" />
-          {/* Top subtle darken */}
           <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-[#09090B]/50 to-transparent" />
         </div>
       </div>
@@ -71,38 +60,51 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 flex min-h-screen items-center">
         <div className="mx-auto w-full max-w-6xl px-6 sm:px-10">
-          <div className="max-w-lg">
+          <div className="max-w-xl">
+            {/* Intro */}
             <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={0}
               className="mb-4 text-sm font-medium tracking-[0.2em] uppercase text-accent">
               Hello, I&apos;m
             </motion.p>
 
+            {/* Name — letter by letter reveal */}
             <motion.h1 variants={fadeUp} initial="hidden" animate="visible" custom={0.1}
-              className="font-display text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-              {PERSONAL.name}
+              className="font-display text-4xl font-extrabold tracking-[-0.04em] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+              {PERSONAL.name.split('').map((char, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.15 + i * 0.03, ease }}
+                  className="inline-block"
+                  style={{ marginRight: char === ' ' ? '0.25em' : undefined }}
+                >
+                  {char === ' ' ? '\u00A0' : char}
+                </motion.span>
+              ))}
             </motion.h1>
 
-            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.2}
-              className="mt-3 h-px w-20 bg-accent/60" />
+            {/* Static title — no rotation, strongest title pinned */}
+            <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={0.5}
+              className="mt-3 text-lg font-medium text-white/70 sm:text-xl">
+              {PERSONAL.title}
+            </motion.p>
 
-            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.25}
-              className="mt-4 h-8 overflow-hidden sm:h-10">
-              <motion.p
-                key={titleIndex}
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.5, ease }}
-                className="text-lg font-medium text-white/70 sm:text-xl">
-                {PERSONAL.titles[titleIndex]}
-              </motion.p>
+            {/* Founding Engineer badge — the #1 conversion signal */}
+            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.6}
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-sm font-semibold text-accent backdrop-blur-sm">
+              <Briefcase size={14} />
+              Founding Engineer · Series A · Solar Fintech
             </motion.div>
 
-            <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={0.4}
-              className="mt-5 max-w-md text-sm leading-relaxed text-white/50 sm:text-[15px]">
+            {/* Tagline — slightly more visible */}
+            <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={0.7}
+              className="mt-5 max-w-md text-sm leading-relaxed text-white/60 sm:text-[15px]">
               {PERSONAL.tagline}
             </motion.p>
 
-            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.55}
+            {/* CTAs */}
+            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.85}
               className="mt-8 flex flex-wrap gap-3">
               <Button href={`#${SECTION_IDS.projects}`} size="lg" className="group hover-glow">
                 View My Work
@@ -114,20 +116,18 @@ const Hero = () => {
               </Button>
             </motion.div>
 
-            {/* Social links — from data */}
-            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.7}
+            {/* Social links */}
+            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={1.0}
               className="mt-10 flex items-center gap-2">
               <span className="h-px w-8 bg-white/20" />
               {SOCIAL_LINKS.map((link) => {
                 const Icon = ICON_MAP[link.icon];
                 return (
-                  <a
-                    key={link.name} href={link.url}
+                  <a key={link.name} href={link.url}
                     target={link.url.startsWith('mailto:') ? undefined : '_blank'}
                     rel={link.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                     aria-label={link.name}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-white/50 backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:text-white hover:-translate-y-0.5"
-                  >
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-white/50 backdrop-blur-sm transition-all duration-300 hover:border-accent/40 hover:text-white hover:-translate-y-0.5 hover:bg-accent/10">
                     {Icon && <Icon size={16} />}
                   </a>
                 );
@@ -142,8 +142,7 @@ const Hero = () => {
         href={`#${SECTION_IDS.about}`}
         className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 flex flex-col items-center gap-1 text-white/30 transition-colors hover:text-accent"
         aria-label="Scroll down"
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 0.8 }}
-      >
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 0.8 }}>
         <span className="text-[10px] uppercase tracking-[0.2em]">Scroll</span>
         <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}>
           <ChevronDown size={16} />
