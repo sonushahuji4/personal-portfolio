@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, Download, ChevronDown, Code, Trophy, Mail, Briefcase } from 'lucide-react';
 import type { Easing } from 'framer-motion';
 import Image from 'next/image';
 import Button from '@/components/ui/button';
 import { PERSONAL, SOCIAL_LINKS } from '@/data/personal';
 import { SECTION_IDS } from '@/lib/constants';
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 const GithubIcon = ({ size = 18 }: { size?: number }) => (
   <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -28,57 +29,11 @@ const ICON_MAP: Record<string, React.ComponentType<{ size?: number }>> = {
   Github: GithubIcon, Linkedin: LinkedinIcon, Code, Trophy, Mail,
 };
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-
 const COMPANIES = [
   { name: 'Aerem Solutions', logo: `${basePath}/logos/aerem.avif` },
   { name: 'Cimpress India', logo: `${basePath}/logos/cimpress.png` },
   { name: 'Kou-Chan', logo: `${basePath}/logos/kouchan.jpeg` },
 ];
-
-const WorkedWithSlider = () => {
-  const [active, setActive] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => setActive((i) => (i + 1) % COMPANIES.length), 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div>
-      <div className="flex items-center gap-6">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.4 }}
-            className="flex items-center gap-3"
-          >
-            <div className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg border border-border bg-white">
-              <Image src={COMPANIES[active].logo} alt={COMPANIES[active].name} width={32} height={32} className="object-contain" unoptimized />
-            </div>
-            <span className="text-sm font-medium text-foreground">{COMPANIES[active].name}</span>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-      {/* Dot indicators */}
-      <div className="mt-3 flex gap-1.5">
-        {COMPANIES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setActive(i)}
-            className="flex items-center justify-center p-1"
-            aria-label={`Show ${COMPANIES[i].name}`}
-          >
-            <span className={`block h-1.5 rounded-full transition-all duration-300 ${i === active ? 'w-6 bg-accent' : 'w-1.5 bg-border hover:bg-muted-foreground'}`} />
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-};
 
 const ease: Easing = [0.22, 1, 0.36, 1];
 
@@ -97,14 +52,13 @@ const Hero = () => {
       <div className="absolute inset-0 z-0">
         <div className="absolute right-0 top-0 h-full w-[85%] sm:w-[50%]">
           <Image
-            src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile.png`}
+            src={`${basePath}/images/profile.png`}
             alt="Sonu Shahuji"
             fill
             className="object-cover object-top"
             priority
             unoptimized
           />
-          {/* Gradient overlays — using CSS vars so they adapt to theme */}
           <div className="absolute inset-0 bg-linear-to-r from-background from-10% via-background/70 via-40% to-transparent to-80%" />
           <div className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-background to-transparent" />
           <div className="absolute inset-x-0 top-0 h-24 bg-linear-to-b from-background/50 to-transparent" />
@@ -121,7 +75,7 @@ const Hero = () => {
               Hello, I&apos;m
             </motion.p>
 
-            {/* Name — letter by letter reveal */}
+            {/* Name */}
             <motion.h1 variants={fadeUp} initial="hidden" animate="visible" custom={0.1}
               className="font-display text-4xl font-extrabold tracking-[-0.04em] text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
               {PERSONAL.name.split('').map((char, i) => (
@@ -138,13 +92,13 @@ const Hero = () => {
               ))}
             </motion.h1>
 
-            {/* Static title */}
+            {/* Title */}
             <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={0.5}
               className="mt-3 text-lg font-medium text-muted sm:text-xl">
               {PERSONAL.title}
             </motion.p>
 
-            {/* Founding Engineer badge */}
+            {/* Badge */}
             <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.6}
               className="mt-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent-muted px-4 py-1.5 text-sm font-semibold text-accent backdrop-blur-sm">
               <Briefcase size={14} />
@@ -172,7 +126,7 @@ const Hero = () => {
 
             {/* Social links */}
             <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={1.0}
-              className="mt-10 flex items-center gap-2">
+              className="mt-8 flex items-center gap-2">
               <span className="h-px w-8 bg-border" />
               {SOCIAL_LINKS.map((link) => {
                 const Icon = ICON_MAP[link.icon];
@@ -187,24 +141,33 @@ const Hero = () => {
                 );
               })}
             </motion.div>
+
+            {/* Worked with — all 3 inline, aligned with content */}
+            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={1.15}
+              className="mt-10">
+              <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.15em] text-muted-foreground">
+                Worked with
+              </p>
+              <div className="flex items-center gap-4 sm:gap-6">
+                {COMPANIES.map((company, i) => (
+                  <motion.div
+                    key={company.name}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 1.2 + i * 0.1 }}
+                    className="flex items-center gap-2 rounded-xl border border-border bg-card/50 px-3 py-2 backdrop-blur-sm transition-all duration-300 hover:border-accent/30 hover:bg-card"
+                  >
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-md bg-white">
+                      <Image src={company.logo} alt={company.name} width={22} height={22} className="object-contain" unoptimized />
+                    </div>
+                    <span className="hidden text-xs font-medium text-foreground sm:block">{company.name}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>
-
-      {/* Worked with — company logos slider */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 1.2, ease }}
-        className="absolute bottom-24 left-0 right-0 z-10 px-6 sm:px-10"
-      >
-        <div className="mx-auto max-w-6xl">
-          <p className="mb-4 text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">
-            Worked with
-          </p>
-          <WorkedWithSlider />
-        </div>
-      </motion.div>
 
       {/* Scroll indicator */}
       <motion.a
