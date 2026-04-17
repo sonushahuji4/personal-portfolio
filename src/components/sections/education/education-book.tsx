@@ -13,6 +13,27 @@ const EducationBook = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const bookRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState(0);
+  const [rotation, setRotation] = useState({ x: 40, y: -30 });
+  const [dragging, setDragging] = useState(false);
+  const lastMouse = useRef({ x: 0, y: 0 });
+
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    setDragging(true);
+    lastMouse.current = { x: e.clientX, y: e.clientY };
+  }, []);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!dragging) return;
+    const dx = e.clientX - lastMouse.current.x;
+    const dy = e.clientY - lastMouse.current.y;
+    setRotation(r => ({
+      x: Math.max(5, Math.min(60, r.x - dy * 0.3)),
+      y: Math.max(-60, Math.min(0, r.y + dx * 0.3)),
+    }));
+    lastMouse.current = { x: e.clientX, y: e.clientY };
+  }, [dragging]);
+
+  const handleMouseUp = useCallback(() => { setDragging(false); }, []);
   const totalPages = 6;
 
   const flipTo = useCallback((page: number) => {
@@ -30,9 +51,15 @@ const EducationBook = () => {
   return (
     <div>
       {/* 3D perspective container */}
-      {/* 3D perspective — your DevTools values */}
-      <div style={{ perspective: '1500px', display: 'flex', justifyContent: 'center', padding: '10px 0' }}>
-        <div style={{ position: 'relative', transform: 'rotateY(-30deg) rotateX(40deg)', transformStyle: 'preserve-3d' }}>
+      {/* 3D perspective — draggable */}
+      <div
+        style={{ perspective: '1500px', display: 'flex', justifyContent: 'center', padding: '10px 0', cursor: dragging ? 'grabbing' : 'grab' }}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseLeave={handleMouseUp}
+      >
+        <div style={{ position: 'relative', transform: `rotateY(${rotation.y}deg) rotateX(${rotation.x}deg)`, transformStyle: 'preserve-3d', transition: dragging ? 'none' : 'transform 0.3s ease' }}>
           {/* Book thickness block — spine/page stack on left side */}
           <div style={{
             position: 'absolute', left: '-15px', top: '4px', width: '15px', height: 'calc(100% - 8px)',
