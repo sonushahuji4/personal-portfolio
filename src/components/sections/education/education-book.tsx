@@ -29,14 +29,14 @@ const EducationBook = () => {
 
   return (
     <div>
-      {/* Simple centered container — NO 3D transforms that break flipbook */}
-      <div style={{ display: 'flex', justifyContent: 'center', padding: '10px 0' }}>
-        <div style={{ position: 'relative' }}>
+      {/* 3D perspective container */}
+      <div style={{ perspective: '1500px', display: 'flex', justifyContent: 'center', padding: '10px 0' }}>
+        <div style={{ position: 'relative', transform: 'rotateX(4deg)', transformStyle: 'preserve-3d' }}>
           {/* Page edge stacks — behind the book */}
-          <div style={{ position: 'absolute', left: '-4px', top: '4px', width: '6px', height: 'calc(100% - 8px)', background: 'repeating-linear-gradient(to bottom, #f2ebe0 0px, #ddd4c0 0.8px, #f0e8d8 1.6px)', borderRadius: '3px 0 0 3px', zIndex: -1, boxShadow: '-2px 0 4px rgba(0,0,0,0.1)' }} />
-          <div style={{ position: 'absolute', right: '-4px', top: '4px', width: '6px', height: 'calc(100% - 8px)', background: 'repeating-linear-gradient(to bottom, #f2ebe0 0px, #ddd4c0 0.8px, #f0e8d8 1.6px)', borderRadius: '0 3px 3px 0', zIndex: -1, boxShadow: '2px 0 4px rgba(0,0,0,0.1)' }} />
+          <div style={{ position: 'absolute', left: '-5px', top: '3px', width: '7px', height: 'calc(100% - 6px)', background: 'repeating-linear-gradient(to bottom, #f2ebe0 0px, #ddd4c0 0.8px, #f0e8d8 1.6px)', borderRadius: '3px 0 0 3px', zIndex: -1, boxShadow: '-2px 0 6px rgba(0,0,0,0.15)' }} />
+          <div style={{ position: 'absolute', right: '-5px', top: '3px', width: '7px', height: 'calc(100% - 6px)', background: 'repeating-linear-gradient(to bottom, #f2ebe0 0px, #ddd4c0 0.8px, #f0e8d8 1.6px)', borderRadius: '0 3px 3px 0', zIndex: -1, boxShadow: '2px 0 6px rgba(0,0,0,0.15)' }} />
 
-          {/* The flipbook — clean, no overlays blocking content */}
+          {/* The flipbook */}
           <HTMLFlipBook
             ref={bookRef}
             width={380}
@@ -46,12 +46,12 @@ const EducationBook = () => {
             maxWidth={440}
             minHeight={360}
             maxHeight={600}
-            maxShadowOpacity={0.5}
+            maxShadowOpacity={0.6}
             showCover={false}
             mobileScrollSupport={true}
-            flippingTime={800}
+            flippingTime={900}
             drawShadow={true}
-            usePortrait={true}
+            usePortrait={false}
             startZIndex={0}
             autoSize={true}
             clickEventForward={true}
