@@ -14,14 +14,14 @@
   width: 300px;
   height: 420px;
   transform-style: preserve-3d;
-  transform: rotateY(-18deg) rotateX(3deg);
+  transform: rotateY(-30deg) rotateX(40deg);
   position: relative;
   cursor: pointer;
   transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .closedBook:hover {
-  transform: rotateY(-12deg) rotateX(2deg) translateY(-6px);
+  transform: rotateY(-25deg) rotateX(35deg) translateY(-6px);
 }
 
 /* Leather cover face */
