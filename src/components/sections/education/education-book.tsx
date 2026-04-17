@@ -13,7 +13,7 @@ const EducationBook = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const bookRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [rotation, setRotation] = useState({ x: 40, y: -30 });
+  const [rotation, setRotation] = useState({ x: 30, y: -15 });
   const [dragging, setDragging] = useState(false);
   const lastMouse = useRef({ x: 0, y: 0 });
 

@@ -15,6 +15,7 @@ export const SECTION_IDS = {
   lifeCircle: 'life-circle',
   platforms: 'platforms',
   education: 'education',
+  growth: 'growth',
   achievements: 'achievements',
   hobbies: 'hobbies',
   contact: 'contact',
@@ -26,4 +27,9 @@ export const NAV_LINKS = [
   { label: 'Projects', href: `#${SECTION_IDS.projects}` },
   { label: 'Skills', href: `#${SECTION_IDS.skills}` },
   { label: 'Contact', href: `#${SECTION_IDS.contact}` },
+] as const;
+
+export const NAV_MORE_LINKS = [
+  { label: 'Journey', href: `#${SECTION_IDS.growth}` },
+  { label: 'Achievements', href: `#${SECTION_IDS.achievements}` },
 ] as const;
