@@ -1,21 +1,264 @@
-.closedBookWrapper { perspective: 1200px; display: flex; justify-content: center; padding: 20px 0; }
-.closedBook { width: 320px; height: 440px; transform-style: preserve-3d; transform: rotateY(-20deg); position: relative; cursor: pointer; transition: transform 0.4s, box-shadow 0.4s; }
-.closedBook:hover { transform: rotateY(-16deg) translateY(-4px); }
-.coverFace { position: absolute; inset: 0; border-radius: 4px; overflow: hidden; background: linear-gradient(135deg, #2a1810, #3d2518, #2a1810); box-shadow: 4px 4px 20px rgba(0,0,0,0.5); }
-.coverSpine { position: absolute; left: -14px; top: 2px; width: 16px; height: calc(100% - 4px); background: linear-gradient(to right, #1a0f08, #2d1f14, #3d2518, #2d1f14, #1a0f08); transform: rotateY(90deg) translateZ(8px); transform-origin: right center; border-radius: 3px 0 0 3px; }
-.coverPages { position: absolute; right: -4px; top: 4px; width: 6px; height: calc(100% - 8px); background: repeating-linear-gradient(to bottom, #f5f0e6 0px, #e8e0d0 1px, #f5f0e6 2px); border-radius: 0 2px 2px 0; }
-.coverShadow { width: 85%; height: 20px; margin: -4px auto 0; background: radial-gradient(ellipse, rgba(0,0,0,0.4) 0%, transparent 70%); filter: blur(8px); }
-.bookPerspective { perspective: 1200px; perspective-origin: 50% 40%; display: flex; justify-content: center; padding: 20px 0; }
-.book3dBody { transform-style: preserve-3d; transform: rotateX(3deg); position: relative; }
-.bookSpine { position: absolute; left: 50%; top: 3px; transform: translateX(-50%); width: 6px; height: calc(100% - 6px); background: linear-gradient(90deg, rgba(60,40,20,0.6), rgba(30,20,10,0.8), rgba(60,40,20,0.6)); border-radius: 1px; z-index: 10; box-shadow: 0 0 8px rgba(0,0,0,0.3); }
-.bookPagesLeft { position: absolute; left: -3px; top: 4px; width: 5px; height: calc(100% - 8px); background: repeating-linear-gradient(to bottom, #f5f0e6 0px, #e8e0d0 1px, #f5f0e6 2px); border-radius: 2px 0 0 2px; z-index: -1; }
-.bookPagesRight { position: absolute; right: -3px; top: 4px; width: 5px; height: calc(100% - 8px); background: repeating-linear-gradient(to bottom, #f5f0e6 0px, #e8e0d0 1px, #f5f0e6 2px); border-radius: 0 2px 2px 0; z-index: -1; }
-.bookLighting { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(255,240,200,0.03), transparent 40%, rgba(0,0,0,0.02)); pointer-events: none; z-index: 5; border-radius: 4px; }
-.bookTableShadow { width: 90%; height: 20px; margin: -8px auto 0; background: radial-gradient(ellipse, rgba(0,0,0,0.3) 0%, transparent 70%); filter: blur(6px); }
-.page { background: linear-gradient(to right, #f0ead8, #f5f0e6); overflow: hidden; font-family: Georgia, 'Times New Roman', serif; color: #2a2520; }
-.pageContent { padding: 20px; height: 100%; display: flex; flex-direction: column; box-sizing: border-box; overflow: hidden; }
-.controlBtn { padding: 8px 16px; background: #2a1810; color: #c9a961; border: 1px solid rgba(201,169,97,0.15); border-radius: 6px; cursor: pointer; font-family: Georgia, serif; font-size: 12px; transition: background 0.2s; }
-.controlBtn:hover:not(:disabled) { background: #3d2518; }
-.controlBtn:disabled { opacity: 0.3; cursor: not-allowed; }
-@media (max-width: 640px) { .closedBook { width: 260px; height: 360px; transform: rotateY(-10deg); } .book3dBody { transform: rotateX(0deg); } }
-@media (prefers-reduced-motion: reduce) { .closedBook { transform: rotateY(0deg); transition: none; } .book3dBody { transform: rotateX(0deg); } }
+/* ═══════════════════════════════════════
+   ANCIENT BOOK — Matching leather-bound reference
+   ═══════════════════════════════════════ */
+
+/* PHASE 1: CLOSED BOOK */
+.closedBookWrapper {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  padding: 30px 0 10px;
+}
+
+.closedBook {
+  width: 300px;
+  height: 420px;
+  transform-style: preserve-3d;
+  transform: rotateY(-18deg) rotateX(3deg);
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.closedBook:hover {
+  transform: rotateY(-12deg) rotateX(2deg) translateY(-6px);
+}
+
+/* Leather cover face */
+.coverFace {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px 6px 6px 3px;
+  overflow: hidden;
+  background:
+    /* Leather grain noise */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E"),
+    /* Aged leather gradient */
+    linear-gradient(155deg, #5a3e28 0%, #3d2818 15%, #4a3422 30%, #2a1810 50%, #3d2818 70%, #4a3422 85%, #3a2515 100%);
+  box-shadow:
+    4px 6px 25px rgba(0,0,0,0.6),
+    inset 0 0 30px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,200,100,0.04);
+}
+
+/* Book thickness — bottom edge */
+.coverBottom {
+  position: absolute;
+  left: 0;
+  right: -4px;
+  bottom: -10px;
+  height: 10px;
+  background: repeating-linear-gradient(
+    to right,
+    #e8dcc8 0px, #d4c4a0 0.8px, #e8dcc8 1.6px
+  );
+  border-radius: 0 0 3px 3px;
+  transform: rotateX(-90deg);
+  transform-origin: top center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+/* Spine — thick, leather */
+.coverSpine {
+  position: absolute;
+  left: -18px;
+  top: 0;
+  width: 18px;
+  height: 100%;
+  background:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.1'/%3E%3C/svg%3E"),
+    linear-gradient(to right, #1a0f08, #2d1f14, #3d2518, #2d1f14, #1a0f08);
+  transform: rotateY(90deg) translateZ(9px);
+  transform-origin: right center;
+  border-radius: 4px 0 0 4px;
+  box-shadow: -3px 0 10px rgba(0,0,0,0.4);
+}
+
+/* Spine raised bands (horizontal ridges) */
+.coverSpine::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 60px,
+    rgba(90,62,40,0.3) 60px,
+    rgba(90,62,40,0.3) 63px,
+    transparent 63px,
+    transparent 66px,
+    rgba(90,62,40,0.3) 66px,
+    rgba(90,62,40,0.3) 69px
+  );
+}
+
+/* Page edges — thick stack visible */
+.coverPages {
+  position: absolute;
+  right: -6px;
+  top: 3px;
+  width: 8px;
+  height: calc(100% - 6px);
+  background: repeating-linear-gradient(
+    to bottom,
+    #f5f0e6 0px, #e0d8c4 0.6px, #f2ebe0 1.2px
+  );
+  border-radius: 0 2px 2px 0;
+  box-shadow: 2px 0 6px rgba(0,0,0,0.15);
+}
+
+/* Aged page edges — darker at top and bottom */
+.coverPages::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(139,115,85,0.2), transparent 15%, transparent 85%, rgba(139,115,85,0.2));
+  border-radius: inherit;
+}
+
+.coverShadow {
+  width: 80%;
+  height: 25px;
+  margin: 0 auto;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.45) 0%, transparent 70%);
+  filter: blur(10px);
+}
+
+/* ═══ PHASE 2: OPEN BOOK ═══ */
+.bookPerspective {
+  perspective: 1200px;
+  perspective-origin: 50% 35%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.book3dBody {
+  transform-style: preserve-3d;
+  transform: rotateX(5deg);
+  position: relative;
+}
+
+/* Center spine crease */
+.bookSpine {
+  position: absolute;
+  left: 50%;
+  top: 2px;
+  transform: translateX(-50%);
+  width: 8px;
+  height: calc(100% - 4px);
+  background: linear-gradient(90deg,
+    rgba(80,60,30,0.3),
+    rgba(30,20,10,0.7),
+    rgba(30,20,10,0.9),
+    rgba(30,20,10,0.7),
+    rgba(80,60,30,0.3)
+  );
+  border-radius: 2px;
+  z-index: 10;
+  box-shadow: 0 0 12px rgba(0,0,0,0.4);
+}
+
+.bookPagesLeft {
+  position: absolute;
+  left: -4px;
+  top: 3px;
+  width: 6px;
+  height: calc(100% - 6px);
+  background: repeating-linear-gradient(to bottom, #f2ebe0 0px, #ddd4c0 0.8px, #f0e8d8 1.6px);
+  border-radius: 3px 0 0 3px;
+  z-index: -1;
+  box-shadow: -2px 0 4px rgba(0,0,0,0.1);
+}
+
+.bookPagesRight {
+  position: absolute;
+  right: -4px;
+  top: 3px;
+  width: 6px;
+  height: calc(100% - 6px);
+  background: repeating-linear-gradient(to bottom, #f2ebe0 0px, #ddd4c0 0.8px, #f0e8d8 1.6px);
+  border-radius: 0 3px 3px 0;
+  z-index: -1;
+  box-shadow: 2px 0 4px rgba(0,0,0,0.1);
+}
+
+/* Warm overhead light on pages */
+.bookLighting {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(255,240,200,0.06), transparent 60%);
+  pointer-events: none;
+  z-index: 5;
+  border-radius: 4px;
+}
+
+.bookTableShadow {
+  width: 95%;
+  height: 25px;
+  margin: -6px auto 0;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.35) 0%, transparent 70%);
+  filter: blur(8px);
+}
+
+/* ═══ PAGES — Aged parchment ═══ */
+.page {
+  background:
+    /* Paper grain noise */
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+    /* Aged cream gradient */
+    linear-gradient(170deg, #ede5d0 0%, #e8dcc8 30%, #f0e8d8 50%, #ddd0b8 80%, #e5dbc8 100%);
+  overflow: hidden;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #2a2520;
+  /* Foxing/age stains on edges */
+  box-shadow: inset 3px 0 12px rgba(139,115,85,0.08), inset -2px 0 8px rgba(139,115,85,0.05);
+}
+
+.pageContent {
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* ═══ CONTROLS ═══ */
+.controlBtn {
+  padding: 8px 16px;
+  background: linear-gradient(180deg, #3d2818, #2a1810);
+  color: #c9a961;
+  border: 1px solid rgba(201,169,97,0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+  font-size: 12px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.controlBtn:hover:not(:disabled) {
+  background: linear-gradient(180deg, #4a3422, #3d2818);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+}
+
+.controlBtn:active:not(:disabled) {
+  transform: scale(0.97);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.controlBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .closedBook { width: 240px; height: 340px; transform: rotateY(-10deg) rotateX(2deg); }
+  .book3dBody { transform: rotateX(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .closedBook { transform: rotateY(0deg) rotateX(0deg); transition: none; }
+  .book3dBody { transform: rotateX(0deg); }
+}
