@@ -7,10 +7,9 @@ import Experience from '@/components/sections/experience';
 import Projects from '@/components/sections/projects/projects';
 import Skills from '@/components/sections/skills';
 // import LifeCircle from '@/components/sections/life-circle/life-circle'; // Hidden for now — will use later
-import Platforms from '@/components/sections/platforms';
-import Education from '@/components/sections/education/index';
+import GrowthCommunity from '@/components/sections/growth-community';
 import Achievements from '@/components/sections/achievements';
-import Hobbies from '@/components/sections/hobbies';
+import InterestsStrip from '@/components/sections/interests-strip';
 import Contact from '@/components/sections/contact';
 
 const Home = () => {
@@ -25,10 +24,9 @@ const Home = () => {
         <Projects />
         <Skills />
         {/* <LifeCircle /> — Hidden for now, will use later */}
-        <Platforms />
-        <Education />
+        <GrowthCommunity />
         <Achievements />
-        <Hobbies />
+        <InterestsStrip />
         <Contact />
       </main>
       <Footer />
