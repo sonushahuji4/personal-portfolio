@@ -258,7 +258,15 @@
   .book3dBody { transform: rotateX(0deg); }
 }
 
+/* Drop shadow on the flipbook itself */
+.bookDropShadow {
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4)) drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+@media (max-width: 640px) {
+  .closedBook { width: 240px; height: 340px; transform: rotateY(-10deg) rotateX(2deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .closedBook { transform: rotateY(0deg) rotateX(0deg); transition: none; }
-  .book3dBody { transform: rotateX(0deg); }
 }

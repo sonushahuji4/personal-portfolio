@@ -13,7 +13,7 @@ const EducationBook = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const bookRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const totalPages = 6; // index + 4 entries + back
+  const totalPages = 6;
 
   const flipTo = useCallback((page: number) => {
     bookRef.current?.pageFlip?.()?.flip?.(page);
@@ -29,56 +29,52 @@ const EducationBook = () => {
 
   return (
     <div>
-      {/* 3D perspective wrapper — AROUND the flipbook, not inside */}
-      <div className={styles.bookPerspective}>
-        <div className={styles.book3dBody}>
-          <div className={styles.bookSpine} />
-          <div className={styles.bookPagesLeft} />
-          <div className={styles.bookPagesRight} />
-          <div className={styles.bookLighting} />
+      {/* Simple centered container — NO 3D transforms that break flipbook */}
+      <div style={{ display: 'flex', justifyContent: 'center', padding: '10px 0' }}>
+        <div style={{ position: 'relative' }}>
+          {/* Page edge stacks — behind the book */}
+          <div style={{ position: 'absolute', left: '-4px', top: '4px', width: '6px', height: 'calc(100% - 8px)', background: 'repeating-linear-gradient(to bottom, #f2ebe0 0px, #ddd4c0 0.8px, #f0e8d8 1.6px)', borderRadius: '3px 0 0 3px', zIndex: -1, boxShadow: '-2px 0 4px rgba(0,0,0,0.1)' }} />
+          <div style={{ position: 'absolute', right: '-4px', top: '4px', width: '6px', height: 'calc(100% - 8px)', background: 'repeating-linear-gradient(to bottom, #f2ebe0 0px, #ddd4c0 0.8px, #f0e8d8 1.6px)', borderRadius: '0 3px 3px 0', zIndex: -1, boxShadow: '2px 0 4px rgba(0,0,0,0.1)' }} />
 
-          {/* Flipbook wrapper — NO 3D transforms here */}
-          <div>
-            <HTMLFlipBook
-              ref={bookRef}
-              width={400}
-              height={540}
-              size="stretch"
-              minWidth={280}
-              maxWidth={480}
-              minHeight={380}
-              maxHeight={620}
-              maxShadowOpacity={0.5}
-              showCover={false}
-              mobileScrollSupport={true}
-              flippingTime={800}
-              drawShadow={true}
-              usePortrait={true}
-              startZIndex={0}
-              autoSize={true}
-              clickEventForward={true}
-              useMouseEvents={true}
-              swipeDistance={30}
-              showPageCorners={true}
-              disableFlipByClick={false}
-              startPage={0}
-              onFlip={(e: { data: number }) => setCurrentPage(e.data)}
-              className=""
-              style={{}}
-            >
-              {/* Page 0: Contents */}
-              <IndexPage onNavigate={flipTo} />
-              {/* Pages 1-4: Education entries */}
-              {EDUCATION.map((entry, i) => (
-                <ContentPage key={entry.id} entry={entry} pageNumber={i + 2} />
-              ))}
-              {/* Page 5: Back */}
-              <BackPage />
-            </HTMLFlipBook>
-          </div>
+          {/* The flipbook — clean, no overlays blocking content */}
+          <HTMLFlipBook
+            ref={bookRef}
+            width={380}
+            height={520}
+            size="stretch"
+            minWidth={260}
+            maxWidth={440}
+            minHeight={360}
+            maxHeight={600}
+            maxShadowOpacity={0.5}
+            showCover={false}
+            mobileScrollSupport={true}
+            flippingTime={800}
+            drawShadow={true}
+            usePortrait={true}
+            startZIndex={0}
+            autoSize={true}
+            clickEventForward={true}
+            useMouseEvents={true}
+            swipeDistance={30}
+            showPageCorners={true}
+            disableFlipByClick={false}
+            startPage={0}
+            onFlip={(e: { data: number }) => setCurrentPage(e.data)}
+            className={styles.bookDropShadow}
+            style={{}}
+          >
+            <IndexPage onNavigate={flipTo} />
+            {EDUCATION.map((entry, i) => (
+              <ContentPage key={entry.id} entry={entry} pageNumber={i + 2} />
+            ))}
+            <BackPage />
+          </HTMLFlipBook>
         </div>
       </div>
-      <div className={styles.bookTableShadow} />
+
+      {/* Table shadow */}
+      <div style={{ width: '80%', height: '20px', margin: '-6px auto 0', background: 'radial-gradient(ellipse, rgba(0,0,0,0.3) 0%, transparent 70%)', filter: 'blur(8px)' }} />
 
       {/* Controls */}
       <div className="mt-6 flex items-center justify-center gap-4">
