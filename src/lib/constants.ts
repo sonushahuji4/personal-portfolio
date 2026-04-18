@@ -13,11 +13,9 @@ export const SECTION_IDS = {
   projects: 'projects',
   skills: 'skills',
   lifeCircle: 'life-circle',
-  platforms: 'platforms',
   education: 'education',
   growth: 'growth',
   achievements: 'achievements',
-  hobbies: 'hobbies',
   contact: 'contact',
 } as const;
 

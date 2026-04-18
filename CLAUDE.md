@@ -1,122 +1,144 @@
-# Sonu Shahuji — Personal Portfolio
+# CLAUDE.md — Sonu Shahuji Personal Portfolio
 
 ## Project Overview
 
-A personal portfolio website for Sonu Shahuji, a Full Stack Engineer with 6 years of experience. Built with Next.js 14 (App Router), TypeScript, Tailwind CSS, and Framer Motion. Deployed as a static site on GitHub Pages.
+A personal portfolio website for Sonu Shahuji, a Full Stack Engineer with 6+ years of experience and the founding engineer at Aerem Solutions. Built with Next.js 16 (App Router), TypeScript, Tailwind CSS v4, and Framer Motion. Deployed as a static export to GitHub Pages via GitHub Actions.
 
 ## Tech Stack
 
-- **Framework**: Next.js 14 (App Router, Static Export)
+- **Framework**: Next.js 16 (App Router, Static Export)
 - **Language**: TypeScript (strict mode)
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS v4 (via `@tailwindcss/postcss`)
 - **Animations**: Framer Motion
+- **3D / book flip**: `react-pageflip`, `@react-three/fiber`, `@react-three/drei`, `three`
 - **Icons**: Lucide React
-- **Deployment**: GitHub Pages via GitHub Actions
-- **CI/CD**: GitHub Actions (auto-deploy on push to main)
+- **Deployment**: GitHub Pages (auto-deploy from `main` via GitHub Actions)
 
 ## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx          # Root layout with fonts, metadata
-│   ├── page.tsx            # Home page — assembles all sections
-│   └── globals.css         # Tailwind base + custom CSS variables
+│   ├── layout.tsx                     # Root layout: fonts, metadata, providers
+│   ├── page.tsx                       # Home page — composes sections
+│   ├── globals.css                    # Tailwind base + CSS custom properties
+│   └── favicon.ico
 ├── components/
-│   ├── ui/                 # Reusable UI primitives (Button, Card, Badge, etc.)
-│   ├── sections/           # Page sections (Hero, About, Experience, etc.)
-│   ├── layout/             # Header, Footer, Navigation
-│   └── common/             # Shared components (SectionHeading, Timeline, etc.)
-├── data/                   # All portfolio content as typed constants
-│   ├── personal.ts         # Name, bio, links, contact
-│   ├── experience.ts       # Work history with impacts
-│   ├── education.ts        # School → B.Tech → Scaler
-│   ├── skills.ts           # Categorized skills
-│   ├── projects.ts         # Professional + personal projects
-│   ├── achievements.ts     # Awards, certifications, courses
-│   ├── platforms.ts        # LeetCode, CodeChef, GitHub stats
-│   └── hobbies.ts          # Interests and hobbies
+│   ├── layout/                        # Header, Footer
+│   ├── ui/                            # Primitives: badge, section-heading, scroll-progress, theme-toggle
+│   ├── common/                        # Shared: brand-logo, company-logo, motion-provider, theme-provider
+│   └── sections/
+│       ├── hero.tsx
+│       ├── about.tsx
+│       ├── experience.tsx
+│       ├── projects/projects.tsx
+│       ├── skills.tsx                 # + skill-circle.tsx
+│       ├── growth-community.tsx       # Journey & Impact (book + platforms)
+│       ├── education/                 # Flipbook rendered via growth-community
+│       │   ├── education-phase-controller.tsx
+│       │   ├── book-cover-3d.tsx
+│       │   ├── education-book.tsx
+│       │   ├── education.module.css
+│       │   └── pages/{index-page,content-page,back-page}.tsx
+│       ├── achievements.tsx           # Tabs: awards / certs / course certs / testimonials
+│       ├── interests-strip.tsx        # Horizontal hobby icons
+│       ├── contact.tsx
+│       └── life-circle/               # HIDDEN — kept for future use; see page.tsx comment
+├── data/                              # Typed content constants (no strings hardcoded in components)
+│   ├── personal.ts  experience.ts  education.ts  skills.ts
+│   ├── projects.ts  achievements.ts  platforms.ts  hobbies.ts
+│   └── life-circle.ts                 # used only by hidden life-circle section
 ├── lib/
-│   ├── utils.ts            # Helper functions (cn, formatDate, etc.)
-│   └── constants.ts        # Site-wide constants (URLs, metadata)
+│   ├── utils.ts                       # cn() classname helper
+│   └── constants.ts                   # SITE_CONFIG, SECTION_IDS, NAV_LINKS
 └── types/
-    └── index.ts            # All TypeScript interfaces and types
+    ├── index.ts                       # Shared TS interfaces
+    └── life-circle.ts                 # Types for hidden life-circle section
 ```
 
-## Key Commands
+## Development Commands
 
 ```bash
-npm run dev          # Start dev server at localhost:3000
-npm run build        # Build static export to /out
-npm run lint         # Run ESLint
-npx tsc --noEmit     # Type check without emitting
+npm run dev          # Dev server at http://localhost:3000
+npm run build        # Static export to /out
+npm run lint         # ESLint
+npx tsc --noEmit     # Type check only
 ```
 
-## Code Style
+> **Node version**: requires Node 23 (via `nvm use 23`). The default macOS Node 16 is incompatible with Next.js 16.
 
-- Use ES module imports, not CommonJS
-- Destructure imports: `import { motion } from 'framer-motion'`
-- Use `cn()` utility (clsx) for conditional classnames
-- Components are functional with arrow syntax and default exports
-- Every component file exports exactly one component
-- File names use kebab-case: `section-heading.tsx`
-- Component names use PascalCase: `SectionHeading`
-- Data files export typed constants, not functions
-- All text content lives in `src/data/` — never hardcode strings in components
+## Sections (in page.tsx order)
 
-## Design System
+1. **Hero** — Name, title, tagline, CTAs, social links
+2. **About** — Summary, highlight cards, photo
+3. **Experience** — Kou-Chan → Cimpress → Aerem with impact bullets
+4. **Projects** — Featured card + carousel (professional + personal)
+5. **Skills** — Categorized skill circles
+6. **Journey & Impact** (`growth-community`) — Education flipbook + platform stats (LeetCode, CodeChef, GitHub, LinkedIn)
+7. **Achievements** — Tabs for awards, certifications, course certs, testimonials
+8. **Interests Strip** — Horizontal hobby icons
+9. **Contact** — Email / phone / LinkedIn / GitHub / resume download
 
-- **Theme**: Dark techy developer portfolio with accent color
-- **Font**: Use a distinctive display font (not Inter/Arial/Roboto)
-- **Colors**: Defined as CSS variables in globals.css
-- **Spacing**: Consistent section padding using Tailwind spacing scale
-- **Animations**: Framer Motion for scroll reveals, staggered children, hover effects
-- **Responsive**: Mobile-first, breakpoints at sm/md/lg/xl
+`LifeCircle` is imported but commented out in `page.tsx` ("Hidden for now — will use later"). Its files must be preserved.
 
 ## Architecture Rules
 
-- IMPORTANT: This is a static export (`output: 'export'` in next.config.ts). No server-side features (no API routes, no SSR, no middleware).
-- IMPORTANT: Images must use `unoptimized: true` in next.config.ts
-- IMPORTANT: All data is in `src/data/` as TypeScript constants — no API calls, no database
-- Each section is a self-contained component in `src/components/sections/`
-- Sections are composable — can be added/removed from page.tsx independently
-- UI primitives in `src/components/ui/` are generic and reusable
-- Never use `localStorage`, `sessionStorage`, or browser-only APIs at module level
-- Use `'use client'` directive only on components that need interactivity (animations, state)
+- Static export (`output: 'export'` in `next.config.ts`). No API routes, no SSR, no middleware.
+- All images use `images.unoptimized = true`.
+- All text content lives in `src/data/*.ts` — never hardcode strings in components.
+- Each section is a self-contained component under `src/components/sections/`.
+- UI primitives in `src/components/ui/` are generic and reusable.
+- Use `'use client'` only on components that need hooks, state, or browser APIs.
+- Never use `localStorage`, `sessionStorage`, `window`, or `document` at module top-level — always inside effects.
+- Images/assets are served under `NEXT_PUBLIC_BASE_PATH` — respect it when hardcoding paths.
 
-## GitHub Pages Constraints
+## Code Style
 
-- Base path will be set dynamically via env var for repo subpath hosting
-- All asset references must respect basePath
-- Place `.nojekyll` in public/ to prevent Jekyll processing
-- The `images.unoptimized = true` config is required
+- ES module imports only. Destructure: `import { motion } from 'framer-motion'`.
+- Functional components with arrow syntax and a single default export per file.
+- File names: `kebab-case.tsx`. Component names: `PascalCase`.
+- Data files export typed constants — never functions.
+- Use `cn()` from `src/lib/utils.ts` for conditional classnames.
 
-## Sections (in page order)
+## Agents
 
-1. **Hero** — Name, title, tagline, CTA buttons, social links
-2. **About** — Professional summary, photo placeholder, key highlights
-3. **Experience** — Timeline: Kou-Chan → Cimpress → Aerem with impacts
-4. **Projects** — Professional projects + personal (Comment System, Eventos, etc.)
-5. **Skills** — Categorized: Frontend, Backend, Database, Cloud, Architecture, Domain
-6. **Education** — Timeline: School → HSC → B.E. (DBIT) → Scaler
-7. **Platforms** — LeetCode, CodeChef, GitHub, LinkedIn stats
-8. **Achievements** — Awards, certifications, recommendations
-9. **Courses** — Namaste JS, Namaste React, Namaste Node, Scaler
-10. **Hobbies** — Guitar, Piano, Football, Hockey, Basketball, etc.
-11. **Contact** — Email, phone, LinkedIn, GitHub, resume download
+Located in `.claude/agents/`:
 
-## Agent Protocol (Less Slop, More Craft)
+| Agent | Role |
+|---|---|
+| `pm.md` | Product manager — strategic & UX feedback |
+| `designer.md` | Senior designer — visual & interaction review |
+| `reviewer.md` | Code reviewer — fresh-eyes principal engineer review |
+| `qa.md` | QA — tests the live site, reports bugs |
+| `fixer.md` | Senior engineer — fixes QA/review findings by severity |
+| `book-simulator.md` | Specialist — builds/maintains the education flipbook |
 
-Follow the staged protocol defined in `docs/agents/protocol.md`. Key rules:
-- Read the section spec in `docs/sections/<section>.md` BEFORE building any section
-- Never build without reading the spec first
-- Each section must be self-contained and independently testable
-- After building a section, run `npx tsc --noEmit` and `npm run lint` to verify
-- When compacting, preserve: current section being built, list of completed sections, any open issues
+## Slash Commands
+
+Located in `.claude/commands/`:
+
+| Command | Purpose |
+|---|---|
+| `build-section` | Build a section from its spec in `docs/sections/` |
+| `eval-section` | Evaluate a completed section against its spec |
+| `review-section` | Code review of a specific section |
+| `design-loop` | Run PM → designer → fixer → QA → reviewer loop |
+| `qa-loop` | Run reviewer → QA → fixer loop until clean |
+| `status` | Report current build / section status |
+| `setup-foundation` | Initialize project scaffolding (one-time) |
+
+## Key Rules for Claude
+
+1. Never touch `.next/`, `out/`, or `node_modules/` — these are generated.
+2. Before building a section, read its spec in `docs/sections/<section>.md`.
+3. Preserve the hidden `life-circle/` module — it is intentional.
+4. Mobile overrides live inside `@media (max-width: 768px)` — do not remove "MOBILE FIX" comments.
+5. After any change, run `npx tsc --noEmit` and `npm run lint` before declaring done.
 
 ## File Reference
 
 - Full project spec: `docs/PROJECT_SPEC.md`
 - Agent protocol: `docs/agents/protocol.md`
 - Section specs: `docs/sections/*.md`
-- Design tokens: defined in `src/app/globals.css`
+- Life-circle chapter content (for the hidden section): `docs/life-circle-chapters.md`
+- Design tokens: `src/app/globals.css`

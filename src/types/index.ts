@@ -26,32 +26,6 @@ export interface ExperienceEntry {
   companyUrl?: string;
 }
 
-export interface ProjectLink {
-  label: string;
-  url: string;
-}
-
-export interface Project {
-  id: string;
-  title: string;
-  description: string;
-  tech: string[];
-  category: 'professional' | 'personal';
-  links: ProjectLink[];
-  highlight?: string;
-}
-
-export interface Skill {
-  name: string;
-  years?: number;
-}
-
-export interface SkillCategory {
-  name: string;
-  icon: string;
-  skills: Skill[];
-}
-
 export interface EducationEntry {
   id: string;
   institution: string;
@@ -59,19 +33,6 @@ export interface EducationEntry {
   duration: string;
   activities?: string[];
   description?: string;
-}
-
-export interface PlatformStat {
-  label: string;
-  value: string;
-}
-
-export interface Platform {
-  name: string;
-  username: string;
-  stats: PlatformStat[];
-  url: string;
-  color: string;
 }
 
 export interface Award {
@@ -100,15 +61,6 @@ export interface Recommendation {
   title: string;
   company: string;
   quote: string;
-}
-
-export interface Course {
-  name: string;
-  platform: string;
-  instructor: string;
-  status: 'completed' | 'in-progress' | 'planned';
-  url: string;
-  topics: string[];
 }
 
 export interface Hobby {

@@ -86,25 +86,21 @@ Cross-reference every URL for correctness.
 - [ ] 4 entries: St. Dominic Savio, Don Bosco HSC, DBIT, Scaler
 - [ ] Dates correct for each
 - [ ] Degrees/certificates correct
-**Platforms Section**
-- [ ] 4 platforms: LeetCode, CodeChef, GitHub, LinkedIn
-- [ ] LeetCode: 624 solved, Rating 2059, Knight, Top 1.85%
-- [ ] CodeChef: 321 solved, Rating 1366, 42 contests
-- [ ] GitHub: 31 repos, 10 followers
-- [ ] LinkedIn: 500+ connections, 980 followers
-- [ ] Each card links to actual profile
+**Journey & Impact Section (growth-community)**
+- [ ] Education book flipbook renders (dynamic import, loads after cover)
+- [ ] 4 platforms represented: LeetCode, CodeChef, GitHub, LinkedIn
+- [ ] Each platform card links to the correct profile URL
+- [ ] Book flipbook flips pages on click and via prev/next controls
+- [ ] On mobile, the book renders in portrait (single-page) mode
 **Achievements Section**
+- [ ] Tabs present: Awards, Certifications, Course Certs, Testimonials
 - [ ] Awards listed: Star of the Sprint, Certificate of Appreciation
 - [ ] Certifications: LLD, JS Specialist, DSA (all from Scaler)
-- [ ] Recommendations display with name, title, quote
-**Courses Section**
-- [ ] 4 courses: Namaste JS (S1&S2), Namaste React, Namaste Node, Scaler
-- [ ] All marked as "Completed"
-- [ ] Links to course pages work
-**Hobbies Section**
-- [ ] Music: Guitar, Piano
-- [ ] Sports: Football, Hockey, Basketball
-- [ ] Icons/illustrations present
+- [ ] Course certificates tab shows Namaste JS/React/Node and can be viewed
+- [ ] Recommendations/testimonials display with name, title, quote
+**Interests Strip**
+- [ ] Horizontal strip of hobby icons renders
+- [ ] Icons are accessible (labels / alt text)
 **Contact Section**
 - [ ] Email displayed and clickable
 - [ ] Phone displayed
@@ -119,7 +115,6 @@ cat src/data/skills.ts
 cat src/data/education.ts
 cat src/data/platforms.ts
 cat src/data/achievements.ts
-cat src/data/courses.ts
 cat src/data/hobbies.ts
 ```
  
