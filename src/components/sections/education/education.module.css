@@ -263,8 +263,47 @@
   filter: drop-shadow(0 15px 25px rgba(0,0,0,0.4)) drop-shadow(0 4px 8px rgba(0,0,0,0.2));
 }
 
-@media (max-width: 640px) {
-  .closedBook { width: 240px; height: 340px; transform: rotateY(-10deg) rotateX(2deg); }
+/* MOBILE FIX: at ≤768px flatten the closed book and 3D wrappers completely — prevents any horizontal overflow on small screens */
+@media (max-width: 768px) {
+  .closedBookWrapper {
+    perspective: none;
+    padding: 16px 0 8px;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .closedBook {
+    width: 220px;
+    height: 310px;
+    transform: none;
+    transform-style: flat;
+  }
+  .closedBook:hover {
+    transform: translateY(-4px);
+  }
+  .book3dBody {
+    transform: none;
+    transform-style: flat;
+    max-width: 100%;
+  }
+  .bookPerspective {
+    perspective: none;
+    padding: 8px 0;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  /* MOBILE FIX: the decorative spine + page edge overlays were sized for the 2-page spread; hide on portrait mobile */
+  .bookSpine, .bookPagesLeft, .bookPagesRight { display: none; }
+  /* MOBILE FIX: drop shadow reduced so the book doesn't visually exceed its container */
+  .bookDropShadow {
+    filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35));
+  }
+  .coverShadow, .bookTableShadow { width: 70%; }
+  /* FIXER: resolves QA item #10 — bump the Prev/Next control buttons to a 44px tap target on mobile */
+  .controlBtn {
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: 14px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

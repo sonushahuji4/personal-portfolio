@@ -51,7 +51,8 @@ const About = () => {
         <SectionHeading title="About Me" subtitle="Get to know the person behind the code" align="left" />
 
         {/* Stats row */}
-        <div className="mb-16 grid grid-cols-3 gap-4">
+        {/* MOBILE FIX: tighter gap on mobile so the 3 stat cards don't overflow */}
+        <div className="mb-16 grid grid-cols-3 gap-2 sm:gap-4">
           {HIGHLIGHT_CARDS.map((card, i) => {
             const Icon = HIGHLIGHT_ICONS[i];
             const color = HIGHLIGHT_COLORS[i];
@@ -65,29 +66,32 @@ const About = () => {
                 className="group relative rounded-2xl border border-border bg-card p-6 text-center card-premium"
               >
                 <div className="absolute inset-x-0 top-0 h-0.5 rounded-t-2xl opacity-60" style={{ background: color }} />
-                <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-xl" style={{ backgroundColor: color + '12' }}>
-                  <Icon size={20} style={{ color }} />
+                {/* MOBILE FIX: smaller icon tile + headline so the card fits comfortably at 375px */}
+                <div className="mx-auto mb-2 flex h-8 w-8 sm:mb-3 sm:h-10 sm:w-10 items-center justify-center rounded-xl" style={{ backgroundColor: color + '12' }}>
+                  <Icon size={18} style={{ color }} />
                 </div>
-                <div className="text-3xl font-extrabold">
+                <div className="text-xl sm:text-3xl font-extrabold">
                   <AnimatedNumber value={card.value} color={color} />
                 </div>
-                <div className="mt-1.5 text-xs font-medium text-muted">{card.label}</div>
+                <div className="mt-1.5 text-[11px] sm:text-xs font-medium text-muted leading-tight">{card.label}</div>
               </motion.div>
             );
           })}
         </div>
 
         {/* Content — photo + text */}
-        <div className="grid gap-10 md:grid-cols-[auto_1fr]">
+        {/* MOBILE FIX: stack text first, photo below on mobile (flex-col w/ order); switch to side-by-side grid on md+ */}
+        <div className="flex flex-col gap-8 md:grid md:gap-10 md:grid-cols-[auto_1fr]">
           {/* Photo — side portrait */}
+          {/* MOBILE FIX: photo now visible on mobile (≥380px), centered below text; only hidden on very narrow screens */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="hidden md:block"
+            className="order-2 max-[379px]:hidden md:order-1"
           >
-            <div className="relative w-48 lg:w-64 overflow-hidden rounded-2xl border border-border/30">
+            <div className="relative w-[200px] mx-auto md:w-48 lg:w-64 overflow-hidden rounded-2xl border border-border/30">
               <Image
                 src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/profile-about.png`}
                 alt="Sonu Shahuji"
@@ -101,7 +105,8 @@ const About = () => {
           </motion.div>
 
           {/* Text content */}
-          <div>
+          {/* MOBILE FIX: text appears first on mobile via order-1 */}
+          <div className="order-1 md:order-2">
             <div className="space-y-5">
               {ABOUT_SUMMARY.map((paragraph, i) => (
                 <motion.p

@@ -38,13 +38,17 @@ const Projects = () => {
         <SectionHeading title="Projects" subtitle="Work that made an impact" accent="#7C3AED" />
 
         {/* Category tabs — like "Collection 3 · 18 watches" */}
-        <div className="flex justify-center gap-3 mb-10">
+        {/* MOBILE FIX: scrollable tab bar so pills don't get clipped off-screen; justify-start on mobile, center on sm+ */}
+        <div
+          className="mb-10 -mx-6 px-6 flex gap-3 overflow-x-auto flex-nowrap whitespace-nowrap justify-start sm:justify-center [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           {FILTERS.map((f) => (
             <button
               key={f.value}
               onClick={() => handleFilterChange(f.value)}
               className={cn(
-                'flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300',
+                /* MOBILE FIX: shrink-0 + min-h-[44px] keeps every pill visible and tappable on mobile */
+                'shrink-0 min-h-[44px] flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-300',
                 filter === f.value
                   ? 'bg-accent text-white shadow-lg shadow-accent/20'
                   : 'border border-border bg-card/50 text-muted hover:text-foreground hover:border-border-hover'
