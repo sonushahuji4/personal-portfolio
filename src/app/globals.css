@@ -200,3 +200,20 @@ html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
   .text-gradient, .text-gradient-cool, .mesh-gradient { animation: none; }
   .card-premium, .hover-scale { transition: none; }
 }
+
+/* ═══════════════════════════════════════
+   MOBILE FIXES — ≤768px
+   ═══════════════════════════════════════ */
+/* MOBILE FIX: prevent page-wide horizontal scroll from any section that overflows on small screens */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+  /* MOBILE FIX: use dynamic viewport height so mobile address bar doesn't clip the hero */
+  .min-h-screen { min-height: 100dvh; }
+  /* MOBILE FIX: kill blue tap highlight on interactive elements for a native feel */
+  a, button { -webkit-tap-highlight-color: transparent; }
+  /* MOBILE FIX: safety net — images never push past their container */
+  img { max-width: 100%; height: auto; }
+}

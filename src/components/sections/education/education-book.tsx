@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { EDUCATION } from '@/data/education';
@@ -16,11 +16,23 @@ const EducationBook = () => {
   const [rotation, setRotation] = useState({ x: 30, y: -15 });
   const [dragging, setDragging] = useState(false);
   const lastMouse = useRef({ x: 0, y: 0 });
+  /* MOBILE FIX: detect mobile viewport so we can disable 3D rotation, drag, and force portrait page mode */
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 768px)');
+    const update = () => setIsMobile(mql.matches);
+    update();
+    mql.addEventListener('change', update);
+    return () => mql.removeEventListener('change', update);
+  }, []);
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    /* MOBILE FIX: drag-to-rotate disabled on mobile — the rotation caused horizontal overflow and fought touch scrolling */
+    if (isMobile) return;
     setDragging(true);
     lastMouse.current = { x: e.clientX, y: e.clientY };
-  }, []);
+  }, [isMobile]);
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (!dragging) return;
@@ -52,34 +64,57 @@ const EducationBook = () => {
     <div>
       {/* 3D perspective container */}
       {/* 3D perspective — draggable */}
+      {/* MOBILE FIX: outer wrapper gets overflow-x:hidden so the 3D book can never push horizontal scroll on the page */}
       <div
-        style={{ perspective: '1500px', display: 'flex', justifyContent: 'center', padding: '10px 0', cursor: dragging ? 'grabbing' : 'grab' }}
+        style={{
+          perspective: isMobile ? 'none' : '1500px',
+          display: 'flex',
+          justifyContent: 'center',
+          padding: isMobile ? '4px 0' : '10px 0',
+          cursor: isMobile ? 'default' : (dragging ? 'grabbing' : 'grab'),
+          overflowX: 'hidden',
+          width: '100%',
+          maxWidth: '100%',
+        }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseUp}
       >
-        <div style={{ position: 'relative', transform: `rotateY(${rotation.y}deg) rotateX(${rotation.x}deg)`, transformStyle: 'preserve-3d', transition: dragging ? 'none' : 'transform 0.3s ease' }}>
-          {/* Book thickness block — spine/page stack on left side */}
-          <div style={{
-            position: 'absolute', left: '-15px', top: '4px', width: '15px', height: 'calc(100% - 8px)',
-            background: 'repeating-linear-gradient(to right, #f2ebe0 0px, #d4c9b8 0.5px, #e8dfd0 1px)',
-            borderRadius: '6px 0 0 6px',
-            transform: 'translateZ(-5px) rotateY(10deg)',
-            boxShadow: '-3px 0 8px rgba(0,0,0,0.2)',
-            zIndex: -1,
-          }} />
+        <div style={{
+          position: 'relative',
+          /* MOBILE FIX: flatten all 3D transforms on mobile — the rotation caused the open book to clip the viewport */
+          transform: isMobile ? 'none' : `rotateY(${rotation.y}deg) rotateX(${rotation.x}deg)`,
+          transformStyle: isMobile ? 'flat' : 'preserve-3d',
+          transition: dragging ? 'none' : 'transform 0.3s ease',
+          maxWidth: '100%',
+        }}>
+          {/* MOBILE FIX: hide the left book-thickness block on mobile — it extended 15px beyond the book's own width */}
+          {!isMobile && (
+            <div style={{
+              position: 'absolute', left: '-15px', top: '4px', width: '15px', height: 'calc(100% - 8px)',
+              background: 'repeating-linear-gradient(to right, #f2ebe0 0px, #d4c9b8 0.5px, #e8dfd0 1px)',
+              borderRadius: '6px 0 0 6px',
+              transform: 'translateZ(-5px) rotateY(10deg)',
+              boxShadow: '-3px 0 8px rgba(0,0,0,0.2)',
+              zIndex: -1,
+            }} />
+          )}
 
-          {/* Right page edge stack */}
-          <div style={{ position: 'absolute', right: '-5px', top: '3px', width: '7px', height: 'calc(100% - 6px)', background: 'repeating-linear-gradient(to bottom, #f2ebe0 0px, #ddd4c0 0.8px, #f0e8d8 1.6px)', borderRadius: '0 3px 3px 0', zIndex: -1, boxShadow: '2px 0 6px rgba(0,0,0,0.15)' }} />
+          {/* MOBILE FIX: hide right page edge stack on mobile — same overflow reason */}
+          {!isMobile && (
+            <div style={{ position: 'absolute', right: '-5px', top: '3px', width: '7px', height: 'calc(100% - 6px)', background: 'repeating-linear-gradient(to bottom, #f2ebe0 0px, #ddd4c0 0.8px, #f0e8d8 1.6px)', borderRadius: '0 3px 3px 0', zIndex: -1, boxShadow: '2px 0 6px rgba(0,0,0,0.15)' }} />
+          )}
 
           {/* The flipbook */}
+          {/* MOBILE FIX: force portrait (single-page) on mobile and remount via key when breakpoint flips — HTMLFlipBook does not react to prop changes on usePortrait */}
           <HTMLFlipBook
+            key={isMobile ? 'portrait' : 'landscape'}
             ref={bookRef}
             width={380}
             height={520}
             size="stretch"
-            minWidth={260}
+            minWidth={240}
             maxWidth={440}
             minHeight={360}
             maxHeight={600}
@@ -88,7 +123,7 @@ const EducationBook = () => {
             mobileScrollSupport={true}
             flippingTime={900}
             drawShadow={true}
-            usePortrait={false}
+            usePortrait={isMobile}
             startZIndex={0}
             autoSize={true}
             clickEventForward={true}
