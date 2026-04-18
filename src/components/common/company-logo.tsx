@@ -56,22 +56,3 @@ export const COMPANY_LOGO_PATHS: Record<string, string> = {
   cimpress: '/logos/cimpress.png',
   kouchan: '/logos/kouchan.jpeg',
 };
-
-export const EDUCATION_LOGO_PATHS: Record<string, string> = {
-  scaler: '/logos/scaler.png',
-  dbit: '/logos/dbit.png',
-  hsc: '/logos/donbosco.jpeg',
-  ssc: '/logos/stdominic.png',
-};
-
-export const PLATFORM_LOGO_PATHS: Record<string, string> = {
-  LeetCode: '/logos/leetcode.png',
-  CodeChef: '/logos/codechef.png',
-  GitHub: '/logos/github.png',
-  LinkedIn: '/logos/linkedin.png',
-};
-
-export const COURSE_LOGO_PATHS: Record<string, string> = {
-  'NamasteDev.com': '/logos/namastedev.png',
-  Scaler: '/logos/scaler.png',
-};

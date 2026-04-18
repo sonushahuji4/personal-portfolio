@@ -46,7 +46,7 @@ Tech stack: Next.js 14 (App Router, static export), TypeScript (strict), Tailwin
 6. Read src/components/ui/*.tsx and src/components/common/*.tsx
 7. Read src/components/layout/*.tsx
 8. Read src/lib/*.ts
-9. Read next.config.ts and tailwind.config.ts
+9. Read next.config.ts and postcss.config.mjs
 10. Check globals.css for CSS variable coverage
 ## Review Checklist
  
